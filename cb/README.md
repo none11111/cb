@@ -69,15 +69,15 @@ pip install -r requirements.txt
 
 ```python
 MULTIMODAL_CONFIG = {
-    "api_key": "您的API密钥",
-    "base_url": "https://api.openai.com/v1",  # 或其他兼容API
-    "model": "gpt-4o",  # 支持视觉的模型
+    "api_key": "",  # 替换为您的API密钥
+    "base_url": "https://open.bigmodel.cn/api/paas/v4",
+    "model": "glm-4v-flash",
 }
 
 TEXT_MODEL_CONFIG = {
-    "api_key": "您的API密钥",
-    "base_url": "https://api.openai.com/v1",
-    "model": "gpt-4",
+    "api_key": "",  # 替换为您的API密钥
+    "base_url": "https://open.bigmodel.cn/api/paas/v4",
+    "model": "glm-4-flash",
 }
 ```
 
