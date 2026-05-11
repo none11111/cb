@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私信聊天 - 闲置好物</title>
+    <script src="/auth-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; }
+
+        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 0.875rem 1rem; position: sticky; top: 0; z-index: 99; flex-shrink: 0; }
+        .header-content { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 0.75rem; border-radius: 2rem; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 0.25rem; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); }
+        .user-info { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 0; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 600; flex-shrink: 0; border: 2px solid white; }
+        .user-name { font-weight: 600; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .main { flex: 1; overflow: hidden; display: flex; flex-direction: column; max-width: 800px; width: 100%; margin: 0 auto; }
+
+        .messages-container { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+
+        .message { max-width: 75%; display: flex; flex-direction: column; gap: 0.25rem; }
+        .message.mine { align-self: flex-end; align-items: flex-end; }
+        .message.other { align-self: flex-start; align-items: flex-start; }
+
+        .message-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .message.mine .message-avatar { display: none; }
+
+        .message-bubble { padding: 0.75rem 1rem; border-radius: 1rem; font-size: 0.95rem; line-height: 1.5; word-wrap: break-word; }
+        .message.mine .message-bubble { background: var(--primary); color: white; border-bottom-right-radius: 0.25rem; }
+        .message.other .message-bubble { background: white; color: var(--text); border-bottom-left-radius: 0.25rem; box-shadow: var(--shadow); }
+
+        .message-time { font-size: 0.7rem; color: var(--text-light); padding: 0 0.5rem; }
+        .message.mine .message-time { text-align: right; }
+
+        .loading { text-align: center; padding: 2rem; color: var(--text-light); }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-light); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        .input-area { background: white; padding: 1rem; border-top: 1px solid var(--border); flex-shrink: 0; }
+        .input-container { display: flex; gap: 0.75rem; align-items: flex-end; }
+        .message-input { flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 1.5rem; font-size: 0.95rem; resize: none; max-height: 120px; font-family: inherit; }
+        .message-input:focus { outline: none; border-color: var(--primary); }
+        .send-btn { background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 1.5rem; cursor: pointer; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; }
+        .send-btn:hover { background: var(--secondary); }
+        .send-btn:disabled { background: var(--text-light); cursor: not-allowed; }
+
+        .date-divider { text-align: center; padding: 1rem 0; color: var(--text-light); font-size: 0.85rem; position: relative; }
+        .date-divider::before, .date-divider::after { content: ''; position: absolute; top: 50%; width: 30%; height: 1px; background: var(--border); }
+        .date-divider::before { left: 0; }
+        .date-divider::after { right: 0; }
+
+        /* 发送中状态 */
+        .sending { opacity: 0.7; }
+
+        /* 输入框焦点时的样式 */
+        .message-input:not(:placeholder-shown) { border-color: var(--primary); }
+
+        /* 商品卡片样式 */
+        .product-card {
+            background: white;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .product-info {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+        .product-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            background: var(--bg);
+        }
+        .product-details {
+            flex: 1;
+            min-width: 0;
+        }
+        .product-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .product-price {
+            font-size: 0.85rem;
+            color: var(--error);
+            font-weight: 600;
+        }
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+        .send-product-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 1.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .send-product-btn:hover {
+            background: #0ea472;
+        }
+        .buy-now-btn {
+            background: var(--error);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 1.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+        .buy-now-btn:hover {
+            background: #dc2626;
+        }
+
+        /* 商品消息样式 */
+        .product-message {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 0.75rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .product-message:hover {
+            background: var(--bg);
+        }
+        .product-message img {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+        .product-message-info {
+            flex: 1;
+            min-width: 100px;
+            overflow: visible;
+        }
+        .product-message-title {
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+            white-space: normal;
+            word-break: break-word;
+            overflow: visible;
+            color: var(--text);
+        }
+        .product-message-price {
+            color: var(--error);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <div class="user-info">
+                <div class="avatar" id="otherAvatar">?</div>
+                <span class="user-name" id="otherName">加载中...</span>
+            </div>
+            <div style="width: 50px;"></div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- 商品卡片（从商品详情页跳转时显示） -->
+        <div class="product-card" id="productCard" style="display: none;">
+            <div class="product-info">
+                <img class="product-img" id="productImg" src="" alt="">
+                <div class="product-details">
+                    <div class="product-title" id="productTitle"></div>
+                    <div class="product-price" id="productPrice"></div>
+                </div>
+            </div>
+            <div class="product-actions">
+                <button class="send-product-btn" id="sendProductBtn" onclick="sendProductMessage()">发送商品</button>
+                <button class="buy-now-btn" id="buyNowBtn" onclick="buyNowFromChat()">立即购买</button>
+            </div>
+        </div>
+
+        <div class="messages-container" id="messagesContainer">
+            <div class="loading">加载聊天记录...</div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-container">
+                <textarea class="message-input" id="messageInput" placeholder="输入消息..." rows="1" onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">发送</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let otherUid = '';
+        let currentUser = null;
+        let otherUser = null;
+        let messages = [];
+        let refreshInterval = null;
+        let currentProduct = null; // 当前商品信息
+
+        // 从URL获取参数
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 页面加载
+        document.addEventListener('DOMContentLoaded', () => {
+            otherUid = getQueryParam('uid');
+            if (!otherUid) {
+                alert('缺少用户参数');
+                window.location.href = '/messages';
+                return;
+            }
+            checkLoginAndLoad();
+        });
+
+        async function checkLoginAndLoad() {
+            const loggedIn = await checkLoggedIn();
+            if (!loggedIn) {
+                window.location.href = '/auth';
+                return;
+            }
+            
+            // 检查是否有商品ID参数
+            const productId = getQueryParam('product_id');
+            if (productId) {
+                await loadProduct(productId);
+            }
+            
+            loadChat();
+            // 开始定时刷新
+            startRefresh();
+        }
+        
+        // 加载商品信息
+        async function loadProduct(productId) {
+            try {
+                const res = await authFetch(`/api/product/${productId}`);
+                
+                // 检查 HTTP 状态码
+                if (res.status === 401) {
+                    showError('登录已过期，请重新登录');
+                    localStorage.removeItem('auth_token');
+                    setTimeout(() => window.location.href = '/auth', 1500);
+                    return;
+                }
+                
+                const data = await res.json();
+                
+                if (data.success && data.product) {
+                    const p = data.product;
+                    let image = `https://picsum.photos/200/200?${p.id}`;
+                    
+                    if (p.images) {
+                        try {
+                            const images = JSON.parse(p.images);
+                            if (Array.isArray(images) && images.length > 0) {
+                                image = images[0];
+                            }
+                        } catch (e) {
+                            console.error('解析图片失败', e);
+                        }
+                    }
+                    
+                    currentProduct = {
+                        id: p.id,
+                        title: p.title,
+                        price: p.price,
+                        image: image,
+                        sellerUid: p.uid  // 保存卖家uid
+                    };
+                    showProductCard();
+                }
+            } catch (e) {
+                console.error('加载商品失败', e);
+                showError('加载商品失败');
+            }
+        }
+        
+        // 显示商品卡片
+        function showProductCard() {
+            if (!currentProduct) return;
+            
+            const card = document.getElementById('productCard');
+            document.getElementById('productImg').src = currentProduct.image;
+            document.getElementById('productTitle').textContent = currentProduct.title;
+            document.getElementById('productPrice').textContent = '¥' + currentProduct.price;
+            
+            // 如果当前用户是卖家，隐藏"立即购买"按钮
+            const buyBtn = document.getElementById('buyNowBtn');
+            if (currentUser && currentProduct.sellerUid === currentUser.uid) {
+                buyBtn.style.display = 'none';
+            } else {
+                buyBtn.style.display = 'block';
+            }
+            
+            card.style.display = 'flex';
+        }
+        
+        // 发送商品消息
+        async function sendProductMessage() {
+            if (!currentProduct) return;
+            
+            const productLink = `${window.location.origin}/detail?id=${currentProduct.id}`;
+            // 消息内容包含图片URL，供渲染时使用
+            const content = `【商品链接】\n${currentProduct.image}\n${currentProduct.title}\n价格：¥${currentProduct.price}\n${productLink}`;
+            
+            document.getElementById('messageInput').value = content;
+            
+            // 自动发送
+            await sendMessage();
+            
+            // 隐藏商品卡片
+            document.getElementById('productCard').style.display = 'none';
+            currentProduct = null;
+        }
+
+        // 立即购买（从私信页面）
+        async function buyNowFromChat() {
+            if (!currentProduct) return;
+            
+            try {
+                const res = await authFetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ product_id: currentProduct.id })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    // 隐藏商品卡片
+                    document.getElementById('productCard').style.display = 'none';
+                    currentProduct = null;
+                    // 跳转到订单确认页面
+                    window.location.href = `/order-confirm?id=${data.order_id}`;
+                } else {
+                    alert(data.error || '创建订单失败');
+                }
+            } catch (e) {
+                alert('网络错误');
+            }
+        }
+
+        // 加载聊天记录
+        async function loadChat() {
+            try {
+                const res = await authFetch(`/api/messages?uid=${otherUid}`);
+                
+                // 检查 HTTP 状态码
+                if (res.status === 401) {
+                    showError('登录已过期，请重新登录');
+                    localStorage.removeItem('auth_token');
+                    setTimeout(() => window.location.href = '/auth', 1500);
+                    return;
+                }
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    currentUser = data.current_user;
+                    otherUser = data.other_user;
+                    messages = data.messages || [];
+                    
+                    // 更新页面标题
+                    document.getElementById('otherName').textContent = otherUser.username;
+                    document.getElementById('otherAvatar').textContent = otherUser.avatar || otherUser.username.charAt(0).toUpperCase();
+                    document.title = `与 ${otherUser.username} 的聊天`;
+                    
+                    renderMessages();
+                } else {
+                    showError('加载失败: ' + data.error);
+                }
+            } catch (e) {
+                console.error('加载聊天记录错误:', e);
+                showError('网络错误: ' + e.message);
+            }
+        }
+
+        // 渲染消息
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            
+            if (messages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">💬</div>
+                        <div>开始和 ${otherUser.username} 聊天吧</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            let lastDate = '';
+
+            messages.forEach(msg => {
+                const msgDate = formatDate(msg.created_at);
+                
+                // 日期分隔符
+                if (msgDate !== lastDate) {
+                    html += `<div class="date-divider">${msgDate}</div>`;
+                    lastDate = msgDate;
+                }
+
+                const time = formatTime(msg.created_at);
+                const content = formatMessageContent(msg.content);
+                
+                html += `
+                    <div class="message ${msg.is_mine ? 'mine' : 'other'}" onclick="handleMessageClick('${msg.content}')">
+                        ${!msg.is_mine ? `<div class="message-avatar">${otherUser.avatar || otherUser.username.charAt(0).toUpperCase()}</div>` : ''}
+                        <div class="message-bubble">${content}</div>
+                        <div class="message-time">${time}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            scrollToBottom();
+        }
+        
+        // 格式化消息内容（识别商品链接）
+        function formatMessageContent(content) {
+            // 检测商品链接
+            const productLinkRegex = /(https?:\/\/[^\s]+detail\?id=(\d+))/;
+            
+            const match = productLinkRegex.exec(content);
+            if (match) {
+                const productId = match[2];
+                
+                // 提取商品标题和价格
+                const lines = content.split('\n');
+                let title = '商品链接';
+                let price = '';
+                let imageUrl = `https://picsum.photos/60/60?${productId}`; // 默认随机图
+                
+                // 遍历所有行，提取标题和价格
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    const trimmedLine = line.trim();
+                    
+                    // 跳过空行、链接行和标题标记行
+                    if (!trimmedLine || trimmedLine.includes('【商品链接】') || trimmedLine.includes('detail?id=')) {
+                        continue;
+                    }
+                    
+                    // 检查是否是价格行
+                    const priceMatch = trimmedLine.match(/[\d.]+/);
+                    if ((trimmedLine.includes('价格') || trimmedLine.includes('¥')) && priceMatch) {
+                        price = priceMatch[0];
+                    } else if (trimmedLine.startsWith('http') || trimmedLine.startsWith('/uploads/') || trimmedLine.startsWith('uploads/')) {
+                        // 检查是否是图片URL（支持外部URL和本地/uploads路径）
+                        imageUrl = trimmedLine;
+                    } else {
+                        // 第一个符合条件的非价格行作为标题
+                        if (title === '商品链接' && trimmedLine) {
+                            title = trimmedLine;
+                        }
+                    }
+                }
+                
+                const productHtml = `
+                    <div class="product-message" onclick="event.stopPropagation(); window.location.href='/detail?id=${productId}'">
+                        <img src="${imageUrl}" alt="" onerror="this.src='https://via.placeholder.com/60?text=商品'">
+                        <div class="product-message-info">
+                            <div class="product-message-title">${escapeHtml(title)}</div>
+                            ${price ? `<div class="product-message-price">¥${price}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                return productHtml;
+            }
+            
+            return escapeHtml(content).replace(/\n/g, '<br>');
+        }
+        
+        // 处理消息点击（检测商品链接）
+        function handleMessageClick(content) {
+            const productLinkRegex = /(https?:\/\/[^\s]+detail\?id=(\d+))/;
+            const match = productLinkRegex.exec(content);
+            if (match) {
+                window.location.href = '/detail?id=' + match[2];
+            }
+        }
+
+        // 发送消息
+        async function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const content = input.value.trim();
+            
+            if (!content) return;
+            
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.textContent = '发送中...';
+            
+            try {
+                const res = await authFetch('/api/messages', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        receiver_uid: otherUid,
+                        content: content
+                    })
+                });
+                
+                // 检查 HTTP 状态码
+                if (res.status === 401) {
+                    showError('登录已过期，请重新登录');
+                    localStorage.removeItem('auth_token');
+                    setTimeout(() => window.location.href = '/auth', 1500);
+                    return;
+                }
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    input.value = '';
+                    input.style.height = 'auto';
+                    messages.push(data.message);
+                    renderMessages();
+                } else {
+                    showError(data.error || '发送失败');
+                }
+            } catch (e) {
+                console.error('发送消息错误:', e);
+                showError('网络错误: ' + e.message);
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = '发送';
+            }
+        }
+
+        // 处理键盘事件
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // 自动调整输入框高度
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        // 滚动到底部
+        function scrollToBottom() {
+            const container = document.getElementById('messagesContainer');
+            setTimeout(() => {
+                container.scrollTop = container.scrollHeight;
+            }, 100);
+        }
+
+        // 格式化时间
+        function formatTime(timeStr) {
+            const date = new Date(timeStr);
+            return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // 格式化日期
+        function formatDate(timeStr) {
+            const date = new Date(timeStr);
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            if (date.toDateString() === today.toDateString()) {
+                return '今天';
+            } else if (date.toDateString() === yesterday.toDateString()) {
+                return '昨天';
+            } else {
+                return date.toLocaleDateString('zh-CN', { month: 'long', day: 'numeric' });
+            }
+        }
+
+        // HTML转义
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 开始定时刷新
+        function startRefresh() {
+            // 每5秒刷新一次
+            refreshInterval = setInterval(refreshMessages, 5000);
+        }
+
+        // 刷新消息
+        async function refreshMessages() {
+            try {
+                const res = await authFetch(`/api/messages?uid=${otherUid}`);
+                
+                // 检查 HTTP 状态码
+                if (res.status === 401) {
+                    clearInterval(refreshInterval);
+                    showError('登录已过期，请重新登录');
+                    localStorage.removeItem('auth_token');
+                    setTimeout(() => window.location.href = '/auth', 1500);
+                    return;
+                }
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    const oldCount = messages.length;
+                    messages = data.messages || [];
+                    
+                    // 如果有新消息，重新渲染
+                    if (messages.length > oldCount) {
+                        renderMessages();
+                    }
+                }
+            } catch (e) {
+                console.error('刷新消息失败', e);
+            }
+        }
+
+        // 返回上一页
+        function goBack() {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // 显示错误
+        function showError(message) {
+            alert(message);
+        }
+
+        // 页面卸载时清理
+        window.addEventListener('beforeunload', () => {
+            if (refreshInterval) {
+                clearInterval(refreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

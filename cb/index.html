@@ -1,0 +1,2460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>闲置好物 - 二手物品交换平台</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366F1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="闲置好物">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="闲置好物">
+    <meta name="description" content="一个智能的二手物品交易平台，支持AI拍照识别、文案生成">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/static/manifest.json">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #8B5CF6;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-icon {
+            font-size: 1.75rem;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.625rem 1rem;
+            border: none;
+            border-radius: 2rem;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+        }
+
+        .search-btn {
+            padding: 0.625rem 1.25rem;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            border-radius: 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 2rem;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .nav-btn.primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .nav-btn.primary:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-btn.ai-btn {
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+        }
+
+        .nav-btn.ai-btn:hover {
+            background: linear-gradient(135deg, #7C3AED, #DB2777);
+        }
+
+        .nav-btn.user-btn {
+            position: relative;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 180px;
+            padding: 0.5rem 0;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-dropdown.show {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .user-dropdown-item:hover {
+            background: var(--bg);
+            color: var(--primary);
+        }
+
+        .user-dropdown-item.danger {
+            color: var(--error);
+        }
+
+        .user-dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 0.5rem 0;
+        }
+
+        .user-info-card {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        .user-info-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .user-info-uid {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Category Bar */
+        .category-bar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 2rem;
+            position: sticky;
+            top: 60px;
+            z-index: 99;
+        }
+
+        .category-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-item {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            background: white;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .category-item.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 2rem;
+        }
+
+        .filter-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .filter-input {
+            width: 80px;
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-select {
+            padding: 0.375rem 0.5rem;
+            border: 1px solid var(--border);
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .filter-btn {
+            padding: 0.375rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .filter-btn.reset {
+            background: var(--text-light);
+        }
+
+        .filter-btn.reset:hover {
+            background: var(--text);
+        }
+
+        .filter-active {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            background: #EEF2FF;
+            color: var(--primary);
+            border-radius: 1rem;
+            font-size: 0.8rem;
+        }
+
+        .filter-tag button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Masonry Grid - 使用 CSS Grid 布局，支持无限滚动追加 */
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 1200px) {
+            .masonry-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            .masonry-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 500px) {
+            .masonry-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Item Card */
+        .item-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background: #f0f0f0;
+        }
+
+        .item-info {
+            padding: 1rem;
+        }
+
+        .item-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .item-price {
+            color: var(--error);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price .original {
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-decoration: line-through;
+            font-weight: normal;
+            margin-left: 0.5rem;
+        }
+
+        .item-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .item-tags {
+            display: flex;
+            gap: 0.25rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .item-tag {
+            padding: 0.125rem 0.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            border-radius: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .item-tag.new { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .item-tag.hot { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        /* User Info */
+        .item-user {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .user-name {
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .user-location {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-left: auto;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 1.25rem;
+        }
+
+        /* AI Sidebar */
+        .ai-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 360px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            transition: margin-left 0.3s ease;
+        }
+        .ai-sidebar.collapsed {
+            margin-left: -360px;
+        }
+        .ai-sidebar-header {
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .ai-sidebar-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .ai-sidebar-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ai-sidebar-toggle:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        .collapse-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #8B5CF6, #EC4899);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        .collapse-btn::after {
+            content: '🤖';
+        }
+        .collapse-btn:hover {
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+            transform: scale(1.1);
+        }
+        .ai-sidebar-nav {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .ai-nav-btn {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            background: var(--bg-light);
+            color: var(--text);
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+        }
+        .ai-nav-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .ai-nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        .ai-chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            overflow: hidden;
+        }
+        .ai-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.5rem;
+        }
+        .ai-message {
+            padding: 0.875rem 1rem;
+            border-radius: 1rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .ai-message.user {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+            margin-left: 2rem;
+        }
+        .ai-message.ai {
+            background: var(--bg-light);
+            color: var(--text);
+            border-bottom-left-radius: 0.25rem;
+            margin-right: 2rem;
+        }
+        .ai-input-area {
+            display: flex;
+            gap: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border);
+        }
+        .ai-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            font-size: 0.95rem;
+        }
+        .ai-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .ai-send-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Wrapper */
+        .main-wrapper {
+            margin-left: 0;
+            min-height: 100vh;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 6rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1001;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            .search-bar {
+                order: 3;
+                max-width: 100%;
+                width: 100%;
+            }
+            .nav-actions {
+                gap: 0.5rem;
+            }
+            .nav-btn span {
+                display: none;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
+            overflow-y: auto;
+        }
+
+        .admin-panel.show {
+            display: block;
+        }
+
+        .admin-panel-content {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .admin-panel-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-panel-header h2 {
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        .admin-panel-body {
+            padding: 1.5rem;
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .admin-stat-card.warning {
+            background: linear-gradient(135deg, var(--warning) 0%, #F97316 100%);
+        }
+
+        .admin-stat-card.danger {
+            background: linear-gradient(135deg, var(--error) 0%, #DC2626 100%);
+        }
+
+        .admin-stat-card.success {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+        }
+
+        .admin-stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .admin-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .admin-actions-bar {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+
+        .admin-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .admin-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .admin-btn.danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .admin-btn.warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .admin-btn.secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .admin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .admin-table th {
+            background: var(--bg);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .admin-table tr:hover {
+            background: var(--bg);
+        }
+
+        .admin-table input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .user-status {
+            display: inline-flex;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .user-status.normal {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+
+        .user-status.banned {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .user-status.admin {
+            background: #E0E7FF;
+            color: #3730A3;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .user-action-btn {
+            padding: 0.25rem 0.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            background: var(--border);
+            color: var(--text);
+        }
+
+        .user-action-btn.danger {
+            background: var(--error);
+            color: white;
+        }
+
+        .user-action-btn.warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .user-action-btn.success {
+            background: var(--success);
+            color: white;
+        }
+
+        .admin-search {
+            margin-bottom: 1rem;
+        }
+
+        .admin-search input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+
+        .admin-loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- AI Sidebar -->
+    <div class="ai-sidebar collapsed" id="ai-sidebar">
+        <div class="ai-sidebar-header">
+            <h3>🤖 AI 助手</h3>
+            <button class="ai-sidebar-toggle" onclick="toggleAISidebar()">×</button>
+        </div>
+        <div class="ai-sidebar-nav">
+            <button class="ai-nav-btn active">
+                💬 智能对话
+            </button>
+        </div>
+        <div class="ai-chat-area" id="ai-chat-area">
+            <div class="ai-messages" id="ai-messages">
+                <div class="ai-message ai">
+                    👋 你好！我是AI助手，有什么可以帮你的吗？
+                </div>
+            </div>
+            <div class="ai-input-area">
+                <input type="text" class="ai-input" id="ai-input" placeholder="输入问题..." onkeypress="if(event.key==='Enter')sendAIMessage()">
+                <button class="ai-send-btn" onclick="sendAIMessage()">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collapse Button -->
+    <button class="collapse-btn" id="collapse-btn" onclick="toggleAISidebar()"></button>
+
+    <!-- Main Content -->
+    <div class="main-wrapper" id="main-wrapper">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🎯</span>
+                <span>闲置好物</span>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="搜索你想要的宝贝..." id="search-input">
+                <button class="search-btn" onclick="handleSearch()">搜索</button>
+            </div>
+
+            <div class="nav-actions">
+                <a href="/tools" class="nav-btn" style="text-decoration:none;">
+                    <span>🔧</span>
+                    <span>工具箱</span>
+                </a>
+                <div class="user-menu-wrapper" style="position: relative;">
+                    <button class="nav-btn user-btn" id="user-btn" onclick="toggleUserMenu()">
+                        <span>👤</span>
+                        <span id="user-btn-text">账户</span>
+                    </button>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <div class="user-info-card" id="user-info" style="display: none;">
+                            <div class="user-info-name" id="dropdown-username">未登录</div>
+                            <div class="user-info-uid" id="dropdown-uid"></div>
+                        </div>
+                        <a href="/profile" class="user-dropdown-item" id="profile-link" style="display: none;">
+                            <span>👤</span> 个人中心
+                        </a>
+                        <a href="/orders" class="user-dropdown-item" id="orders-link" style="display: none;">
+                            <span>📦</span> 我的订单
+                        </a>
+                        <a href="/messages" class="user-dropdown-item" id="messages-link" style="display: none;">
+                            <span>💬</span> 消息中心
+                        </a>
+                        <a href="#" class="user-dropdown-item" id="admin-link" style="display: none;" onclick="openAdminPanel(); return false;">
+                            <span>⚙️</span> 用户管理
+                        </a>
+                        <div class="user-dropdown-divider"></div>
+                        <button class="user-dropdown-item" id="login-btn" onclick="window.location.href='/auth'">
+                            <span>🔑</span> 登录/注册
+                        </button>
+                        <button class="user-dropdown-item danger" id="logout-btn" onclick="handleLogout()" style="display: none;">
+                            <span>🚪</span> 退出登录
+                        </button>
+                    </div>
+                </div>
+                <button class="nav-btn primary" onclick="window.location.href='/publish'">
+                    <span>➕</span>
+                    <span>发布</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Bar -->
+    <nav class="category-bar">
+        <div class="category-content">
+            <div class="category-item active" data-category="all">全部</div>
+            <div class="category-item" data-category="数码">📱 数码</div>
+            <div class="category-item" data-category="电脑">💻 电脑</div>
+            <div class="category-item" data-category="相机">📷 相机</div>
+            <div class="category-item" data-category="游戏">🎮 游戏</div>
+            <div class="category-item" data-category="家电">🏠 家电</div>
+            <div class="category-item" data-category="服饰">👕 服饰</div>
+            <div class="category-item" data-category="美妆">💄 美妆</div>
+            <div class="category-item" data-category="母婴">👶 母婴</div>
+            <div class="category-item" data-category="图书">📚 图书</div>
+            <div class="category-item" data-category="其他">📦 其他</div>
+        </div>
+    </nav>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" id="filter-bar" style="display: none;">
+        <div class="filter-content">
+            <div class="filter-group">
+                <label>价格区间：</label>
+                <input type="number" class="filter-input" id="min-price" placeholder="最低价" min="0">
+                <span>-</span>
+                <input type="number" class="filter-input" id="max-price" placeholder="最高价" min="0">
+            </div>
+            <div class="filter-group">
+                <label>新旧程度：</label>
+                <select class="filter-select" id="condition-filter">
+                    <option value="">不限</option>
+                    <option value="全新">全新</option>
+                    <option value="9成新">9成新</option>
+                    <option value="8成新">8成新</option>
+                    <option value="7成新">7成新</option>
+                    <option value="7成新以下">7成新以下</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>排序：</label>
+                <select class="filter-select" id="sort-filter">
+                    <option value="latest">最新发布</option>
+                    <option value="price_asc">价格从低到高</option>
+                    <option value="price_desc">价格从高到低</option>
+                </select>
+            </div>
+            <button class="filter-btn" onclick="applyFilters()">应用筛选</button>
+            <button class="filter-btn reset" onclick="resetFilters()">重置</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="masonry-grid" id="item-grid">
+            <!-- Items will be inserted here -->
+        </div>
+    </main>
+
+    <!-- Publish Modal -->
+    <div class="modal-overlay" id="publish-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">发布闲置物品</h3>
+                <button class="modal-close" onclick="closeModal('publish-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">物品名称 *</label>
+                    <input type="text" class="form-input" id="publish-title" placeholder="例如：iPhone 14 Pro">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">价格（元）*</label>
+                    <input type="number" class="form-input" id="publish-price" placeholder="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">原价（选填）</label>
+                    <input type="number" class="form-input" id="publish-original" placeholder="原价">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">分类 *</label>
+                    <select class="form-input" id="publish-category">
+                        <option value="">请选择分类</option>
+                        <option value="数码">📱 数码</option>
+                        <option value="电脑">💻 电脑</option>
+                        <option value="相机">📷 相机</option>
+                        <option value="游戏">🎮 游戏</option>
+                        <option value="家电">🏠 家电</option>
+                        <option value="服饰">👕 服饰</option>
+                        <option value="美妆">💄 美妆</option>
+                        <option value="母婴">👶 母婴</option>
+                        <option value="图书">📚 图书</option>
+                        <option value="其他">📦 其他</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">物品描述</label>
+                    <textarea class="form-input" id="publish-desc" placeholder="描述一下物品的新旧程度、使用情况等..."></textarea>
+                </div>
+                <button class="btn btn-primary btn-full" onclick="publishItem()">
+                    立即发布
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tools Modal -->
+    <div class="modal-overlay" id="tools-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">AI 工具箱</h3>
+                <button class="modal-close" onclick="closeModal('tools-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-light); margin-bottom: 1rem;">选择要使用的AI工具：</p>
+                <div style="display: grid; gap: 0.75rem;">
+                    <a href="/tools?tab=copy" class="btn btn-primary btn-full" style="text-decoration:none;display:block;text-align:center;">
+                        ✍️ 文案生成 - 生成三种风格转售文案
+                    </a>
+                    <a href="/tools?tab=guide" class="btn btn-primary btn-full" style="text-decoration:none;display:block;text-align:center;">
+                        📸 拍照指导 - AI实时指导拍照技巧
+                    </a>
+                    <a href="/tools?tab=promotion" class="btn btn-primary btn-full" style="text-decoration:none;display:block;text-align:center;">
+                        📢 推广文案 - 生成多平台推广内容
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Sample Data
+        const sampleItems = [
+            {
+                id: 1,
+                title: 'iPhone 14 Pro Max 256G 暗紫色 国行',
+                price: 5999,
+                original: 8999,
+                image: 'https://picsum.photos/400/500?random=1',
+                category: '数码',
+                tags: ['热门', '9成新'],
+                user: '小王',
+                location: '北京·朝阳'
+            },
+            {
+                id: 2,
+                title: 'AirPods Pro 2代 全新未拆封',
+                price: 1580,
+                original: 1899,
+                image: 'https://picsum.photos/400/300?random=2',
+                category: '数码',
+                tags: ['全新'],
+                user: '数码达人',
+                location: '上海·浦东'
+            },
+            {
+                id: 3,
+                title: '戴森吹风机 HD03 红色限定版',
+                price: 2200,
+                original: 2990,
+                image: 'https://picsum.photos/400/600?random=3',
+                category: '家电',
+                tags: ['9成新'],
+                user: '生活家',
+                location: '广州·天河'
+            },
+            {
+                id: 4,
+                title: '索尼 A7M4 全画幅微单相机',
+                price: 13500,
+                original: 16999,
+                image: 'https://picsum.photos/400/400?random=4',
+                category: '数码',
+                tags: ['9成新', '热门'],
+                user: '摄影爱好者',
+                location: '深圳·南山'
+            },
+            {
+                id: 5,
+                title: '任天堂 Switch OLED 日版',
+                price: 1850,
+                original: 2599,
+                image: 'https://picsum.photos/400/350?random=5',
+                category: '数码',
+                tags: ['8成新'],
+                user: '游戏迷',
+                location: '杭州·西湖'
+            },
+            {
+                id: 6,
+                title: 'LAMY 恒星系列 钢笔套装',
+                price: 380,
+                original: 680,
+                image: 'https://picsum.photos/400/450?random=6',
+                category: '其他',
+                tags: ['9成新'],
+                user: '文具控',
+                location: '成都·锦江'
+            },
+            {
+                id: 7,
+                title: 'SK-II 神仙水 230ml',
+                price: 680,
+                original: 1540,
+                image: 'https://picsum.photos/400/500?random=7',
+                category: '美妆',
+                tags: ['9成新'],
+                user: '美妆达人',
+                location: '南京·鼓楼'
+            },
+            {
+                id: 8,
+                title: 'AJ1 芝加哥复刻 42码',
+                price: 2800,
+                original: 1399,
+                image: 'https://picsum.photos/400/380?random=8',
+                category: '服装',
+                tags: ['9成新', '热门'],
+                user: '球鞋收藏家',
+                location: '武汉·武昌'
+            },
+            {
+                id: 9,
+                title: '小米扫地机器人 3C',
+                price: 850,
+                original: 1499,
+                image: 'https://picsum.photos/400/420?random=9',
+                category: '家电',
+                tags: ['8成新'],
+                user: '智能家居',
+                location: '苏州·园区'
+            },
+            {
+                id: 10,
+                title: '富士拍立得 mini90',
+                price: 950,
+                original: 1280,
+                image: 'https://picsum.photos/400/480?random=10',
+                category: '数码',
+                tags: ['9成新'],
+                user: '胶片爱好者',
+                location: '重庆·渝中'
+            },
+            {
+                id: 11,
+                title: '乐高星球大战 千年隼',
+                price: 3200,
+                original: 5999,
+                image: 'https://picsum.photos/400/350?random=11',
+                category: '其他',
+                tags: ['全新', '热门'],
+                user: '乐高迷',
+                location: '西安·雁塔'
+            },
+            {
+                id: 12,
+                title: '九阳破壁机 Y1',
+                price: 480,
+                original: 899,
+                image: 'https://picsum.photos/400/520?random=12',
+                category: '家电',
+                tags: ['8成新'],
+                user: '厨房达人',
+                location: '天津·河西'
+            }
+        ];
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+        let currentSort = 'latest';
+        let currentMinPrice = null;
+        let currentMaxPrice = null;
+        let currentCondition = '';
+        let currentPage = 1;
+        let hasMoreItems = false;
+        let isLoadingItems = false;
+
+        // 从API加载商品
+        async function loadProducts(resetPage = true) {
+            if (isLoadingItems) return;
+            isLoadingItems = true;
+
+            if (resetPage) {
+                currentPage = 1;
+            }
+
+            const grid = document.getElementById('item-grid');
+            if (resetPage) {
+                grid.innerHTML = '<div class="loading-state">加载中...</div>';
+            }
+
+            try {
+                // 构建查询参数
+                const params = new URLSearchParams();
+                params.append('status', 'selling');
+                params.append('page', currentPage);
+                params.append('page_size', '20');
+
+                if (currentCategory && currentCategory !== 'all') {
+                    params.append('category', currentCategory);
+                }
+
+                if (currentSearch) {
+                    params.append('search', currentSearch);
+                    document.getElementById('filter-bar').style.display = 'block';
+                }
+
+                if (currentSort !== 'latest') {
+                    params.append('sort', currentSort);
+                }
+
+                if (currentMinPrice) {
+                    params.append('min_price', currentMinPrice);
+                    document.getElementById('filter-bar').style.display = 'block';
+                }
+
+                if (currentMaxPrice) {
+                    params.append('max_price', currentMaxPrice);
+                    document.getElementById('filter-bar').style.display = 'block';
+                }
+
+                if (currentCondition) {
+                    params.append('condition', currentCondition);
+                    document.getElementById('filter-bar').style.display = 'block';
+                }
+
+                const res = await fetch(`/api/products?${params.toString()}`);
+                const data = await res.json();
+
+                if (data.success) {
+                    if (resetPage) {
+                        renderItems(data.products || [], false);
+                    } else {
+                        renderItems(data.products || [], true);
+                    }
+                    hasMoreItems = data.pagination?.has_more || false;
+                } else {
+                    if (resetPage) {
+                        grid.innerHTML = '<div class="loading-state">加载失败</div>';
+                    }
+                }
+            } catch (e) {
+                console.error('加载商品失败:', e);
+                if (resetPage) {
+                    grid.innerHTML = '<div class="loading-state">网络错误</div>';
+                }
+            } finally {
+                isLoadingItems = false;
+            }
+        }
+
+        // Render Items
+        function renderItems(items, append = false) {
+            const grid = document.getElementById('item-grid');
+            const loadMoreLoading = document.getElementById('load-more-loading');
+
+            if (items.length === 0) {
+                if (!append) {
+                    grid.innerHTML = '<div class="empty-state">暂无商品</div>';
+                }
+                return;
+            }
+
+            const html = items.map(item => {
+                let imageUrl = `https://picsum.photos/400/500?${item.id}`;
+                if (item.images) {
+                    try {
+                        const images = JSON.parse(item.images);
+                        if (Array.isArray(images) && images.length > 0) {
+                            imageUrl = images[0];
+                        }
+                    } catch (e) {}
+                }
+
+                let discount = '';
+                if (item.original_price && item.original_price > item.price) {
+                    const pct = Math.round((item.price / item.original_price) * 10);
+                    discount = `<span class="item-tag hot">${pct}折</span>`;
+                }
+
+                const conditionClass = item.condition === '全新' ? 'new' : '';
+
+                return `
+                    <div class="item-card" onclick="viewItem(${item.id})">
+                        <img src="${imageUrl}" alt="${item.title}" class="item-image" loading="lazy" onerror="this.src='https://picsum.photos/400/500?${item.id}'">
+                        <div class="item-info">
+                            <div class="item-title">${item.title}</div>
+                            <div class="item-price">
+                                ¥${item.price}
+                                ${item.original_price ? `<span class="original">¥${item.original_price}</span>` : ''}
+                            </div>
+                            <div class="item-tags">
+                                ${conditionClass ? `<span class="item-tag ${conditionClass}">${item.condition}</span>` : ''}
+                                ${discount}
+                            </div>
+                        </div>
+                        <div class="item-user">
+                            <span>${item.avatar || '👤'}</span>
+                            <span>${item.username || '用户'}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (append) {
+                // 如果有加载提示，在它之前插入新商品，确保新商品在底部
+                if (loadMoreLoading) {
+                    loadMoreLoading.insertAdjacentHTML('beforebegin', html);
+                } else {
+                    grid.insertAdjacentHTML('beforeend', html);
+                }
+            } else {
+                grid.innerHTML = html;
+            }
+        }
+
+        // 加载更多商品
+        function loadMoreItems() {
+            if (!hasMoreItems || isLoadingItems) return;
+            currentPage++;
+            
+            // 显示加载提示
+            const grid = document.getElementById('item-grid');
+            const loadingEl = document.createElement('div');
+            loadingEl.id = 'load-more-loading';
+            loadingEl.className = 'loading-state';
+            loadingEl.textContent = '加载更多...';
+            loadingEl.style.textAlign = 'center';
+            loadingEl.style.padding = '1rem';
+            loadingEl.style.gridColumn = '1 / -1';
+            grid.appendChild(loadingEl);
+            
+            loadProducts(false).finally(() => {
+                // 移除加载提示
+                loadingEl.remove();
+            });
+        }
+
+        // Category Filter
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentCategory = item.dataset.category;
+                loadProducts(true);
+            });
+        });
+
+        // Search
+        function handleSearch() {
+            currentSearch = document.getElementById('search-input').value.trim();
+            loadProducts(true);
+            if (currentSearch) {
+                showToast(`搜索: ${currentSearch}`);
+            }
+        }
+
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+
+        // 应用筛选
+        function applyFilters() {
+            currentMinPrice = document.getElementById('min-price').value || null;
+            currentMaxPrice = document.getElementById('max-price').value || null;
+            currentCondition = document.getElementById('condition-filter').value;
+            currentSort = document.getElementById('sort-filter').value;
+            loadProducts(true);
+            if (currentMinPrice || currentMaxPrice || currentCondition || currentSort !== 'latest') {
+                showToast('筛选已应用');
+            }
+        }
+
+        // 重置筛选
+        function resetFilters() {
+            document.getElementById('min-price').value = '';
+            document.getElementById('max-price').value = '';
+            document.getElementById('condition-filter').value = '';
+            document.getElementById('sort-filter').value = 'latest';
+            currentMinPrice = null;
+            currentMaxPrice = null;
+            currentCondition = '';
+            currentSort = 'latest';
+            loadProducts(true);
+            showToast('筛选已重置');
+        }
+
+        document.getElementById('search-input').addEventListener('focus', () => {
+            if (currentSearch || currentMinPrice || currentMaxPrice || currentCondition) {
+                document.getElementById('filter-bar').style.display = 'block';
+            }
+        });
+
+        // Initial load
+        loadProducts();
+
+        // Modal
+        function showPublishModal() {
+            document.getElementById('publish-modal').classList.add('show');
+        }
+
+        function showToolsModal() {
+            document.getElementById('tools-modal').classList.add('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        // AI Sidebar Toggle
+        function toggleAISidebar() {
+            const sidebar = document.getElementById('ai-sidebar');
+            const wrapper = document.getElementById('main-wrapper');
+            
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            // 同步main-wrapper的位置
+            if (isCollapsed) {
+                wrapper.style.marginLeft = '360px';
+            } else {
+                wrapper.style.marginLeft = '0';
+            }
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('ai-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            const messages = document.getElementById('ai-messages');
+            
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'ai-message user';
+            userDiv.textContent = msg;
+            messages.appendChild(userDiv);
+            
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+            
+            // Add loading message
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'ai-message ai';
+            loadingDiv.textContent = '思考中...';
+            messages.appendChild(loadingDiv);
+            messages.scrollTop = messages.scrollHeight;
+            
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+                const data = await res.json();
+                loadingDiv.textContent = data.response || '抱歉，我无法回答这个问题。';
+            } catch (e) {
+                loadingDiv.textContent = '网络错误，请稍后重试。';
+            }
+            
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('show');
+                }
+            });
+        });
+
+        // Publish Item
+        function publishItem() {
+            const title = document.getElementById('publish-title').value.trim();
+            const price = document.getElementById('publish-price').value;
+            const category = document.getElementById('publish-category').value;
+
+            if (!title || !price || !category) {
+                showToast('请填写必填项');
+                return;
+            }
+
+            showToast('发布成功！');
+            closeModal('publish-modal');
+            
+            // Reset form
+            document.getElementById('publish-title').value = '';
+            document.getElementById('publish-price').value = '';
+            document.getElementById('publish-original').value = '';
+            document.getElementById('publish-category').value = '';
+            document.getElementById('publish-desc').value = '';
+        }
+
+        // View Item - 跳转到详情页
+        function viewItem(id) {
+            window.location.href = `/detail?id=${id}`;
+        }
+        
+        // View User Profile
+        function viewUserProfile(username) {
+            window.location.href = `/profile?user=${encodeURIComponent(username)}`;
+        }
+
+        // Go to App
+        function goToApp(tab) {
+            // Navigate to tools page with the selected tab parameter
+            window.location.href = `/tools?tab=${tab}`;
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // Initial render
+        renderItems(sampleItems);
+        
+        // 滚动加载更多（带防抖）
+        let isLoadingMore = false;
+        let loadMoreTimeout = null;
+        
+        window.addEventListener('scroll', function() {
+            if (!hasMoreItems || isLoadingItems) return;
+            
+            const scrollHeight = document.documentElement.scrollHeight;
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // 当滚动到距离底部 200px 时加载更多
+            if (scrollHeight - scrollTop - clientHeight < 200) {
+                // 清除之前的定时器，实现防抖
+                if (loadMoreTimeout) {
+                    clearTimeout(loadMoreTimeout);
+                }
+                loadMoreTimeout = setTimeout(() => {
+                    if (!isLoadingItems && hasMoreItems) {
+                        loadMoreItems();
+                    }
+                }, 300);
+            }
+        });
+        
+        // ============ User Menu Functions ============
+        let userMenuOpen = false;
+        let currentUser = null;
+        
+        // Toggle user dropdown menu
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('user-dropdown');
+            userMenuOpen = !userMenuOpen;
+            if (userMenuOpen) {
+                dropdown.classList.add('show');
+                checkUserLoginStatus();
+            } else {
+                dropdown.classList.remove('show');
+            }
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const userBtn = document.getElementById('user-btn');
+            const dropdown = document.getElementById('user-dropdown');
+            if (userMenuOpen && !userBtn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('show');
+                userMenuOpen = false;
+            }
+        });
+        
+        // Check user login status
+        async function checkUserLoginStatus() {
+            const token = localStorage.getItem('auth_token');
+            const loginBtn = document.getElementById('login-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            const profileLink = document.getElementById('profile-link');
+            const ordersLink = document.getElementById('orders-link');
+            const messagesLink = document.getElementById('messages-link');
+            const userInfo = document.getElementById('user-info');
+            const userBtnText = document.getElementById('user-btn-text');
+            const dropdownUsername = document.getElementById('dropdown-username');
+            const dropdownUid = document.getElementById('dropdown-uid');
+            
+            if (!token) {
+                // Not logged in
+                loginBtn.style.display = 'flex';
+                logoutBtn.style.display = 'none';
+                profileLink.style.display = 'none';
+                ordersLink.style.display = 'none';
+                messagesLink.style.display = 'none';
+                userInfo.style.display = 'none';
+                userBtnText.textContent = '账户';
+                currentUser = null;
+                return;
+            }
+            
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    currentUser = data.user;
+                    // Logged in
+                    loginBtn.style.display = 'none';
+                    logoutBtn.style.display = 'flex';
+                    profileLink.style.display = 'flex';
+                    ordersLink.style.display = 'flex';
+                    messagesLink.style.display = 'flex';
+                    userInfo.style.display = 'block';
+                    
+                    // Show admin link if user is admin
+                    if (currentUser.is_admin) {
+                        document.getElementById('admin-link').style.display = 'flex';
+                    }
+                    userBtnText.textContent = currentUser.username || '账户';
+                    dropdownUsername.textContent = currentUser.username || '用户';
+                    dropdownUid.textContent = 'UID: ' + (currentUser.uid || '').substring(0, 8);
+                    
+                    // Update user button to show avatar
+                    const userBtn = document.getElementById('user-btn');
+                    userBtn.querySelector('span').textContent = currentUser.avatar || '👤';
+                } else {
+                    // Token invalid
+                    localStorage.removeItem('auth_token');
+                    loginBtn.style.display = 'flex';
+                    logoutBtn.style.display = 'none';
+                    profileLink.style.display = 'none';
+                    ordersLink.style.display = 'none';
+                    messagesLink.style.display = 'none';
+                    userInfo.style.display = 'none';
+                    userBtnText.textContent = '账户';
+                }
+            } catch (e) {
+                console.error('Failed to check login status:', e);
+                loginBtn.style.display = 'flex';
+                logoutBtn.style.display = 'none';
+            }
+        }
+        
+        // Handle logout
+        async function handleLogout() {
+            const token = localStorage.getItem('auth_token');
+            if (token) {
+                try {
+                    await fetch('/api/auth/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                } catch (e) {
+                    console.error('Logout error:', e);
+                }
+            }
+            localStorage.removeItem('auth_token');
+            document.getElementById('user-dropdown').classList.remove('show');
+            userMenuOpen = false;
+            checkUserLoginStatus();
+            showToast('已退出登录');
+        }
+        
+        // Check login status on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserLoginStatus();
+        });
+
+        // ============ Admin Panel Functions ============
+        let adminUsers = [];
+        let selectedUsers = new Set();
+
+        function openAdminPanel() {
+            document.getElementById('user-dropdown').classList.remove('show');
+            userMenuOpen = false;
+            document.querySelector('.admin-panel').classList.add('show');
+            loadAdminUsers();
+        }
+
+        function closeAdminPanel() {
+            document.querySelector('.admin-panel').classList.remove('show');
+        }
+
+        async function loadAdminUsers() {
+            const tbody = document.querySelector('#admin-users-table tbody');
+            tbody.innerHTML = '<tr><td colspan="6" class="admin-loading">加载中...</td></tr>';
+
+            try {
+                const token = localStorage.getItem('auth_token');
+                const res = await fetch('/api/admin/users', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    adminUsers = data.users;
+                    renderAdminUsers();
+                    updateAdminStats();
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" class="admin-loading">加载失败</td></tr>';
+                }
+            } catch (e) {
+                console.error('Failed to load users:', e);
+                tbody.innerHTML = '<tr><td colspan="6" class="admin-loading">加载失败</td></tr>';
+            }
+        }
+
+        function renderAdminUsers(filter = '') {
+            const tbody = document.querySelector('#admin-users-table tbody');
+            const filtered = adminUsers.filter(u => 
+                u.username.toLowerCase().includes(filter.toLowerCase()) ||
+                u.uid.includes(filter)
+            );
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="admin-loading">没有找到用户</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(u => {
+                const isAdmin = u.is_admin === 1;
+                const isBanned = u.is_banned === 1;
+                let statusClass = 'normal';
+                let statusText = '正常';
+
+                if (isAdmin) {
+                    statusClass = 'admin';
+                    statusText = '管理员';
+                } else if (isBanned) {
+                    statusClass = 'banned';
+                    statusText = '已封禁';
+                }
+
+                return `
+                    <tr>
+                        <td><input type="checkbox" ${isAdmin ? 'disabled' : ''} data-uid="${u.uid}" onchange="toggleUserSelection('${u.uid}')"></td>
+                        <td>${u.uid.substring(0, 8)}...</td>
+                        <td>${escapeHtml(u.username)}</td>
+                        <td><span class="user-status ${statusClass}">${statusText}</span></td>
+                        <td>${u.created_at ? u.created_at.split(' ')[0] : '-'}</td>
+                        <td class="user-actions">
+                            ${isBanned ?
+                                `<button class="user-action-btn success" onclick="unbanUser('${u.uid}')">解封</button>` :
+                                `<button class="user-action-btn warning" onclick="banUser('${u.uid}')">封禁</button>`
+                            }
+                            <button class="user-action-btn" onclick="showResetPassword('${u.uid}', '${escapeHtml(u.username)}')">重置密码</button>
+                            ${!isAdmin ? `<button class="user-action-btn danger" onclick="deleteUser('${u.uid}')">删除</button>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateAdminStats() {
+            const total = adminUsers.length;
+            const banned = adminUsers.filter(u => u.is_banned === 1).length;
+            const normal = total - banned;
+            const admins = adminUsers.filter(u => u.is_admin === 1).length;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-normal').textContent = normal;
+            document.getElementById('stat-banned').textContent = banned;
+            document.getElementById('stat-admin').textContent = admins;
+        }
+
+        function toggleUserSelection(uid) {
+            if (selectedUsers.has(uid)) {
+                selectedUsers.delete(uid);
+            } else {
+                selectedUsers.add(uid);
+            }
+            updateBatchButtons();
+        }
+
+        function toggleSelectAll(source) {
+            const checkboxes = document.querySelectorAll('#admin-users-table tbody input[type="checkbox"]:not(:disabled)');
+            checkboxes.forEach(cb => {
+                cb.checked = source.checked;
+                if (source.checked) {
+                    selectedUsers.add(cb.dataset.uid);
+                } else {
+                    selectedUsers.delete(cb.dataset.uid);
+                }
+            });
+            updateBatchButtons();
+        }
+
+        function updateBatchButtons() {
+            const hasSelection = selectedUsers.size > 0;
+            document.getElementById('batch-ban-btn').disabled = !hasSelection;
+            document.getElementById('batch-unban-btn').disabled = !hasSelection;
+            document.getElementById('batch-delete-btn').disabled = !hasSelection;
+        }
+
+        async function batchBan() {
+            if (selectedUsers.size === 0) return;
+            if (!confirm(`确定要封禁选中的 ${selectedUsers.size} 个用户吗？`)) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch('/api/admin/users/batch-ban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: Array.from(selectedUsers) })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast(`成功封禁 ${data.count} 个用户`);
+                    selectedUsers.clear();
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        async function batchUnban() {
+            if (selectedUsers.size === 0) return;
+            if (!confirm(`确定要解封选中的 ${selectedUsers.size} 个用户吗？`)) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch('/api/admin/users/batch-unban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: Array.from(selectedUsers) })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast(`成功解封 ${data.count} 个用户`);
+                    selectedUsers.clear();
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        async function batchDelete() {
+            if (selectedUsers.size === 0) return;
+            if (!confirm(`确定要删除选中的 ${selectedUsers.size} 个用户吗？此操作不可恢复！`)) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch('/api/admin/users/batch-delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: Array.from(selectedUsers) })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast(`成功删除 ${data.count} 个用户`);
+                    selectedUsers.clear();
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        async function banUser(uid) {
+            if (!confirm('确定要封禁该用户吗？')) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch(`/api/admin/user/${uid}/ban`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast('用户已封禁');
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        async function unbanUser(uid) {
+            if (!confirm('确定要解封该用户吗？')) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch(`/api/admin/user/${uid}/unban`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast('用户已解封');
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        async function deleteUser(uid) {
+            if (!confirm('确定要删除该用户吗？此操作不可恢复！')) return;
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch(`/api/admin/user/${uid}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast('用户已删除');
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        function showResetPassword(uid, username) {
+            const modal = document.getElementById('reset-password-modal');
+            modal.classList.add('show');
+            document.getElementById('reset-uid').value = uid;
+            document.getElementById('reset-username').textContent = username;
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        }
+
+        async function submitResetPassword() {
+            const uid = document.getElementById('reset-uid').value;
+            const password = document.getElementById('new-password').value;
+            const confirmPwd = document.getElementById('confirm-password').value;
+
+            if (!password || password.length < 6) {
+                showToast('密码至少6位');
+                return;
+            }
+
+            if (password !== confirmPwd) {
+                showToast('两次密码不一致');
+                return;
+            }
+
+            const token = localStorage.getItem('auth_token');
+            try {
+                const res = await fetch(`/api/admin/user/${uid}/reset-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ password })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    closeModal('reset-password-modal');
+                    showToast('密码重置成功');
+                    loadAdminUsers();
+                } else {
+                    showToast(data.message || '操作失败');
+                }
+            } catch (e) {
+                showToast('操作失败');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-panel-content">
+            <div class="admin-panel-header">
+                <h2>用户管理</h2>
+                <button class="modal-close" onclick="closeAdminPanel()">×</button>
+            </div>
+            <div class="admin-panel-body">
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-value" id="stat-total">0</div>
+                        <div class="admin-stat-label">总用户数</div>
+                    </div>
+                    <div class="admin-stat-card success">
+                        <div class="admin-stat-value" id="stat-normal">0</div>
+                        <div class="admin-stat-label">正常用户</div>
+                    </div>
+                    <div class="admin-stat-card danger">
+                        <div class="admin-stat-value" id="stat-banned">0</div>
+                        <div class="admin-stat-label">已封禁</div>
+                    </div>
+                    <div class="admin-stat-card warning">
+                        <div class="admin-stat-value" id="stat-admin">0</div>
+                        <div class="admin-stat-label">管理员</div>
+                    </div>
+                </div>
+
+                <div class="admin-search">
+                    <input type="text" placeholder="搜索用户名或UID..." oninput="renderAdminUsers(this.value)">
+                </div>
+
+                <div class="admin-actions-bar">
+                    <input type="checkbox" onchange="toggleSelectAll(this)" title="全选">
+                    <button class="admin-btn warning" id="batch-ban-btn" disabled onclick="batchBan()">批量封禁</button>
+                    <button class="admin-btn secondary" id="batch-unban-btn" disabled onclick="batchUnban()">批量解封</button>
+                    <button class="admin-btn danger" id="batch-delete-btn" disabled onclick="batchDelete()">批量删除</button>
+                </div>
+
+                <table class="admin-table" id="admin-users-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">选择</th>
+                            <th>UID</th>
+                            <th>用户名</th>
+                            <th>状态</th>
+                            <th>注册时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="6" class="admin-loading">加载中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div class="modal-overlay" id="reset-password-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">重置用户密码</h3>
+                <button class="modal-close" onclick="closeModal('reset-password-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1rem;">用户: <strong id="reset-username"></strong></p>
+                <input type="hidden" id="reset-uid">
+                <div class="form-group">
+                    <label class="form-label">新密码</label>
+                    <input type="password" class="form-input" id="new-password" placeholder="输入新密码（至少6位）">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">确认密码</label>
+                    <input type="password" class="form-input" id="confirm-password" placeholder="再次输入新密码">
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="admin-btn primary" style="flex: 1;" onclick="submitResetPassword()">确认重置</button>
+                    <button class="admin-btn secondary" style="flex: 1;" onclick="closeModal('reset-password-modal')">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- PWA 安装提示 -->
+    <div id="pwa-install-prompt" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 1rem; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); z-index: 10000; border-radius: 1rem 1rem 0 0;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="/static/icons/icon-192x192.png" style="width: 48px; height: 48px; border-radius: 8px;">
+            <div style="flex: 1;">
+                <div style="font-weight: 600;">安装闲置好物 App</div>
+                <div style="font-size: 0.85rem; color: #666;">添加到主屏幕，更便捷地使用</div>
+            </div>
+            <button onclick="installPWA()" style="background: #6366F1; color: white; border: none; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.9rem; cursor: pointer;">安装</button>
+            <button onclick="dismissPWA()" style="background: #f0f0f0; border: none; padding: 0.5rem; border-radius: 50%; cursor: pointer;">✕</button>
+        </div>
+    </div>
+
+    <!-- Toast 通知 -->
+    <div id="toast" style="position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 0.75rem 1.5rem; border-radius: 2rem; font-size: 0.9rem; z-index: 10001; display: none;"></div>
+
+    <script>
+    // PWA 安装提示
+    let deferredPrompt;
+    const pwaPrompt = document.getElementById('pwa-install-prompt');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (!localStorage.getItem('pwa-dismissed')) {
+            pwaPrompt.style.display = 'block';
+        }
+    });
+
+    async function installPWA() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            showToast('安装成功！');
+        }
+        deferredPrompt = null;
+        pwaPrompt.style.display = 'none';
+    }
+
+    function dismissPWA() {
+        pwaPrompt.style.display = 'none';
+        localStorage.setItem('pwa-dismissed', 'true');
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 3000);
+    }
+
+    // Service Worker 注册
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+            try {
+                const registration = await navigator.serviceWorker.register('/static/service-worker.js');
+                console.log('[App] Service Worker registered:', registration.scope);
+                
+                // 检查更新
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            showToast('有新版本可用，刷新页面更新');
+                        }
+                    });
+                });
+            } catch (error) {
+                console.log('[App] Service Worker registration failed:', error);
+            }
+        });
+    }
+
+    // 在线/离线状态提示
+    window.addEventListener('online', () => showToast('网络已连接'));
+    window.addEventListener('offline', () => showToast('网络已断开，使用离线模式'));
+    </script>
+</body>
+</html>

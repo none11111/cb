@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心 - 闲置好物</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --primary-light: #818CF8; --secondary: #8B5CF6;
+            --success: #10B981; --warning: #F59E0B; --error: #EF4444;
+            --bg: #F8FAFC; --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px -10px rgba(99,102,241,0.3);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #EC4899 100%); color: white; padding: 1.25rem 1.5rem; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1rem; box-shadow: 0 4px 20px rgba(99,102,241,0.3); }
+        .back-btn { width: 42px; height: 42px; border: none; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius: 50%; cursor: pointer; font-size: 1.2rem; color: white; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+        .header-title { flex: 1; font-weight: 700; font-size: 1.2rem; text-align: center; letter-spacing: 0.5px; }
+        .header-avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.25); border: 2px solid rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+
+        /* Main */
+        .main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        /* Desktop Layout */
+        @media (min-width: 900px) {
+            .main { padding: 2.5rem 2rem; }
+            .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .profile-hero { margin-bottom: 2rem; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Profile Hero Card */
+        .profile-hero { background: linear-gradient(145deg, #fff 0%, #f8fafc 100%); border-radius: 1.5rem; padding: 2rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+        .profile-hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 200px; height: 200px; background: linear-gradient(135deg, var(--primary-light) 0%, transparent 70%); border-radius: 50%; opacity: 0.1; }
+        .profile-hero::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 150px; height: 150px; background: linear-gradient(45deg, var(--secondary) 0%, transparent 70%); border-radius: 50%; opacity: 0.1; }
+        .profile-header { display: flex; align-items: center; gap: 1.25rem; position: relative; z-index: 1; }
+        .avatar-edit { position: relative; }
+        .avatar { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; font-weight: bold; box-shadow: 0 8px 25px rgba(99,102,241,0.35); }
+        .avatar-edit-btn { position: absolute; bottom: 0; right: 0; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: 3px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.3s; }
+        .avatar-edit-btn:hover { transform: scale(1.1); }
+        .profile-info { flex: 1; }
+        .profile-name { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.35rem; background: linear-gradient(135deg, var(--text), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .profile-uid { font-size: 0.85rem; color: var(--text-light); display: flex; align-items: center; gap: 0.5rem; }
+        .profile-uid span { background: var(--bg); padding: 0.2rem 0.5rem; border-radius: 0.5rem; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; position: relative; z-index: 1; }
+        .stat-card { background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08)); border-radius: 1rem; padding: 1.25rem 1rem; text-align: center; border: 1px solid rgba(99,102,241,0.1); transition: all 0.3s; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.15); }
+        .stat-value { font-size: 1.75rem; font-weight: 800; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem; font-weight: 500; }
+
+        /* Section Cards */
+        .section-card { background: white; border-radius: 1.25rem; padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); }
+        .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; color: var(--text); }
+        .section-icon { width: 36px; height: 36px; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .section-icon.purple { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .section-icon.green { background: linear-gradient(135deg, var(--success), #34D399); color: white; }
+        .section-icon.red { background: linear-gradient(135deg, var(--error), #F87171); color: white; }
+        .section-icon.blue { background: linear-gradient(135deg, #3B82F6, #60A5FA); color: white; }
+
+        /* Form */
+        .form-group { margin-bottom: 1.25rem; }
+        .form-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.6rem; font-weight: 500; }
+        .form-label .required { color: var(--error); }
+        .form-input { width: 100%; padding: 0.875rem 1rem; border: 2px solid var(--border); border-radius: 0.875rem; font-size: 1rem; transition: all 0.3s; background: var(--bg); }
+        .form-input:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+        .form-input:disabled { background: rgba(99,102,241,0.05); color: var(--text-light); border-color: rgba(99,102,241,0.2); }
+        .form-textarea { resize: vertical; min-height: 100px; }
+
+        /* Buttons */
+        .btn { padding: 0.875rem 1.75rem; border-radius: 0.875rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
+        .btn-secondary { background: var(--bg); color: var(--text); border: 2px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); background: rgba(99,102,241,0.05); }
+        .btn-danger { background: linear-gradient(135deg, var(--error), #F87171); color: white; box-shadow: 0 4px 15px rgba(239,68,68,0.3); }
+        .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(239,68,68,0.4); }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-block { width: 100%; }
+
+        /* Product List */
+        .product-item { display: flex; gap: 1rem; padding: 1rem; background: linear-gradient(135deg, #f8fafc, #fff); border-radius: 1rem; margin-bottom: 0.875rem; align-items: center; border: 1px solid var(--border); transition: all 0.3s; }
+        .product-item:hover { border-color: var(--primary-light); box-shadow: 0 4px 15px rgba(99,102,241,0.1); transform: translateY(-1px); }
+        .product-img { width: 80px; height: 80px; border-radius: 0.75rem; object-fit: cover; background: linear-gradient(135deg, #e0e7ff, #f3e8ff); display: flex; align-items: center; justify-content: center; color: var(--text-light); }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem; }
+        .product-info { flex: 1; min-width: 0; }
+        .product-title { font-weight: 600; margin-bottom: 0.35rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .product-price { color: var(--error); font-weight: 700; font-size: 1.1rem; }
+        .product-date { font-size: 0.8rem; color: var(--text-light); }
+        .product-actions { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+
+        /* Status Badge */
+        .status-badge { padding: 0.35rem 0.875rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; }
+        .status-badge.selling { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.15)); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+        .status-badge.sold { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(248,113,113,0.15)); color: var(--error); border: 1px solid rgba(239,68,68,0.2); }
+        .status-badge.offline { background: linear-gradient(135deg, rgba(100,116,139,0.1), rgba(148,163,184,0.1)); color: var(--text-light); border: 1px solid rgba(100,116,139,0.15); }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal { background: white; border-radius: 1.5rem; padding: 2rem; max-width: 400px; width: 90%; transform: scale(0.9); transition: all 0.3s; }
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; text-align: center; }
+        .modal-icon { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(248,113,113,0.1)); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.75rem; }
+        .modal-text { text-align: center; color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.6; }
+        .modal-actions { display: flex; gap: 1rem; }
+        .modal-actions .btn { flex: 1; }
+
+        /* Toast */
+        .toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--text); color: white; padding: 0.875rem 1.5rem; border-radius: 2rem; font-size: 0.9rem; opacity: 0; transition: all 0.3s; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast.success { background: linear-gradient(135deg, var(--success), #34D399); }
+        .toast.error { background: linear-gradient(135deg, var(--error), #F87171); }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; background: var(--bg); padding: 0.35rem; border-radius: 1rem; }
+        .tab { flex: 1; padding: 0.75rem; text-align: center; border-radius: 0.75rem; cursor: pointer; font-weight: 600; font-size: 0.9rem; color: var(--text-light); transition: all 0.3s; }
+        .tab.active { background: white; color: var(--primary); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-light); }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-text { font-size: 0.95rem; }
+
+        /* Avatar Picker */
+        .avatar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-top: 1rem; }
+        .avatar-option { width: 50px; height: 50px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; transition: all 0.3s; border: 3px solid transparent; }
+        .avatar-option:hover { transform: scale(1.1); border-color: var(--primary-light); }
+        .avatar-option.selected { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+            .stat-card { padding: 1rem 0.5rem; }
+            .stat-value { font-size: 1.4rem; }
+            .section-card { padding: 1.25rem; }
+            .product-item { flex-wrap: wrap; }
+            .product-img { width: 60px; height: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <button class="back-btn" onclick="history.back()">←</button>
+        <div class="header-title">个人中心</div>
+        <div class="header-avatar" id="header-avatar">😊</div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <!-- Profile Hero -->
+        <div class="profile-hero">
+            <div class="profile-header">
+                <div class="avatar-edit">
+                    <div class="avatar" id="avatar">😊</div>
+                    <button class="avatar-edit-btn" onclick="showAvatarModal()">✏️</button>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name" id="username">加载中...</div>
+                    <div class="profile-uid">ID: <span id="uid"></span></div>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-selling">0</div>
+                    <div class="stat-label">在售</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-sold">0</div>
+                    <div class="stat-label">已售</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stat-offline">0</div>
+                    <div class="stat-label">下架</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Basic Info Section -->
+        <div class="section-card">
+            <div class="section-title">
+                <div class="section-icon purple">👤</div>
+                基本资料
+            </div>
+            <div class="form-group">
+                <label class="form-label">用户名 <span class="required">*</span></label>
+                <input type="text" class="form-input" id="username-input" placeholder="设置你的用户名" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label class="form-label">个人简介</label>
+                <textarea class="form-input form-textarea" id="bio-input" placeholder="介绍一下自己吧..." maxlength="200"></textarea>
+            </div>
+            <button class="btn btn-primary btn-block" onclick="saveProfile()">
+                💾 保存修改
+            </button>
+        </div>
+
+        <!-- Password Section -->
+        <div class="section-card">
+            <div class="section-title">
+                <div class="section-icon blue">🔐</div>
+                修改密码
+            </div>
+            <div class="form-group">
+                <label class="form-label">当前密码 <span class="required">*</span></label>
+                <input type="password" class="form-input" id="current-password" placeholder="输入当前密码">
+            </div>
+            <div class="form-group">
+                <label class="form-label">新密码 <span class="required">*</span></label>
+                <input type="password" class="form-input" id="new-password" placeholder="输入新密码（至少6位）">
+            </div>
+            <button class="btn btn-secondary btn-block" onclick="changePassword()">
+                🔒 修改密码
+            </button>
+        </div>
+
+        <!-- Products Section -->
+        <div class="section-card">
+            <div class="section-title">
+                <div class="section-icon green">📦</div>
+                我的商品
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-tab="selling" onclick="switchProductTab('selling')">在售</div>
+                <div class="tab" data-tab="sold" onclick="switchProductTab('sold')">已售</div>
+                <div class="tab" data-tab="offline" onclick="switchProductTab('offline')">下架</div>
+            </div>
+            <div id="product-list"></div>
+        </div>
+
+        <!-- Danger Zone -->
+        <div class="section-card" style="border: 1px solid rgba(239,68,68,0.2);">
+            <div class="section-title" style="color: var(--error);">
+                <div class="section-icon red">⚠️</div>
+                危险区域
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; line-height: 1.6;">
+                注销账号后，所有个人资料和发布的商品将被永久删除，此操作不可恢复。
+            </p>
+            <button class="btn btn-danger btn-block" onclick="showDeleteModal()">
+                🗑️ 注销账号
+            </button>
+        </div>
+    </div>
+
+    <!-- Avatar Modal -->
+    <div class="modal-overlay" id="avatar-modal">
+        <div class="modal">
+            <div class="modal-title">选择头像</div>
+            <div class="avatar-grid" id="avatar-grid"></div>
+            <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+                <button class="btn btn-secondary" style="flex:1" onclick="closeAvatarModal()">取消</button>
+                <button class="btn btn-primary" style="flex:1" onclick="confirmAvatar()">确认</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stock Edit Modal -->
+    <div class="modal-overlay" id="stock-modal">
+        <div class="modal">
+            <div class="modal-icon" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(52,211,153,0.1));">📦</div>
+            <div class="modal-title">修改库存数量</div>
+            <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label">库存数量（件）</label>
+                <input type="number" class="form-input" id="stock-input" min="0" placeholder="请输入库存数量">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeStockModal()">取消</button>
+                <button class="btn btn-primary" onclick="confirmStockUpdate()">确认修改</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="edit-stock-pid">
+
+    <!-- Delete Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal">
+            <div class="modal-icon">⚠️</div>
+            <div class="modal-title">确定要注销账号吗？</div>
+            <p class="modal-text">注销后，所有个人资料和发布的商品将被永久删除，此操作不可恢复。</p>
+            <div class="form-group">
+                <input type="text" class="form-input" id="delete-confirm" placeholder="请输入「注销」确认">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeDeleteModal()">取消</button>
+                <button class="btn btn-danger" onclick="confirmDelete()">确认注销</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script src="/auth-utils.js"></script>
+    <script>
+        const AVATARS = ['😊', '😎', '🤡', '👻', '🤖', '😺', '🐶', '🐼', '🦊', '🦁', '🌟', '💎', '🚀', '🎸', '🎮', '⚽', '🍎', '🌸', '🍀', '🦋'];
+        let currentUser = null;
+        let myProducts = [];
+        let currentProductTab = 'selling';
+        let selectedAvatar = null;
+
+        // Initialize
+        (async function init() {
+            await checkAuth();
+            await loadProfile();
+            await loadMyProducts();
+        })();
+
+        async function checkAuth() {
+            const token = getAuthToken();
+            if (!token) {
+                location.href = '/auth';
+                return false;
+            }
+            try {
+                const res = await authFetch('/api/auth/me');
+                const data = await res.json();
+                if (!data.success) {
+                    localStorage.removeItem('auth_token');
+                    location.href = '/auth';
+                    return false;
+                }
+                currentUser = data.user;
+                // 如果 cookie 有 token 但 localStorage 没有，同步保存
+                if (!localStorage.getItem('auth_token') && data.user) {
+                    localStorage.setItem('auth_token', token);
+                    localStorage.setItem('user_uid', data.user.uid);
+                }
+                return true;
+            } catch (e) {
+                localStorage.removeItem('auth_token');
+                location.href = '/auth';
+                return false;
+            }
+        }
+
+        async function loadProfile() {
+            try {
+                const res = await authFetch('/api/auth/me');
+                const data = await res.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    renderProfile();
+                }
+            } catch (e) {
+                showToast('加载失败', 'error');
+            }
+        }
+
+        function renderProfile() {
+            document.getElementById('avatar').textContent = currentUser.avatar || '😊';
+            document.getElementById('header-avatar').textContent = currentUser.avatar || '😊';
+            document.getElementById('username').textContent = currentUser.username || currentUser.uid;
+            document.getElementById('uid').textContent = currentUser.uid;
+            document.getElementById('username-input').value = currentUser.username || '';
+            document.getElementById('bio-input').value = currentUser.bio || '';
+        }
+
+        async function saveProfile() {
+            const username = document.getElementById('username-input').value.trim();
+            const bio = document.getElementById('bio-input').value.trim();
+            const avatar = currentUser.avatar || '😊';
+
+            try {
+                const res = await authFetch('/api/auth/profile', {
+                    method: 'PUT',
+                    body: JSON.stringify({ username, bio, avatar })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('资料已保存', 'success');
+                    await loadProfile();
+                } else {
+                    showToast(data.error || '保存失败', 'error');
+                }
+            } catch (e) {
+                showToast('保存失败', 'error');
+            }
+        }
+
+        async function changePassword() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+
+            if (!currentPassword || !newPassword) {
+                showToast('请填写完整', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showToast('新密码至少6位', 'error');
+                return;
+            }
+
+            try {
+                const token = getAuthToken();
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+                const res = await fetch('/api/auth/password', {
+                    method: 'PUT',
+                    headers: headers,
+                    body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+                    credentials: 'include'
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('密码修改成功', 'success');
+                    document.getElementById('current-password').value = '';
+                    document.getElementById('new-password').value = '';
+                } else {
+                    showToast(data.error || '修改失败', 'error');
+                }
+            } catch (e) {
+                showToast('修改失败', 'error');
+            }
+        }
+
+        async function loadMyProducts() {
+            try {
+                const res = await fetch('/api/products/user/' + currentUser.uid);
+                const data = await res.json();
+                if (data.success) {
+                    myProducts = data.products;
+                    updateStats();
+                    renderProducts();
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('stat-selling').textContent = myProducts.filter(p => p.status === 'selling').length;
+            document.getElementById('stat-sold').textContent = myProducts.filter(p => p.status === 'sold').length;
+            document.getElementById('stat-offline').textContent = myProducts.filter(p => p.status === 'offline').length;
+        }
+
+        function switchProductTab(tab) {
+            currentProductTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
+            renderProducts();
+        }
+
+        function getFirstImage(images, pid) {
+            try {
+                if (!images) return '';
+                const arr = typeof images === 'string' ? JSON.parse(images) : images;
+                return arr[0] || '';
+            } catch(e) {
+                return '';
+            }
+        }
+
+        function renderProducts() {
+            const filtered = myProducts.filter(p => p.status === currentProductTab);
+            const container = document.getElementById('product-list');
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📦</div>
+                        <div class="empty-text">暂无${currentProductTab === 'selling' ? '在售' : currentProductTab === 'sold' ? '已售' : '下架'}商品</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const statusMap = { selling: '在售', sold: '已售', offline: '下架' };
+            const nextStatusMap = { selling: 'offline', sold: 'selling', offline: 'selling' };
+            const nextBtnText = { selling: '下架', sold: '重新上架', offline: '上架' };
+
+            container.innerHTML = filtered.map(item => {
+                const imgUrl = getFirstImage(item.images, item.pid);
+                return `
+                <div class="product-item" onclick="location.href='/detail?id=${item.pid}'" style="cursor:pointer;">
+                    <div class="product-img">
+                        ${imgUrl ? `<img src="${imgUrl}" alt="${item.title}">` : '📷'}
+                    </div>
+                    <div class="product-info">
+                        <div class="product-title">${item.title}</div>
+                        <div class="product-price">¥${item.price}</div>
+                        <div class="product-stock" style="font-size: 0.8rem; color: var(--text-light);">📦 库存: ${item.stock || 0} 件</div>
+                        <div class="product-date">${new Date(item.created_at).toLocaleDateString()}</div>
+                    </div>
+                    <div class="product-actions" onclick="event.stopPropagation();">
+                        <span class="status-badge ${item.status}">${statusMap[item.status]}</span>
+                        ${item.status !== 'sold' ? `
+                            <button class="btn btn-sm btn-secondary" onclick="updateProductStatus(${item.pid}, '${nextStatusMap[item.status]}')">${nextBtnText[item.status]}</button>
+                            <button class="btn btn-sm btn-outline" onclick="showStockModal(${item.pid}, ${item.stock || 0})" style="margin-top: 0.25rem;">📝 库存</button>
+                        ` : ''}
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        async function updateProductStatus(pid, status) {
+            try {
+                const res = await fetch(`/api/product/${pid}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast(status === 'offline' ? '已下架' : '已上架', 'success');
+                    await loadMyProducts();
+                } else {
+                    showToast(data.error || '操作失败', 'error');
+                }
+            } catch (e) {
+                showToast('操作失败', 'error');
+            }
+        }
+
+        function showStockModal(pid, currentStock) {
+            document.getElementById('edit-stock-pid').value = pid;
+            document.getElementById('stock-input').value = currentStock;
+            document.getElementById('stock-modal').classList.add('show');
+        }
+
+        function closeStockModal() {
+            document.getElementById('stock-modal').classList.remove('show');
+        }
+
+        async function confirmStockUpdate() {
+            const pid = document.getElementById('edit-stock-pid').value;
+            const stock = parseInt(document.getElementById('stock-input').value);
+            
+            if (isNaN(stock) || stock < 0) {
+                showToast('请输入有效的库存数量', 'error');
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/product/${pid}/stock`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ stock: stock })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('库存已更新', 'success');
+                    closeStockModal();
+                    await loadMyProducts();
+                } else {
+                    showToast(data.error || '操作失败', 'error');
+                }
+            } catch (e) {
+                showToast('操作失败', 'error');
+            }
+        }
+
+        function showAvatarModal() {
+            const grid = document.getElementById('avatar-grid');
+            grid.innerHTML = AVATARS.map(a => `
+                <div class="avatar-option ${currentUser.avatar === a ? 'selected' : ''}" onclick="selectAvatar(this, '${a}')">${a}</div>
+            `).join('');
+            selectedAvatar = currentUser.avatar;
+            document.getElementById('avatar-modal').classList.add('show');
+        }
+
+        function closeAvatarModal() {
+            document.getElementById('avatar-modal').classList.remove('show');
+        }
+
+        function selectAvatar(el, avatar) {
+            document.querySelectorAll('.avatar-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedAvatar = avatar;
+        }
+
+        function confirmAvatar() {
+            currentUser.avatar = selectedAvatar;
+            document.getElementById('avatar').textContent = selectedAvatar;
+            document.getElementById('header-avatar').textContent = selectedAvatar;
+            closeAvatarModal();
+            saveProfile();
+        }
+
+        function showDeleteModal() {
+            document.getElementById('delete-modal').classList.add('show');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('delete-modal').classList.remove('show');
+            document.getElementById('delete-confirm').value = '';
+        }
+
+        async function confirmDelete() {
+            const confirm = document.getElementById('delete-confirm').value;
+            if (confirm !== '注销') {
+                showToast('请输入「注销」确认', 'error');
+                return;
+            }
+
+            try {
+                const token = getAuthToken();
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+                const res = await fetch('/api/auth/account', { 
+                    method: 'DELETE',
+                    headers: headers,
+                    credentials: 'include'
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('账号已注销', 'success');
+                    setTimeout(() => location.href = '/', 1500);
+                } else {
+                    showToast(data.error || '注销失败', 'error');
+                }
+            } catch (e) {
+                showToast('注销失败', 'error');
+            }
+        }
+
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+    </script>
+</body>
+</html>

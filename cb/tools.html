@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具箱 - 闲置好物</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 1rem 2rem; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; }
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: white; text-decoration: none; }
+        .back-btn { padding: 0.5rem 1rem; background: rgba(255,255,255,0.15); border: none; border-radius: 2rem; color: white; cursor: pointer; }
+
+        .main { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
+
+        .tab-nav { display: flex; gap: 0.5rem; background: var(--card-bg); padding: 0.5rem; border-radius: 1rem; box-shadow: var(--shadow); margin-bottom: 2rem; overflow-x: auto; }
+        .tab-btn { flex: 1; min-width: 150px; padding: 1rem 1.5rem; border: none; background: transparent; color: var(--text-light); font-size: 1rem; border-radius: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .tab-btn:hover { background: var(--bg); color: var(--primary); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .card { background: var(--card-bg); border-radius: 1rem; padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1.5rem; }
+        .card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+
+        .upload-zone { border: 2px dashed var(--border); border-radius: 1rem; padding: 3rem 2rem; text-align: center; cursor: pointer; background: var(--bg); transition: all 0.3s; }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(99,102,241,0.05); }
+        .upload-zone.has-image { padding: 1rem; border-style: solid; border-color: var(--success); }
+        .upload-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .upload-text { color: var(--text-light); }
+        .preview-image { max-width: 100%; max-height: 300px; border-radius: 0.75rem; }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-weight: 500; margin-bottom: 0.5rem; }
+        .form-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 0.75rem; font-size: 1rem; }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 0.75rem; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { opacity: 0.9; }
+        .btn-sm { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-full { width: 100%; }
+        .btn-lg { padding: 1rem 2rem; font-size: 1.1rem; }
+
+        .copy-card { background: var(--bg); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; }
+        .copy-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+        .badge { padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; font-weight: 500; }
+        .badge-tech { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .badge-story { background: rgba(139,92,246,0.1); color: var(--secondary); }
+        .badge-minimal { background: rgba(16,185,129,0.1); color: var(--success); }
+        .copy-content { line-height: 1.8; white-space: pre-wrap; }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+
+        .guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .guide-grid { grid-template-columns: 1fr; } }
+
+        .camera-container { position: relative; background: #000; border-radius: 1rem; overflow: hidden; aspect-ratio: 4/3; }
+        .camera-video, .camera-canvas { width: 100%; height: 100%; object-fit: cover; }
+        .camera-canvas { position: absolute; top: 0; left: 0; }
+        .camera-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #666; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+
+        .chat-container { display: flex; flex-direction: column; height: 500px; }
+        .chat-header { padding: 1rem; background: var(--bg); border-radius: 1rem 1rem 0 0; font-weight: 600; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
+        .chat-bubble { max-width: 85%; padding: 1rem; border-radius: 1rem; line-height: 1.6; white-space: pre-wrap; }
+        .chat-bubble.ai { background: var(--bg); border-bottom-left-radius: 0.25rem; align-self: flex-start; }
+        .chat-bubble.user { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-bottom-right-radius: 0.25rem; align-self: flex-end; }
+        .chat-input-area { padding: 1rem; background: var(--bg); border-radius: 0 0 1rem 1rem; display: flex; gap: 0.5rem; }
+
+        .tips { background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.2); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; }
+        .tips-title { font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; }
+        .tips-list { font-size: 0.9rem; color: var(--text-light); padding-left: 1.5rem; }
+
+        .promotion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .promotion-grid { grid-template-columns: 1fr; } }
+        .platform-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .platform-tab { flex: 1; padding: 0.75rem; border: 1px solid var(--border); background: transparent; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem; }
+        .platform-tab:hover { border-color: var(--primary); }
+        .platform-tab.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .phone-preview { max-width: 320px; margin: 0 auto; background: #fff; border: 8px solid #1a1a1a; border-radius: 2rem; overflow: hidden; }
+        .phone-header { background: #f5f5f5; padding: 0.75rem; text-align: center; font-size: 0.85rem; color: var(--text-light); border-bottom: 1px solid #e5e5e5; }
+        .phone-content { padding: 1rem; min-height: 300px; font-size: 0.9rem; line-height: 1.6; }
+
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; }
+        .loading-spinner { width: 50px; height: 50px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { margin-top: 1rem; color: var(--text-light); }
+
+        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text); color: white; padding: 1rem 2rem; border-radius: 0.75rem; z-index: 1001; opacity: 0; transition: all 0.3s; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--error); }
+
+        .hidden { display: none !important; }
+        .input-row { display: grid; grid-template-columns: 1fr 150px; gap: 1rem; }
+        @media (max-width: 600px) { .input-row { grid-template-columns: 1fr; } }
+        @media (max-width: 600px) { .header-content { flex-direction: column; } .tab-btn { min-width: 100px; padding: 0.75rem; } .tab-icon { display: none; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo"><span>🎯</span>闲置好物</a>
+            <span style="opacity:0.5">|</span>
+            <span>AI工具箱</span>
+            <div style="flex:1"></div>
+            <button class="back-btn" onclick="location.href='/'">← 返回首页</button>
+        </div>
+    </header>
+
+    <main class="main">
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="copy"><span>✍️</span>文案生成</button>
+            <button class="tab-btn" data-tab="guide"><span>📸</span>拍照指导</button>
+            <button class="tab-btn" data-tab="promotion"><span>📢</span>推广文案</button>
+        </nav>
+
+        <!-- 文案生成 -->
+        <section id="copy-tab" class="tab-content active">
+            <div class="grid">
+                <div>
+                    <div class="card">
+                        <h2 class="card-title"><span>📷</span>上传商品图片</h2>
+                        <div class="upload-zone" id="upload-zone">
+                            <div class="upload-icon">🖼️</div>
+                            <p class="upload-text">拖拽图片到此处，或点击选择文件</p>
+                        </div>
+                        <input type="file" id="file-input" accept="image/*" class="hidden">
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title"><span>📝</span>商品信息</h2>
+                        <div class="form-group">
+                            <label class="form-label">商品名称 *</label>
+                            <input type="text" id="product-name" class="form-input" placeholder="例如：iPhone 14 Pro 256G">
+                        </div>
+                        <button id="generate-copy-btn" class="btn btn-primary btn-full btn-lg" disabled>
+                            <span>✨</span>生成三种风格文案
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="card-title"><span>📄</span>生成的文案</h2>
+                    <div id="copy-results">
+                        <div class="tips">
+                            <div class="tips-title"><span>💡</span>使用提示</div>
+                            <ul class="tips-list">
+                                <li>上传清晰的商品图片，AI将自动分析并生成文案</li>
+                                <li>建议提供完整的商品名称以获得更准确的文案</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 拍照指导 -->
+        <section id="guide-tab" class="tab-content">
+            <div class="tips">
+                <div class="tips-title"><span>💡</span>拍照指导使用说明</div>
+                <ul class="tips-list">
+                    <li>点击"开始指导"启动摄像头</li>
+                    <li>系统每2秒自动截屏并分析，给出拍照建议</li>
+                    <li>或上传本地照片进行分析</li>
+                </ul>
+            </div>
+            <div class="guide-grid">
+                <div class="card">
+                    <h2 class="card-title"><span>🤖</span>AI拍照指导</h2>
+                    <div class="chat-container">
+                        <div class="chat-header"><span>📷</span>实时拍照建议</div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="chat-bubble ai">👋 欢迎使用拍照指导！点击"开始指导"或上传照片。</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <button id="start-guide-btn" class="btn btn-primary" style="flex:1"><span>🎥</span>开始指导</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="card-title"><span>📸</span>实时取景</h2>
+                    <div class="camera-container" id="camera-container">
+                        <video id="camera-video" class="camera-video hidden" autoplay playsinline></video>
+                        <canvas id="camera-canvas" class="camera-canvas hidden"></canvas>
+                        <div class="camera-placeholder" id="camera-placeholder">
+                            <div style="font-size:4rem">📷</div>
+                            <p>点击"开始指导"启动摄像头</p>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+                        <button id="capture-btn" class="btn btn-success btn-full hidden" disabled><span>📸</span>拍这张</button>
+                        <button id="stop-guide-btn" class="btn btn-outline hidden" style="flex:1"><span>⏹️</span>停止</button>
+                    </div>
+                    <div style="margin-top:1.5rem; padding-top:1.5rem; border-top:1px dashed var(--border);">
+                        <h3 style="font-size:1rem; margin-bottom:1rem;"><span>📁</span>或上传本地照片分析</h3>
+                        <div class="upload-zone" id="guide-upload-zone" style="padding:1.5rem;">
+                            <div class="upload-icon" style="font-size:2rem">🖼️</div>
+                            <p class="upload-text">点击选择本地照片</p>
+                        </div>
+                        <input type="file" id="guide-file-input" accept="image/*" class="hidden">
+                        <button id="analyze-guide-btn" class="btn btn-primary btn-full hidden" style="margin-top:1rem;" disabled>
+                            <span>🔍</span>分析这张照片
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推广文案 -->
+        <section id="promotion-tab" class="tab-content">
+            <div class="promotion-grid">
+                <div>
+                    <div class="card">
+                        <h2 class="card-title"><span>📷</span>上传商品图片</h2>
+                        <div class="upload-zone" id="promo-upload-zone">
+                            <div class="upload-icon">🖼️</div>
+                            <p class="upload-text">拖拽图片到此处，或点击选择文件</p>
+                        </div>
+                        <input type="file" id="promo-file-input" accept="image/*" class="hidden">
+                    </div>
+                    <div class="card">
+                        <h2 class="card-title"><span>📝</span>商品信息</h2>
+                        <div class="form-group">
+                            <label class="form-label">商品名称 *</label>
+                            <input type="text" id="promo-product-name" class="form-input" placeholder="例如：iPhone 14 Pro">
+                        </div>
+                        <div class="input-row">
+                            <div class="form-group">
+                                <label class="form-label">期望价格</label>
+                                <input type="text" id="promo-price" class="form-input" placeholder="例如：3500元">
+                            </div>
+                        </div>
+                        <button id="generate-promo-btn" class="btn btn-primary btn-full btn-lg" disabled>
+                            <span>✨</span>生成推广文案
+                        </button>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="card-title"><span>📄</span>推广文案预览</h2>
+                    <div class="platform-tabs">
+                        <button class="platform-tab active" data-platform="xiaohongshu">📕 小红书</button>
+                        <button class="platform-tab" data-platform="moments">💬 朋友圈</button>
+                        <button class="platform-tab" data-platform="group">👥 微信群</button>
+                    </div>
+                    <div id="promo-results">
+                        <div class="tips">
+                            <div class="tips-title"><span>💡</span>使用提示</div>
+                            <ul class="tips-list">
+                                <li>上传商品图片并填写信息</li>
+                                <li>点击生成，获取适配各平台的文案</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p class="loading-text" id="loading-text">正在处理中...</p>
+    </div>
+    <div id="toast" class="toast"></div>
+
+    <script>
+        const state = { copyImage: null, promoImage: null, currentPlatform: 'xiaohongshu', cameraStream: null, captureInterval: null };
+        
+        // Handle URL parameters on page load
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const tab = params.get('tab');
+            if (tab) {
+                const tabBtn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
+                if (tabBtn) {
+                    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+                    tabBtn.classList.add('active');
+                    document.getElementById(tab + '-tab').classList.add('active');
+                }
+            }
+        })();
+        
+        function showLoading(text='处理中...') { document.getElementById('loading-text').textContent=text; document.getElementById('loading-overlay').classList.remove('hidden'); }
+        function hideLoading() { document.getElementById('loading-overlay').classList.add('hidden'); }
+        function showToast(msg, type='') { const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show'+(type?' '+type:''); setTimeout(()=>t.classList.remove('show'),3000); }
+        function fileToBase64(file) { return new Promise((r,e)=>{ const rd=new FileReader(); rd.onload=()=>r(rd.result.split(',')[1]); rd.onerror=e; rd.readAsDataURL(file); }); }
+        async function apiCall(url, data, timeout=60000) { const c=new AbortController(); const id=setTimeout(()=>c.abort(),timeout); try { const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:c.signal}); clearTimeout(id); if(!res.ok) throw new Error((await res.json().catch(()=>({}))).error||`请求失败`); return await res.json(); } catch(e) { clearTimeout(id); if(e.name==='AbortError') throw new Error('请求超时'); throw e; } }
+
+        document.querySelectorAll('.tab-btn').forEach(b=>{ b.addEventListener('click',()=>{ document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active')); b.classList.add('active'); document.getElementById(b.dataset.tab+'-tab').classList.add('active'); if(b.dataset.tab!=='guide'&&state.cameraStream) stopCamera(); }); });
+
+        function setupUpload(zoneId,inputId,onUp){ const z=document.getElementById(zoneId),i=document.getElementById(inputId); z.addEventListener('click',()=>i.click()); z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('dragover');}); z.addEventListener('dragleave',()=>z.classList.remove('dragover')); z.addEventListener('drop',async e=>{e.preventDefault();z.classList.remove('dragover');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))await handleUpload(f,z,onUp);}); i.addEventListener('change',async e=>{const f=e.target.files[0];if(f)await handleUpload(f,z,onUp);}); }
+        async function handleUpload(file,zone,cb){if(file.size>10*1024*1024){showToast('图片不能超过10MB','error');return;}try{const b=await fileToBase64(file);zone.classList.add('has-image');zone.innerHTML=`<img src="data:image/jpeg;base64,${b}" class="preview-image" alt="预览">`;cb(b);}catch(e){showToast('上传失败','error');}}
+
+        setupUpload('upload-zone','file-input',b=>{state.copyImage=b;document.getElementById('generate-copy-btn').disabled=false;});
+        document.getElementById('generate-copy-btn').addEventListener('click',async()=>{if(!state.copyImage){showToast('请上传图片','error');return;}showLoading('正在生成文案...');try{const d=await apiCall('/api/generate-all-copies',{image:state.copyImage,product_name:document.getElementById('product-name').value.trim()});if(d.success)displayCopies(d);else showToast(d.error||'生成失败','error');}catch(e){showToast(e.message,'error');}finally{hideLoading();}});
+        function displayCopies(d){
+            latestCopyData = d;
+            const c=document.getElementById('copy-results');
+            c.innerHTML=`<div class="copy-card"><div class="copy-card-header"><span class="badge badge-tech">💻 技术控</span><div><button class="btn btn-sm btn-outline" onclick="copyT(this,'${esc(d.tech)}')">📋 复制</button><button class="btn btn-sm btn-success" onclick="applyToPublish('copy', 0)" style="margin-left:0.5rem">🚀 发布</button></div></div><div class="copy-content">${esc(d.tech)}</div></div><div class="copy-card"><div class="copy-card-header"><span class="badge badge-story">📖 故事</span><div><button class="btn btn-sm btn-outline" onclick="copyT(this,'${esc(d.story)}')">📋 复制</button><button class="btn btn-sm btn-success" onclick="applyToPublish('copy', 1)" style="margin-left:0.5rem">🚀 发布</button></div></div><div class="copy-content">${esc(d.story)}</div></div><div class="copy-card"><div class="copy-card-header"><span class="badge badge-minimal">⚡ 极简</span><div><button class="btn btn-sm btn-outline" onclick="copyT(this,'${esc(d.minimal)}')">📋 复制</button><button class="btn btn-sm btn-success" onclick="applyToPublish('copy', 2)" style="margin-left:0.5rem">🚀 发布</button></div></div><div class="copy-content">${esc(d.minimal)}</div></div>`;
+            showToast('生成成功！','success');
+        }
+        function esc(t){return t.replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+        function copyT(btn,text){const t=text.replace(/\\n/g,'\n').replace(/\\'/g,"'");navigator.clipboard.writeText(t).then(()=>{btn.innerHTML='✅ 已复制';setTimeout(()=>btn.innerHTML='📋 复制',2000);});}
+        
+        // Apply to publish page
+        let latestCopyData = null;
+        let latestPromoData = null;
+        
+        function applyToPublish(type, index) {
+            let params = new URLSearchParams();
+            
+            if (type === 'copy' && latestCopyData) {
+                const texts = [latestCopyData.tech, latestCopyData.story, latestCopyData.minimal];
+                const selectedText = texts[index] || texts[0];
+                // Extract product info from the text if possible
+                const lines = selectedText.split('\n');
+                const firstLine = lines[0] || '';
+                // Use the first line as title, rest as description
+                const title = firstLine.length > 50 ? firstLine.substring(0, 50) : firstLine;
+                const desc = selectedText;
+                params.set('title', encodeURIComponent(title));
+                params.set('desc', encodeURIComponent(desc));
+                if (latestCopyData.price) params.set('price', latestCopyData.price);
+                if (latestCopyData.category) params.set('category', latestCopyData.category);
+            } else if (type === 'promo' && latestPromoData) {
+                const p = state.currentPlatform;
+                const txt = latestPromoData[p] || '';
+                params.set('desc', encodeURIComponent(txt));
+            } else if (type === 'image') {
+                // Apply from image analysis
+                const productName = document.getElementById('product-name')?.value || '';
+                const desc = window.lastImageAnalysis || '';
+                if (productName) params.set('title', encodeURIComponent(productName));
+                if (desc) params.set('desc', encodeURIComponent(desc));
+            }
+            
+            window.location.href = '/publish?' + params.toString();
+        }
+
+        let guideImg=null;
+        setupUpload('guide-upload-zone','guide-file-input',b=>{guideImg=b;const btn=document.getElementById('analyze-guide-btn');btn.classList.remove('hidden');btn.disabled=false;});
+        document.getElementById('analyze-guide-btn').addEventListener('click',async()=>{if(!guideImg){showToast('请上传照片','error');return;}showLoading('正在分析...');addMsg('📷 收到照片...','user');try{const d=await apiCall('/api/analyze-image',{image:guideImg,context:'photography_guide'},30000);if(d.success)addMsg(d.analysis,'ai');else showToast(d.error,'error');}catch(e){showToast(e.message,'error');addMsg('⚠️ 分析失败','ai');}finally{hideLoading();}});
+
+        const v=document.getElementById('camera-video'),c=document.getElementById('camera-canvas'),ph=document.getElementById('camera-placeholder');
+        document.getElementById('start-guide-btn').addEventListener('click',startCam);
+        document.getElementById('stop-guide-btn').addEventListener('click',stopCam);
+        document.getElementById('capture-btn').addEventListener('click',cap);
+        async function startCam(){try{const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:1280,height:960}});state.cameraStream=s;v.srcObject=s;v.classList.remove('hidden');c.classList.remove('hidden');ph.classList.add('hidden');document.getElementById('start-guide-btn').classList.add('hidden');document.getElementById('stop-guide-btn').classList.remove('hidden');document.getElementById('capture-btn').classList.remove('hidden');state.captureInterval=setInterval(analyze,2000);addMsg('🎥 摄像头已启动...','ai');}catch(e){showToast('无法访问摄像头','error');}}
+        function stopCam(){if(state.cameraStream)state.cameraStream.getTracks().forEach(t=>t.stop());if(state.captureInterval)clearInterval(state.captureInterval);state.cameraStream=null;v.srcObject=null;v.classList.add('hidden');c.classList.add('hidden');ph.classList.remove('hidden');document.getElementById('start-guide-btn').classList.remove('hidden');document.getElementById('stop-guide-btn').classList.add('hidden');document.getElementById('capture-btn').classList.add('hidden');addMsg('⏹️ 已停止','ai');}
+        async function analyze(){if(!state.isGuiding||!state.cameraStream)return;const ctx=c.getContext('2d');c.width=v.videoWidth;c.height=v.videoHeight;ctx.drawImage(v,0,0);const img=c.toDataURL('image/jpeg',0.8).split(',')[1];try{const d=await apiCall('/api/analyze-image',{image:img,context:'photography_guide'},30000);if(d.success)addMsg(d.analysis,'ai');}catch(e){addMsg('⚠️ 分析超时...','ai');}}
+        async function cap(){showLoading('保存中...');const ctx=c.getContext('2d');c.width=v.videoWidth;c.height=v.videoHeight;ctx.drawImage(v,0,0);const img=c.toDataURL('image/jpeg',0.9).split(',')[1];try{const d=await apiCall('/api/save-image',{image:img});if(d.success){showToast('已保存！','success');addMsg('📸 已保存！','ai');}}catch(e){showToast(e.message,'error');}finally{hideLoading();}}
+        function addMsg(text,type){const m=document.getElementById('chat-messages');const b=document.createElement('div');b.className=`chat-bubble ${type}`;b.textContent=text;m.appendChild(b);m.scrollTop=m.scrollHeight;}
+
+        setupUpload('promo-upload-zone','promo-file-input',b=>{state.promoImage=b;document.getElementById('generate-promo-btn').disabled=false;});
+        document.querySelectorAll('.platform-tab').forEach(t=>{t.addEventListener('click',()=>{document.querySelectorAll('.platform-tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');state.currentPlatform=t.dataset.platform;if(window.pr)displayPromo(window.pr);});});
+        document.getElementById('generate-promo-btn').addEventListener('click',async()=>{if(!state.promoImage){showToast('请上传图片','error');return;}showLoading('生成中...');try{const d=await apiCall('/api/generate-all-promotions',{image:state.promoImage,product_name:document.getElementById('promo-product-name').value.trim(),price:document.getElementById('promo-price').value.trim()});if(d.success){window.pr=d;latestPromoData=d;displayPromo(d);}else showToast(d.error,'error');}catch(e){showToast(e.message,'error');}finally{hideLoading();}});
+        function displayPromo(d){
+            latestPromoData = d;
+            const con=document.getElementById('promo-results');
+            const p=state.currentPlatform;
+            const txt=d[p];
+            const promoPrice = document.getElementById('promo-price')?.value || '';
+            const promoName = document.getElementById('promo-product-name')?.value || '';
+            if(p==='xiaohongshu'){
+                const tags=txt.match(/#[\w\u4e00-\u9fa5]+/g)||[];
+                const lines=txt.replace(/#[\w\u4e00-\u9fa5]+/g,'').trim().split('\n');
+                con.innerHTML=`<div class="phone-preview"><div class="phone-header">小红书</div><div class="phone-content"><b>${esc(lines[0]||'好物分享')}</b><br><br>${esc(lines.slice(1).join('\n').trim())}<br>${tags.map(t=>`<span style="color:var(--primary)">${esc(t)}</span>`).join(' ')}</div></div><div style="display:flex;gap:0.5rem;margin-top:1rem"><button class="btn btn-primary" onclick="navigator.clipboard.writeText('${esc(txt)}').then(()=>showToast('已复制！','success'))"><span>📋</span> 复制</button><button class="btn btn-success" onclick="applyToPublish('promo', 0)"><span>🚀</span> 发布</button></div>`;
+            }else if(p==='moments'){
+                con.innerHTML=`<div class="phone-preview"><div class="phone-header">朋友圈</div><div class="phone-content"><div style="background:#f7f7f7;padding:1rem;border-radius:0.5rem">${esc(txt)}</div><div style="display:flex;gap:1rem;margin-top:1rem;padding-top:0.75rem;border-top:1px solid #eee;color:var(--text-light)"><span>👍 赞</span><span>💬 评论</span><span>↗️ 分享</span></div></div></div><div style="display:flex;gap:0.5rem;margin-top:1rem"><button class="btn btn-primary" onclick="navigator.clipboard.writeText('${esc(txt)}').then(()=>showToast('已复制！','success'))"><span>📋</span> 复制</button><button class="btn btn-success" onclick="applyToPublish('promo', 0)"><span>🚀</span> 发布</button></div>`;
+            }else{
+                con.innerHTML=`<div style="background:#f5f5f5;padding:1rem;border-radius:0.5rem;font-family:monospace;white-space:pre-wrap">${esc(txt)}</div><div style="display:flex;gap:0.5rem;margin-top:1rem"><button class="btn btn-primary" onclick="navigator.clipboard.writeText('${esc(txt)}').then(()=>showToast('已复制！','success'))"><span>📋</span> 复制</button><button class="btn btn-success" onclick="applyToPublish('promo', 0)"><span>🚀</span> 发布</button></div>`;
+            }
+            showToast('生成成功！','success');
+        }
+    </script>
+</body>
+</html>

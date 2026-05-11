@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录/注册 - 闲置好物</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0;
+        }
+        body { 
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif; 
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #EC4899 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background Decorations */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -5%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -15%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+        }
+
+        .auth-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1200px;
+            gap: 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left Side - Branding */
+        .branding {
+            flex: 1;
+            max-width: 500px;
+            color: white;
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .branding { display: block; }
+        }
+        .branding-logo { font-size: 3.5rem; margin-bottom: 1.5rem; }
+        .branding-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
+        .branding-desc { font-size: 1.1rem; opacity: 0.9; line-height: 1.8; }
+        .branding-features { margin-top: 2.5rem; }
+        .branding-feature { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; font-size: 1rem; }
+        .branding-feature-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        /* Right Side - Auth Card */
+        .auth-card-wrapper {
+            flex-shrink: 0;
+        }
+        .auth-card { 
+            background: white; 
+            border-radius: 1.5rem; 
+            padding: 2.5rem 3rem; 
+            width: 100%; 
+            max-width: 420px; 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); 
+        }
+        
+        .logo { text-align: center; margin-bottom: 2rem; }
+        .logo-icon { font-size: 3.5rem; margin-bottom: 0.75rem; }
+        .logo-text { font-size: 1.75rem; font-weight: 800; color: var(--text); }
+        .logo-sub { font-size: 0.95rem; color: var(--text-light); margin-top: 0.35rem; }
+
+        .tabs { display: flex; gap: 0.75rem; margin-bottom: 2rem; }
+        .tab { flex: 1; padding: 0.875rem; text-align: center; border: none; background: var(--bg); border-radius: 0.875rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; color: var(--text-light); }
+        .tab.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-label { display: block; font-size: 0.95rem; color: var(--text); margin-bottom: 0.6rem; font-weight: 500; }
+        .input-wrapper { position: relative; }
+        .form-input { width: 100%; padding: 1rem 1.125rem; border: 2px solid var(--border); border-radius: 0.875rem; font-size: 1rem; transition: all 0.3s; background: white; }
+        .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+        .input-wrapper .form-input { padding-right: 3rem; }
+        .toggle-password { position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.2rem; opacity: 0.4; transition: opacity 0.2s; padding: 0.25rem; }
+        .toggle-password:hover { opacity: 1; }
+
+        .submit-btn { width: 100%; padding: 1.125rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 0.875rem; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
+        .submit-btn:disabled { background: var(--text-light); cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .back-link { display: block; text-align: center; margin-top: 1.75rem; color: var(--text-light); text-decoration: none; font-size: 0.95rem; }
+        .back-link:hover { color: var(--primary); }
+
+        .message { padding: 1rem; border-radius: 0.875rem; margin-bottom: 1.25rem; text-align: center; font-size: 0.95rem; display: none; }
+        .message.error { background: rgba(239,68,68,0.1); color: var(--error); display: block; }
+        .message.success { background: rgba(16,185,129,0.1); color: var(--success); display: block; }
+
+        .loading { display: inline-block; width: 20px; height: 20px; border: 2px solid white; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="auth-wrapper">
+        <!-- Branding -->
+        <div class="branding">
+            <div class="branding-logo">🛒</div>
+            <div class="branding-title">闲置好物<br>让闲置流动起来</div>
+            <div class="branding-desc">
+                一个专注于二手物品交易的平台，让你的闲置物品找到新主人，开启绿色环保的生活方式。
+            </div>
+            <div class="branding-features">
+                <div class="branding-feature">
+                    <div class="branding-feature-icon">📦</div>
+                    <span>海量商品选择</span>
+                </div>
+                <div class="branding-feature">
+                    <div class="branding-feature-icon">🤖</div>
+                    <span>AI智能描述生成</span>
+                </div>
+                <div class="branding-feature">
+                    <div class="branding-feature-icon">🔍</div>
+                    <span>智能比价功能</span>
+                </div>
+                <div class="branding-feature">
+                    <div class="branding-feature-icon">💬</div>
+                    <span>实时聊天沟通</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Card -->
+        <div class="auth-card-wrapper">
+            <div class="auth-card">
+                <div class="logo">
+                    <div class="logo-icon">🛒</div>
+                    <div class="logo-text">闲置好物</div>
+                    <div class="logo-sub">让闲置找到新主人</div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active" id="login-tab" onclick="switchTab('login')">登录</button>
+                    <button class="tab" id="register-tab" onclick="switchTab('register')">注册</button>
+                </div>
+
+                <div class="message" id="message"></div>
+
+                <!-- Login Form -->
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label">用户名 / UID</label>
+                        <input type="text" class="form-input" id="login-uid" placeholder="输入用户名或UID" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" id="login-password" placeholder="输入密码" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('login-password')">👁️</button>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn" id="login-btn">登录</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="register-form" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="register-username" placeholder="设置用户名（2-20字符）" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" id="register-password" placeholder="设置密码（至少6位）" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('register-password')">👁️</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">头像</label>
+                        <select class="form-input" id="register-avatar" style="cursor: pointer;">
+                            <option value="😊">😊</option><option value="😎">😎</option><option value="🤡">🤡</option>
+                            <option value="👻">👻</option><option value="🤖">🤖</option><option value="😺">😺</option>
+                            <option value="🐶">🐶</option><option value="🐼">🐼</option><option value="🦊">🦊</option>
+                            <option value="🦁">🦁</option><option value="🌟">🌟</option><option value="💎">💎</option>
+                            <option value="🚀">🚀</option><option value="🎸">🎸</option><option value="🎮">🎮</option>
+                            <option value="⚽">⚽</option><option value="🍎">🍎</option><option value="🌸">🌸</option>
+                            <option value="🍀">🍀</option><option value="🦋">🦋</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="register-btn">注册</button>
+                </form>
+
+                <a href="/" class="back-link">← 返回首页</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+            document.getElementById('register-form').style.display = tab === 'register' ? 'block' : 'none';
+            document.getElementById('login-tab').classList.toggle('active', tab === 'login');
+            document.getElementById('register-tab').classList.toggle('active', tab === 'register');
+            document.getElementById('message').style.display = 'none';
+        }
+
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = 'message ' + type;
+        }
+
+        function setLoading(btn, loading) {
+            btn.disabled = loading;
+            btn.innerHTML = loading ? '<span class="loading"></span>' : (btn.id === 'login-btn' ? '登录中...' : '注册中...');
+        }
+
+        // 登录表单提交
+        async function handleLogin(e) {
+            e.preventDefault();
+            const btn = document.getElementById('login-btn');
+            const username = document.getElementById('login-uid').value.trim();
+            const password = document.getElementById('login-password').value;
+            console.log('登录:', username);
+
+            if (!username || !password) { showMessage('请填写完整', 'error'); return; }
+
+            setLoading(btn, true);
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                console.log('登录响应状态:', res.status);
+                const data = await res.json();
+                console.log('登录响应:', data);
+                
+                if (data.success) {
+                    if (data.token) localStorage.setItem('auth_token', data.token);
+                    if (data.user) localStorage.setItem('user_uid', data.user.uid);
+                    showMessage('登录成功！正在跳转...', 'success');
+                    setTimeout(() => location.href = '/', 800);
+                } else {
+                    showMessage(data.error || '登录失败', 'error');
+                    setLoading(btn, false);
+                }
+            } catch (e) {
+                console.error('登录错误:', e);
+                showMessage('网络错误: ' + e.message, 'error');
+                setLoading(btn, false);
+            }
+        }
+
+        // 注册表单提交
+        async function handleRegister(e) {
+            e.preventDefault();
+            const btn = document.getElementById('register-btn');
+            const username = document.getElementById('register-username').value.trim();
+            const password = document.getElementById('register-password').value;
+            const avatar = document.getElementById('register-avatar').value;
+            console.log('注册:', username);
+
+            if (!username || !password) { showMessage('请填写完整', 'error'); return; }
+            if (username.length < 2) { showMessage('用户名至少2个字符', 'error'); return; }
+            if (password.length < 6) { showMessage('密码至少6位', 'error'); return; }
+
+            setLoading(btn, true);
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, avatar })
+                });
+                console.log('注册响应状态:', res.status);
+                const data = await res.json();
+                console.log('注册响应:', data);
+                
+                if (data.success) {
+                    // 注册成功后自动登录
+                    const loginRes = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const loginData = await loginRes.json();
+                    
+                    if (loginData.success && loginData.token) {
+                        localStorage.setItem('auth_token', loginData.token);
+                        localStorage.setItem('user_uid', loginData.user.uid);
+                    }
+                    showMessage('注册成功！正在跳转...', 'success');
+                    setTimeout(() => location.href = '/', 800);
+                } else {
+                    showMessage(data.error || '注册失败', 'error');
+                    setLoading(btn, false);
+                }
+            } catch (e) {
+                console.error('注册错误:', e);
+                showMessage('网络错误: ' + e.message, 'error');
+                setLoading(btn, false);
+            }
+        }
+
+        // 绑定表单提交事件
+        document.getElementById('login-form').onsubmit = handleLogin;
+        document.getElementById('register-form').onsubmit = handleRegister;
+    </script>
+</body>
+</html>

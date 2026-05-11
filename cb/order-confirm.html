@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>确认订单 - 闲置好物</title>
+    <script src="/auth-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+
+        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 0.875rem 1rem; position: sticky; top: 0; z-index: 99; }
+        .header-content { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-size: 0.9rem; }
+        .page-title { font-size: 1.1rem; font-weight: 600; }
+
+        .main { max-width: 800px; margin: 0 auto; padding: 1rem; padding-bottom: 100px; }
+
+        .card { background: white; border-radius: 1rem; padding: 1.25rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+
+        .section-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        .product-info { display: flex; gap: 1rem; }
+        .product-img { width: 80px; height: 80px; border-radius: 0.5rem; object-fit: cover; background: var(--bg); }
+        .product-detail { flex: 1; }
+        .product-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .product-price { color: var(--error); font-size: 1.1rem; font-weight: 600; }
+
+        .address-box { background: var(--bg); border-radius: 0.5rem; padding: 1rem; cursor: pointer; transition: all 0.2s; }
+        .address-box:hover { background: var(--border); }
+        .address-box.has-address { border-left: 3px solid var(--primary); }
+        .address-box.empty { text-align: center; color: var(--text-light); }
+        .address-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .address-name { font-weight: 600; }
+        .address-phone { color: var(--text-light); font-size: 0.9rem; }
+        .address-detail { font-size: 0.9rem; color: var(--text-light); }
+        .change-btn { color: var(--primary); font-size: 0.9rem; }
+
+        .summary-row { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-label { color: var(--text-light); }
+        .summary-value { font-weight: 500; }
+        .summary-total { color: var(--error); font-size: 1.2rem; font-weight: 700; }
+
+        .action-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 1rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; max-width: 800px; margin: 0 auto; }
+        .total-price { flex: 1; font-size: 1.1rem; font-weight: 600; }
+        .total-price span { color: var(--error); font-size: 1.3rem; }
+        .btn { padding: 0.875rem 2rem; border: none; border-radius: 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .btn-primary { background: var(--error); color: white; }
+        .btn-primary:hover { background: #dc2626; }
+        .btn-primary:disabled { background: var(--text-light); cursor: not-allowed; }
+
+        .loading { text-align: center; padding: 3rem; color: var(--text-light); }
+
+        /* 地址选择弹窗 */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: flex-end; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: white; width: 100%; max-width: 500px; border-radius: 1.5rem 1.5rem 0 0; padding: 1.5rem; animation: slideUp 0.3s ease; max-height: 80vh; overflow-y: auto; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-title { font-size: 1.1rem; font-weight: 600; }
+        .modal-close { width: 36px; height: 36px; background: var(--bg); border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+
+        .address-option { background: var(--bg); border-radius: 0.5rem; padding: 1rem; margin-bottom: 0.75rem; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .address-option.selected { border-color: var(--primary); background: rgba(99,102,241,0.05); }
+        .address-option:hover { background: var(--border); }
+        .address-option-name { font-weight: 600; margin-bottom: 0.25rem; }
+        .address-option-phone { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.25rem; }
+        .address-option-detail { font-size: 0.85rem; color: var(--text-light); }
+
+        .add-address-btn { display: block; width: 100%; padding: 1rem; background: white; border: 2px dashed var(--border); border-radius: 0.5rem; text-align: center; color: var(--primary); cursor: pointer; font-size: 0.9rem; }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-size: 0.9rem; margin-bottom: 0.5rem; color: var(--text-light); }
+        .form-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 0.5rem; font-size: 0.95rem; }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        .form-row { display: flex; gap: 1rem; }
+        .form-row .form-group { flex: 1; }
+        .btn-row { display: flex; gap: 1rem; margin-top: 1rem; }
+        .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="goBack()">←</button>
+            <span class="page-title">确认订单</span>
+            <div style="width: 60px;"></div>
+        </div>
+    </header>
+
+    <main class="main" id="main">
+        <div class="loading">加载中...</div>
+    </main>
+
+    <div class="action-bar" id="actionBar" style="display: none;">
+        <div class="total-price">合计：<span id="totalPrice">¥0</span></div>
+        <button class="btn btn-primary" id="submitBtn" onclick="submitOrder()">提交订单</button>
+    </div>
+
+    <!-- 地址选择弹窗 -->
+    <div class="modal-overlay" id="addressModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">选择收货地址</span>
+                <button class="modal-close" onclick="closeAddressModal()">×</button>
+            </div>
+            <div id="addressList"></div>
+            <div class="add-address-btn" onclick="showAddAddressForm()">+ 新增收货地址</div>
+        </div>
+    </div>
+
+    <!-- 新增地址表单 -->
+    <div class="modal-overlay" id="addAddressModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">新增收货地址</span>
+                <button class="modal-close" onclick="closeAddAddressModal()">×</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">收货人姓名</label>
+                <input type="text" class="form-input" id="nameInput" placeholder="请输入收货人姓名">
+            </div>
+            <div class="form-group">
+                <label class="form-label">手机号码</label>
+                <input type="tel" class="form-input" id="phoneInput" placeholder="请输入手机号码" maxlength="11">
+            </div>
+            <div class="form-group">
+                <label class="form-label">省份</label>
+                <input type="text" class="form-input" id="provinceInput" placeholder="如：广东省">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">城市</label>
+                    <input type="text" class="form-input" id="cityInput" placeholder="如：深圳市">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">区县</label>
+                    <input type="text" class="form-input" id="districtInput" placeholder="如：南山区">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">详细地址</label>
+                <input type="text" class="form-input" id="detailInput" placeholder="请输入详细地址">
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-secondary" onclick="closeAddAddressModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveAddress()">保存地址</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let product = null;
+        let addresses = [];
+        let selectedAddressId = null;
+
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginAndLoad();
+        });
+
+        async function checkLoginAndLoad() {
+            const loggedIn = await checkLoggedIn();
+            if (!loggedIn) {
+                window.location.href = '/auth';
+                return;
+            }
+            
+            const orderId = getQueryParam('id');
+            const productId = getQueryParam('product_id');
+            
+            if (orderId) {
+                // 从订单ID加载商品信息
+                await loadOrderById(orderId);
+            } else if (productId) {
+                // 直接从商品ID加载
+                await Promise.all([loadProduct(productId), loadAddresses()]);
+            } else {
+                document.getElementById('main').innerHTML = '<div class="loading">缺少商品信息</div>';
+                return;
+            }
+        }
+        
+        async function loadOrderById(orderId) {
+            try {
+                const res = await authFetch(`/api/orders/${orderId}`);
+                const data = await res.json();
+                
+                if (data.success && data.order) {
+                    const order = data.order;
+                    // 从订单中获取商品信息
+                    product = {
+                        id: order.product_id,
+                        title: order.product_title,
+                        price: order.product_price,
+                        images: order.product_image
+                    };
+                    await loadAddresses();
+                    renderPage();
+                } else {
+                    document.getElementById('main').innerHTML = '<div class="loading">订单不存在</div>';
+                }
+            } catch (e) {
+                document.getElementById('main').innerHTML = '<div class="loading">加载失败</div>';
+            }
+        }
+
+        async function loadProduct(productId) {
+            try {
+                const res = await authFetch(`/api/product/${productId}`);
+                const data = await res.json();
+                
+                if (data.success && data.product) {
+                    product = data.product;
+                    renderPage();
+                } else {
+                    document.getElementById('main').innerHTML = '<div class="loading">商品不存在</div>';
+                }
+            } catch (e) {
+                document.getElementById('main').innerHTML = '<div class="loading">加载失败</div>';
+            }
+        }
+
+        async function loadAddresses() {
+            try {
+                const res = await authFetch('/api/addresses');
+                const data = await res.json();
+                
+                if (data.success) {
+                    addresses = data.addresses || [];
+                    // 选择默认地址
+                    const defaultAddr = addresses.find(a => a.is_default);
+                    selectedAddressId = defaultAddr ? defaultAddr.id : (addresses.length > 0 ? addresses[0].id : null);
+                    renderPage();
+                }
+            } catch (e) {
+                console.error('加载地址失败', e);
+            }
+        }
+
+        function renderPage() {
+            if (!product) return;
+            
+            const container = document.getElementById('main');
+            const selectedAddr = addresses.find(a => a.id === selectedAddressId);
+            
+            container.innerHTML = `
+                <!-- 商品信息 -->
+                <div class="card">
+                    <div class="section-title">商品信息</div>
+                    <div class="product-info">
+                        <img class="product-img" src="${getProductImage()}" alt="">
+                        <div class="product-detail">
+                            <div class="product-title">${product.title}</div>
+                            <div class="product-price">¥${product.price}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 收货地址 -->
+                <div class="card">
+                    <div class="section-title">收货地址</div>
+                    <div class="address-box ${selectedAddr ? 'has-address' : 'empty'}" onclick="showAddressModal()">
+                        ${selectedAddr ? `
+                            <div class="address-header">
+                                <span class="address-name">${selectedAddr.name}</span>
+                                <span class="address-phone">${selectedAddr.phone}</span>
+                            </div>
+                            <div class="address-detail">${selectedAddr.full_address}</div>
+                            <div class="change-btn">更换地址 ›</div>
+                        ` : `
+                            <div>+ 添加收货地址</div>
+                        `}
+                    </div>
+                </div>
+
+                <!-- 订单摘要 -->
+                <div class="card">
+                    <div class="section-title">订单摘要</div>
+                    <div class="summary-row">
+                        <span class="summary-label">商品价格</span>
+                        <span class="summary-value">¥${product.price}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">运费</span>
+                        <span class="summary-value">包邮</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">合计</span>
+                        <span class="summary-total">¥${product.price}</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('totalPrice').textContent = '¥' + product.price;
+            document.getElementById('actionBar').style.display = 'flex';
+        }
+
+        function getProductImage() {
+            if (product.images) {
+                const images = typeof product.images === 'string' ? JSON.parse(product.images) : product.images;
+                return images[0] || 'https://picsum.photos/80/80';
+            }
+            return `https://picsum.photos/80/80?${product.id}`;
+        }
+
+        function showAddressModal() {
+            renderAddressList();
+            document.getElementById('addressModal').classList.add('show');
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addressModal').classList.remove('show');
+        }
+
+        function renderAddressList() {
+            const container = document.getElementById('addressList');
+            
+            if (addresses.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-light);">暂无收货地址</div>';
+                return;
+            }
+
+            container.innerHTML = addresses.map(addr => `
+                <div class="address-option ${addr.id === selectedAddressId ? 'selected' : ''}" onclick="selectAddress(${addr.id})">
+                    <div class="address-option-name">${addr.name} ${addr.is_default ? '<span style="color: var(--primary); font-size: 0.8rem;">[默认]</span>' : ''}</div>
+                    <div class="address-option-phone">${addr.phone}</div>
+                    <div class="address-option-detail">${addr.full_address}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectAddress(id) {
+            selectedAddressId = id;
+            closeAddressModal();
+            renderPage();
+        }
+
+        function showAddAddressForm() {
+            closeAddressModal();
+            document.getElementById('addAddressModal').classList.add('show');
+        }
+
+        function closeAddAddressModal() {
+            document.getElementById('addAddressModal').classList.remove('show');
+            // 清空表单
+            document.getElementById('nameInput').value = '';
+            document.getElementById('phoneInput').value = '';
+            document.getElementById('provinceInput').value = '';
+            document.getElementById('cityInput').value = '';
+            document.getElementById('districtInput').value = '';
+            document.getElementById('detailInput').value = '';
+        }
+
+        async function saveAddress() {
+            const name = document.getElementById('nameInput').value.trim();
+            const phone = document.getElementById('phoneInput').value.trim();
+            const province = document.getElementById('provinceInput').value.trim();
+            const city = document.getElementById('cityInput').value.trim();
+            const district = document.getElementById('districtInput').value.trim();
+            const detail = document.getElementById('detailInput').value.trim();
+
+            if (!name || !phone || !province || !city || !district || !detail) {
+                alert('请填写完整的收货信息');
+                return;
+            }
+
+            try {
+                const res = await authFetch('/api/addresses', {
+                    method: 'POST',
+                    body: JSON.stringify({ name, phone, province, city, district, detail })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    closeAddAddressModal();
+                    await loadAddresses();
+                } else {
+                    alert(data.error || '保存失败');
+                }
+            } catch (e) {
+                alert('网络错误');
+            }
+        }
+
+        async function submitOrder() {
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.textContent = '提交中...';
+
+            try {
+                const res = await authFetch('/api/orders', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        product_id: product.id,
+                        address_id: selectedAddressId
+                    })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('订单已提交！');
+                    window.location.href = '/orders';
+                } else {
+                    alert(data.error || '提交失败');
+                    btn.disabled = false;
+                    btn.textContent = '提交订单';
+                }
+            } catch (e) {
+                alert('网络错误');
+                btn.disabled = false;
+                btn.textContent = '提交订单';
+            }
+        }
+
+        async function checkLoggedIn() {
+            const token = localStorage.getItem('auth_token');
+            if (!token) return false;
+            
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                return data.success === true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

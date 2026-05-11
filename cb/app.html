@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布闲置 - 二手物品转售助手</title>
+    <script src="/auth-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 1rem 2rem; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.75rem; }
+        .logo-icon { font-size: 1.75rem; }
+        .header-nav { display: flex; gap: 1rem; }
+        .nav-btn { padding: 0.625rem 1.25rem; background: rgba(255,255,255,0.15); border: none; border-radius: 2rem; color: white; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .nav-btn:hover { background: rgba(255,255,255,0.25); }
+        .nav-btn.active { background: white; color: var(--primary); }
+
+        /* Main */
+        .main { max-width: 1400px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+        /* Page */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Desktop Layout */
+        @media (min-width: 1024px) {
+            .page { display: none; }
+            .page.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .page .card { margin-bottom: 0; }
+        }
+
+        /* Card */
+        .card { background: var(--card-bg); border-radius: 1.25rem; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+        .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+
+        /* Upload */
+        .upload-zone { border: 2px dashed var(--border); border-radius: 1rem; padding: 3rem 2rem; text-align: center; cursor: pointer; background: linear-gradient(135deg, #f8fafc, #f0f4ff); transition: all 0.3s; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .upload-zone:hover { border-color: var(--primary); background: rgba(99,102,241,0.05); }
+        .upload-zone.has-image { padding: 1.5rem; border-style: solid; border-color: var(--success); }
+        /* 去掉视频相关样式 */
+        /* 去掉预览视频样式 */
+        .upload-zone.dragover { border-color: var(--primary); background: rgba(99,102,241,0.1); }
+        .upload-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .upload-text { color: var(--text-light); margin-bottom: 0.5rem; font-size: 1rem; }
+        .upload-hint { font-size: 0.85rem; color: var(--text-light); }
+        .preview-img { max-width: 100%; max-height: 320px; border-radius: 0.875rem; object-fit: contain; }
+        .remove-btn { position: absolute; top: 0.5rem; right: 0.5rem; width: 32px; height: 32px; border-radius: 50%; background: var(--error); color: white; border: none; cursor: pointer; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; }
+        .preview-wrapper { position: relative; display: inline-block; }
+        /* 多图预览 */
+        .preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.75rem; width: 100%; }
+        .preview-item { position: relative; aspect-ratio: 1; border-radius: 0.75rem; overflow: hidden; background: var(--bg); }
+        .preview-item img { width: 100%; height: 100%; object-fit: cover; }
+        .preview-badge { position: absolute; top: 4px; left: 4px; background: var(--primary); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 8px; font-weight: 600; }
+        .preview-remove { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; background: rgba(0,0,0,0.6); color: white; border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
+        .preview-item:hover .preview-remove { opacity: 1; }
+        .preview-add { aspect-ratio: 1; border: 2px dashed var(--border); border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: var(--text-light); transition: all 0.2s; }
+        .preview-add:hover { border-color: var(--primary); color: var(--primary); }
+        .preview-add span { font-size: 1.5rem; }
+        .preview-add small { font-size: 0.75rem; }
+        /* 缩略图 */
+        .thumb-container { display: flex; gap: 0.5rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem; border: 2px solid var(--border); }
+
+        /* Form */
+        .form-group { margin-bottom: 1rem; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 0.6rem; color: var(--text); }
+        .form-input { width: 100%; padding: 0.875rem 1rem; border: 2px solid var(--border); border-radius: 0.875rem; font-size: 1rem; background: white; transition: all 0.3s; }
+        .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.1); }
+        textarea.form-input { resize: vertical; min-height: 100px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+        /* Button */
+        .btn { padding: 0.875rem 1.75rem; border: none; border-radius: 0.875rem; font-size: 1rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; font-weight: 600; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(99,102,241,0.4); }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .btn-success { background: linear-gradient(135deg, var(--success), #34D399); color: white; box-shadow: 0 4px 15px rgba(16,185,129,0.35); }
+        .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(16,185,129,0.4); }
+        .btn-warning { background: linear-gradient(135deg, var(--warning), #FBBF24); color: white; }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); background: rgba(99,102,241,0.05); }
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-full { width: 100%; }
+        .btn-lg { padding: 1.125rem 2rem; font-size: 1.1rem; }
+
+        /* Step Indicator */
+        .step-indicator { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; }
+        .step { display: flex; align-items: center; gap: 0.5rem; }
+        .step-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.9rem; background: var(--border); color: var(--text-light); transition: all 0.3s; }
+        .step.active .step-num { background: var(--primary); color: white; }
+        .step.done .step-num { background: var(--success); color: white; }
+        .step-label { font-size: 0.9rem; color: var(--text-light); }
+        .step.active .step-label { color: var(--primary); font-weight: 600; }
+        .step.done .step-label { color: var(--success); }
+        .step-divider { width: 40px; height: 2px; background: var(--border); }
+        .step-divider.done { background: var(--success); }
+        @media (max-width: 600px) { .step-label { display: none; } }
+
+        /* Tab */
+        .tab-nav { display: flex; gap: 0.75rem; background: var(--card-bg); padding: 0.5rem; border-radius: 1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 2rem; overflow-x: auto; }
+        .tab-btn { flex: 1; min-width: 120px; padding: 0.875rem 1rem; border: none; background: transparent; color: var(--text-light); font-size: 0.9rem; border-radius: 0.875rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; transition: all 0.3s; }
+        .tab-btn:hover { background: var(--bg); color: var(--primary); }
+        .tab-btn.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; box-shadow: 0 4px 15px rgba(99,102,241,0.35); }
+
+        /* Copy Card */
+        .copy-card { background: var(--bg); border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; }
+        .copy-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem; }
+        .badge { padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 0.25rem; }
+        .badge-tech { background: rgba(99,102,241,0.1); color: var(--primary); }
+        .badge-story { background: rgba(139,92,246,0.1); color: var(--secondary); }
+        .badge-minimal { background: rgba(16,185,129,0.1); color: var(--success); }
+        .copy-content { line-height: 1.8; white-space: pre-wrap; color: var(--text); }
+
+        /* Camera Guide */
+        .guide-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 900px) { .guide-layout { grid-template-columns: 1fr; } }
+        .camera-box { background: #000; border-radius: 1rem; overflow: hidden; aspect-ratio: 4/3; position: relative; }
+        .camera-video, .camera-canvas { width: 100%; height: 100%; object-fit: cover; }
+        .camera-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #888; background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .camera-controls { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.75rem; }
+        .camera-btn { width: 50px; height: 50px; border-radius: 50%; border: 3px solid white; background: transparent; cursor: pointer; transition: all 0.3s; }
+        .camera-btn:hover { transform: scale(1.1); }
+        .camera-btn.record { background: var(--error); }
+        .camera-btn.record.active { animation: pulse 1.5s infinite; }
+        .camera-btn.capture { background: white; }
+        @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); } 50% { box-shadow: 0 0 0 10px rgba(239,68,68,0); } }
+        .chat-container { display: flex; flex-direction: column; height: 400px; }
+        .chat-header { padding: 1rem; background: var(--bg); border-radius: 1rem 1rem 0 0; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; background: #f9fafb; }
+        .chat-bubble { max-width: 85%; padding: 1rem; border-radius: 1rem; line-height: 1.6; white-space: pre-wrap; }
+        .chat-bubble.ai { background: white; border-bottom-left-radius: 0.25rem; align-self: flex-start; box-shadow: var(--shadow); }
+        .chat-bubble.user { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-bottom-right-radius: 0.25rem; align-self: flex-end; }
+        .chat-input-area { padding: 1rem; background: var(--bg); border-radius: 0 0 1rem 1rem; display: flex; gap: 0.5rem; }
+
+        /* Confirm Page */
+        .confirm-grid { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+        @media (max-width: 900px) { .confirm-grid { grid-template-columns: 1fr; } }
+        .confirm-img { width: 100%; border-radius: 0.75rem; }
+        .info-item { background: var(--bg); border-radius: 0.75rem; padding: 1rem; margin-bottom: 0.75rem; }
+        .info-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
+        .info-label { font-weight: 500; color: var(--text-light); font-size: 0.9rem; }
+        .info-value { font-size: 1rem; margin-bottom: 0.5rem; }
+        .info-warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 0.5rem; padding: 0.75rem; margin-top: 0.5rem; color: var(--warning); font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .info-warning.hidden { display: none; }
+        .info-actions { display: flex; gap: 0.5rem; }
+        .info-btn { padding: 0.375rem 0.75rem; font-size: 0.8rem; border-radius: 0.5rem; }
+        .info-btn.confirm { background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid var(--success); }
+        .info-btn.confirm.active { background: var(--success); color: white; }
+        .info-btn.edit { background: rgba(99,102,241,0.1); color: var(--primary); border: 1px solid var(--primary); }
+        .info-btn.edit.active { background: var(--primary); color: white; }
+        .info-input { width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: 0.5rem; font-size: 0.9rem; margin-top: 0.5rem; }
+        .info-input.hidden { display: none; }
+        .confirm-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+        /* Promotion */
+        .promo-tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .promo-tab { flex: 1; padding: 0.75rem; border: 1px solid var(--border); background: white; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem; text-align: center; transition: all 0.3s; }
+        .promo-tab:hover { border-color: var(--primary); }
+        .promo-tab.active { background: var(--primary); border-color: var(--primary); color: white; }
+        .phone-preview { max-width: 320px; margin: 1rem auto; background: #fff; border: 8px solid #1a1a1a; border-radius: 2rem; overflow: hidden; }
+        .phone-header { background: #f5f5f5; padding: 0.75rem; text-align: center; font-size: 0.85rem; color: var(--text-light); border-bottom: 1px solid #e5e5e5; }
+        .phone-content { padding: 1rem; min-height: 250px; font-size: 0.9rem; line-height: 1.6; }
+        .xhs-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; color: var(--primary); font-size: 0.85rem; }
+
+        /* Tips */
+        .tips { background: rgba(99,102,241,0.05); border: 1px solid rgba(99,102,241,0.2); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; }
+        .tips-title { font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .tips-list { font-size: 0.9rem; color: var(--text-light); padding-left: 1.5rem; }
+
+        /* Modal */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+        .modal { background: white; border-radius: 1rem; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; transform: scale(0.9); transition: transform 0.3s; }
+        .modal-overlay.show .modal { transform: scale(1); }
+        .modal-header { padding: 1.25rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .modal-title { font-size: 1.1rem; font-weight: 600; }
+        .modal-close { width: 32px; height: 32px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; font-size: 1.25rem; }
+        .modal-body { padding: 1.25rem; }
+
+        /* Loading */
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2000; }
+        .loading-spinner { width: 50px; height: 50px; border: 4px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { margin-top: 1rem; color: var(--text-light); font-size: 1rem; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text); color: white; padding: 1rem 2rem; border-radius: 0.75rem; box-shadow: var(--shadow-lg); z-index: 3000; opacity: 0; transition: all 0.3s; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--error); }
+
+        .hidden { display: none !important; }
+        .input-row { display: grid; grid-template-columns: 1fr 150px; gap: 1rem; }
+        @media (max-width: 600px) { .input-row { grid-template-columns: 1fr; } }
+
+        @media (max-width: 600px) {
+            .header-nav { gap: 0.5rem; }
+            .nav-btn span { display: none; }
+            .tab-btn { min-width: 90px; padding: 0.75rem 0.5rem; font-size: 0.85rem; }
+            .tab-btn .tab-icon { display: none; }
+        }
+
+        .user-menu { position: relative; display: none; }
+        .user-menu.show { display: flex; align-items: center; gap: 0.5rem; }
+        .user-avatar-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 2px solid white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.3s; }
+        .user-avatar-btn:hover { background: rgba(255,255,255,0.3); transform: scale(1.05); }
+        .user-dropdown { position: absolute; top: 100%; right: 0; margin-top: 0.5rem; background: white; border-radius: 0.75rem; box-shadow: 0 10px 25px rgba(0,0,0,0.15); min-width: 180px; overflow: hidden; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.2s; z-index: 1000; }
+        .user-dropdown.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item { padding: 0.75rem 1rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; transition: background 0.2s; font-size: 0.9rem; }
+        .dropdown-item:hover { background: var(--bg); }
+        .dropdown-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+        
+        /* 批量发布状态 */
+        .batch-status { margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 0.75rem; display: none; }
+        .batch-status.show { display: block; }
+        .batch-status-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+        .batch-status-title { font-weight: 600; display: flex; align-items: center; gap: 0.5rem; }
+        .batch-status-count { font-size: 0.9rem; color: var(--text-light); }
+        .batch-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .batch-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: white; border-radius: 0.5rem; }
+        .batch-item-img { width: 50px; height: 50px; border-radius: 0.5rem; object-fit: cover; }
+        .batch-item-info { flex: 1; min-width: 0; }
+        .batch-item-title { font-weight: 500; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .batch-item-meta { font-size: 0.8rem; color: var(--text-light); }
+        .batch-item-status { display: flex; align-items: center; gap: 0.25rem; font-size: 0.85rem; }
+        .batch-item-status.success { color: var(--success); }
+        .batch-item-status.pending { color: var(--warning); }
+        .batch-item-status.error { color: var(--error); }
+        .batch-actions { margin-top: 1rem; display: flex; gap: 0.75rem; justify-content: center; }
+        .batch-finish-btn { padding: 0.875rem 2rem; background: linear-gradient(135deg, var(--success), #059669); color: white; border: none; border-radius: 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .batch-finish-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(16,185,129,0.35); }
+        .batch-continue-btn { padding: 0.875rem 2rem; background: var(--primary); color: white; border: none; border-radius: 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .batch-continue-btn:hover { background: var(--secondary); }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo" onclick="location.href='/'">
+                <span class="logo-icon">🎯</span>
+                发布闲置
+            </div>
+            <nav class="header-nav">
+                <button class="nav-btn" onclick="location.href='/'">🏠 首页</button>
+                <button class="nav-btn" onclick="location.href='/tools'">🛠️ AI工具箱</button>
+                <button class="nav-btn" id="login-btn" onclick="location.href='/auth'">👤 登录</button>
+                <div class="user-menu" id="user-menu">
+                    <button class="user-avatar-btn" id="user-avatar-btn" onclick="toggleDropdown()"></button>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <div class="dropdown-item" onclick="location.href='/profile'"><span>👤</span> 个人中心</div>
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" onclick="logout()"><span>🚪</span> 退出登录</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- 步骤指示器 -->
+        <div class="step-indicator">
+            <div class="step active" id="step-1">
+                <span class="step-num">1</span>
+                <span class="step-label">上传图片</span>
+            </div>
+            <div class="step-divider" id="divider-1"></div>
+            <div class="step" id="step-2">
+                <span class="step-num">2</span>
+                <span class="step-label">确认信息</span>
+            </div>
+            <div class="step-divider" id="divider-2"></div>
+            <div class="step" id="step-3">
+                <span class="step-num">3</span>
+                <span class="step-label">生成文案</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Upload & Generate -->
+        <div id="page-generate" class="page active">
+            <div class="card">
+                <h2 class="card-title"><span>📷</span>上传商品图片</h2>
+                <p style="color: var(--text-light); margin-bottom: 1rem; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">💡</span> 建议上传多张图片（正面、侧面、背面等），可提高识别准确率
+                </p>
+                <div class="upload-zone" id="upload-zone">
+                    <div class="upload-icon">🖼️</div>
+                    <p class="upload-text">拖拽图片到此处，或点击选择文件</p>
+                    <p class="upload-hint">支持 JPG、PNG 图片，建议上传多张不同角度的图片</p>
+                </div>
+                <input type="file" id="file-input" accept="image/*" multiple class="hidden">
+                <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+                    <button class="btn btn-outline" style="flex:1" onclick="goToCameraGuide()">
+                        <span>📸</span> 拍照指导
+                    </button>
+                    <button class="btn btn-outline" style="flex:1" onclick="clearAllImages()">
+                        <span>🗑️</span> 清空图片
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title"><span>📝</span>补充信息（选填）</h2>
+                <div class="tips" style="margin-bottom: 1rem;">
+                    <div class="tips-title"><span>💡</span>提示</div>
+                    <ul class="tips-list">
+                        <li>这些信息可帮助AI更准确地识别商品</li>
+                        <li>留空则由AI自动识别</li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">商品名称</label>
+                    <input type="text" id="product-name" class="form-input" placeholder="例如：iPhone 14 Pro">
+                </div>
+                <button id="analyze-btn" class="btn btn-primary btn-full btn-lg" disabled onclick="analyzeProduct()">
+                    <span>🔍</span> 开始分析商品
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Confirm Info -->
+        <div id="page-confirm" class="page">
+            <div class="card">
+                <img id="confirm-img" class="confirm-img" src="" alt="商品图片">
+                <div id="confirm-thumbs" class="thumb-container" style="display:none"></div>
+                <button class="btn btn-outline btn-full" onclick="goBack('generate')" style="margin-top: 1rem;">
+                    <span>🔄</span> 重新上传
+                </button>
+            </div>
+            <div class="card">
+                <h2 class="card-title"><span>📋</span>商品信息确认</h2>
+                <div class="tips" style="margin-bottom: 1rem;">
+                    <div class="tips-title"><span>💡</span>提示</div>
+                    <ul class="tips-list">
+                        <li>检查AI识别的信息是否正确</li>
+                        <li>点击"确认"或"修改"进行调整</li>
+                    </ul>
+                </div>
+                <div id="confirm-list"></div>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label class="form-label">💰 您的出售价格（元）</label>
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <input type="number" id="product-price" class="form-input" placeholder="请输入价格" min="0" style="flex: 1;">
+                        <span id="suggested-price-hint" style="color: var(--text-light); font-size: 0.85rem; white-space: nowrap;"></span>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <button class="btn btn-primary btn-full btn-lg" onclick="generateDescriptions()">
+                        <span>✨</span> 生成描述文案
+                    </button>
+                    <button class="btn btn-outline btn-full" onclick="publishDirectly()" id="publish-directly-btn" style="margin-top: 0.75rem; border-color: var(--success); color: var(--success); display: none;">
+                        <span>🚀</span> 快速发布
+                    </button>
+                    <button class="btn btn-outline btn-full" onclick="publishDirectlyAndContinue()" id="publish-continue-direct-btn" style="margin-top: 0.5rem; border-color: var(--success); color: var(--success); display: none;">
+                        <span>🔄</span> 快速发布并继续
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Result -->
+        <div id="page-result" class="page">
+            <div class="card">
+                <img id="result-img" class="confirm-img" src="" alt="商品图片">
+                <div style="margin-top: 1rem;">
+                    <button class="btn btn-outline btn-full" onclick="startOver()">
+                        <span>🔄</span> 重新发布
+                    </button>
+                </div>
+            </div>
+            <div class="card">
+                <h2 class="card-title"><span>📄</span>商品描述文案</h2>
+                <div id="result-info" style="font-size: 0.95rem; line-height: 1.8; background: var(--bg); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;"></div>
+                
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-style="tech"><span>💻</span>技术控</button>
+                    <button class="tab-btn" data-style="story"><span>📖</span>故事风</button>
+                    <button class="tab-btn" data-style="minimal"><span>⚡</span>极简风</button>
+                </div>
+                <div id="copy-results"></div>
+                <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <button class="btn btn-success btn-lg" onclick="publishProduct()" id="publish-btn">
+                        <span>🚀</span> 发布商品
+                    </button>
+                    <button class="btn btn-outline" onclick="showPromoModal()">
+                        <span>📢</span> 生成推广文案
+                    </button>
+                    <button class="btn btn-outline" onclick="publishAndContinue()" id="publish-continue-btn" style="border-color: var(--success); color: var(--success);">
+                        <span>🔄</span> 发布并继续
+                    </button>
+                </div>
+                <div id="batch-status" class="batch-status"></div>
+            </div>
+        </div>
+
+        <!-- Camera Guide Page -->
+        <div id="page-camera" class="page">
+            <div class="tips">
+                <div class="tips-title"><span>📸</span>拍照指导</div>
+                <ul class="tips-list">
+                    <li>点击"开始指导"启动摄像头</li>
+                    <li>系统每2秒分析取景，给出改进建议</li>
+                    <li>满意时点击"拍这张"保存并返回</li>
+                </ul>
+            </div>
+
+            <div class="guide-layout">
+                <div class="card">
+                    <h2 class="card-title"><span>💬</span>AI拍照建议</h2>
+                    <div class="chat-container">
+                        <div class="chat-header"><span>🤖</span>实时指导</div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="chat-bubble ai">👋 欢迎！点击下方"开始指导"按钮，我会实时分析你的取景，给出专业的拍照建议。</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <button id="start-cam-btn" class="btn btn-primary" style="flex:1">
+                                <span>🎥</span> 开始指导
+                            </button>
+                            <button id="stop-cam-btn" class="btn btn-outline hidden">
+                                <span>⏹️</span> 停止
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h2 class="card-title"><span>📷</span>实时取景</h2>
+                    <div class="camera-box" id="camera-box">
+                        <video id="cam-video" class="camera-video hidden" autoplay playsinline></video>
+                        <canvas id="cam-canvas" class="camera-canvas hidden"></canvas>
+                        <div class="camera-placeholder" id="cam-placeholder">
+                            <div style="font-size:4rem">📷</div>
+                            <p>点击"开始指导"启动摄像头</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                        <button id="capture-btn" class="btn btn-success btn-full hidden" disabled>
+                            <span>📸</span> 拍这张
+                        </button>
+                    </div>
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px dashed var(--border);">
+                        <h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;"><span>📁</span>或直接上传照片</h3>
+                        <div class="upload-zone" id="guide-upload-zone" style="min-height: 150px; padding: 1rem;">
+                            <div class="upload-icon" style="font-size: 2rem;">🖼️</div>
+                            <p class="upload-text">点击选择本地照片</p>
+                        </div>
+                        <input type="file" id="guide-file-input" accept="image/*" class="hidden">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-outline btn-full" onclick="goBack('generate')" style="margin-top: 1rem;">
+                ← 返回上传页面
+            </button>
+        </div>
+    </main>
+
+    <!-- Promotion Modal -->
+    <div class="modal-overlay" id="promo-modal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title"><span>📢</span>推广文案生成</h3>
+                <button class="modal-close" onclick="closeModal('promo-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="promo-tabs">
+                    <button class="promo-tab active" data-platform="xiaohongshu">📕 小红书</button>
+                    <button class="promo-tab" data-platform="moments">💬 朋友圈</button>
+                    <button class="promo-tab" data-platform="group">👥 微信群</button>
+                </div>
+                <div id="promo-content">
+                    <div class="tips">
+                        <div class="tips-title"><span>💡</span>提示</div>
+                        <ul class="tips-list">
+                            <li>点击下方按钮生成推广文案</li>
+                        </ul>
+                    </div>
+                </div>
+                <button id="gen-promo-btn" class="btn btn-primary btn-full" style="margin-top: 1rem;">
+                    <span>✨</span> 生成推广文案
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Modal -->
+    <div class="modal-overlay" id="home-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">🏠 返回首页</h3>
+                <button class="modal-close" onclick="closeModal('home-modal')">×</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 1rem;">确定要返回首页吗？当前编辑的内容将不会保存。</p>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-outline" style="flex:1" onclick="closeModal('home-modal')">取消</button>
+                    <button class="btn btn-primary" style="flex:1" onclick="doGoHome()">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p class="loading-text" id="loading-text">正在处理中...</p>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ==================== State ====================
+        const state = {
+            images: [],
+            currentPage: 'generate',
+            productInfo: null,
+            confirmedInfo: {},
+            descriptions: {},
+            currentStyle: 'tech',
+            currentPlatform: 'xiaohongshu',
+            cameraStream: null,
+            captureInterval: null,
+            // 批量发布相关
+            batchMode: false,  // 是否启用批量发布模式
+            batchProducts: [], // 已发布的商品列表
+            continueAfterPublish: false  // 发布后是否继续
+        };
+
+        // ==================== 页面初始化 ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // 检查是否有从工具箱传来的数据
+            const pending = localStorage.getItem('pending_product');
+            if (pending) {
+                try {
+                    const data = JSON.parse(pending);
+                    localStorage.removeItem('pending_product'); // 清除数据
+                    
+                    // 填充图片
+                    if (data.images && data.images.length > 0) {
+                        state.images = data.images;
+                        updateUploadZone();
+                    }
+                    
+                    // 填充表单字段
+                    if (data.name) document.getElementById('product-name').value = data.name;
+                    if (data.brand) document.getElementById('product-name').value = (data.brand ? data.brand + ' ' : '') + (data.name || '');
+                    
+                    // 启用分析按钮
+                    if (data.name || (data.images && data.images.length > 0)) {
+                        showToast('已从工具箱导入商品信息', 'success');
+                        document.getElementById('analyze-btn').disabled = state.images.length === 0;
+                    }
+                } catch (e) {
+                    console.error('解析pending_product失败', e);
+                }
+            }
+        });
+
+        // ==================== Utilities ====================
+        function showLoading(text = '处理中...') {
+            const lt = document.getElementById('loading-text');
+            const lo = document.getElementById('loading-overlay');
+            if (lt) lt.textContent = text;
+            if (lo) lo.classList.remove('hidden');
+        }
+        function hideLoading() {
+            const lo = document.getElementById('loading-overlay');
+            if (lo) lo.classList.add('hidden');
+        }
+        function showToast(msg, type = '') {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.textContent = msg;
+            t.className = 'toast show' + (type ? ' ' + type : '');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+        function fileToBase64(file) {
+            return new Promise((r, e) => {
+                const rd = new FileReader();
+                rd.onload = () => r(rd.result.split(',')[1]);
+                rd.onerror = e;
+                rd.readAsDataURL(file);
+            });
+        }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        function escapeForAttr(text) {
+            return text.replace(/'/g, "\\'").replace(/\n/g, '\\n');
+        }
+        async function apiCall(url, data, timeout = 60000) {
+            const c = new AbortController();
+            const id = setTimeout(() => c.abort(), timeout);
+            try {
+                const token = getAuthToken();
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(data),
+                    signal: c.signal,
+                    credentials: 'include'
+                });
+                clearTimeout(id);
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || '请求失败');
+                }
+                return await res.json();
+            } catch (e) {
+                clearTimeout(id);
+                if (e.name === 'AbortError') throw new Error('请求超时，请稍后重试');
+                throw e;
+            }
+        }
+
+        // 检查是否已登录
+        function isLoggedIn() {
+            return !!getAuthToken();
+        }
+
+        // ==================== Navigation ====================
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
+            state.currentPage = pageId;
+            if (pageId !== 'camera' && state.cameraStream) stopCamera();
+            
+            // 更新步骤指示器
+            updateStepIndicator(pageId);
+        }
+        
+        function updateStepIndicator(pageId) {
+            const steps = ['generate', 'confirm', 'result'];
+            const stepIndex = steps.indexOf(pageId);
+            
+            for (let i = 1; i <= 3; i++) {
+                const step = document.getElementById('step-' + i);
+                const divider = document.getElementById('divider-' + i);
+                if (!step) continue;
+                
+                step.classList.remove('active', 'done');
+                if (i - 1 < stepIndex) {
+                    step.classList.add('done');
+                } else if (i - 1 === stepIndex) {
+                    step.classList.add('active');
+                }
+                
+                if (divider) {
+                    divider.classList.remove('done');
+                    if (i <= stepIndex) divider.classList.add('done');
+                }
+            }
+        }
+        
+        function goHome() { 
+            const hm = document.getElementById('home-modal');
+            if (hm) hm.classList.add('show');
+        }
+        function doGoHome() { closeModal('home-modal'); location.href = '/'; }
+        function showTools() { 
+            // 跳转到AI工具箱
+            location.href = '/tools';
+        }
+        function goBack(page) { showPage(page); }
+        function goToCameraGuide() { showPage('camera'); }
+        function startOver() {
+            state.images = [];
+            state.productInfo = null;
+            state.confirmedInfo = {};
+            state.descriptions = {};
+            state.continueAfterPublish = false;
+            updateUploadZone();
+            document.getElementById('analyze-btn').disabled = true;
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('suggested-price-hint').innerHTML = '';
+            showPage('generate');
+        }
+
+        // ==================== 发布商品 ====================
+        async function publishProduct() {
+            // 检查登录状态
+            if (!isLoggedIn()) {
+                showToast('请先登录后再发布商品', 'error');
+                setTimeout(() => location.href = '/auth', 1000);
+                return;
+            }
+
+            // 检查必填信息
+            const info = state.confirmedInfo;
+            if (!info.name) {
+                showToast('请填写商品名称', 'error');
+                showPage('confirm');
+                return;
+            }
+
+            const price = parseFloat(document.getElementById('product-price')?.value || info.price);
+            if (!price || price <= 0) {
+                showToast('请填写正确的商品价格', 'error');
+                showPage('confirm');
+                return;
+            }
+
+            const publishBtn = document.getElementById('publish-btn');
+            publishBtn.disabled = true;
+            publishBtn.innerHTML = '<span>⏳</span> 发布中...';
+            showLoading('正在发布商品...');
+
+            try {
+                // 先保存所有图片
+                const imageUrls = [];
+                showLoading('正在保存图片...');
+                
+                for (let i = 0; i < state.images.length; i++) {
+                    try {
+                        const imgData = await apiCall('/api/save-image', { 
+                            image: state.images[i]
+                        });
+                        if (imgData.success) {
+                            imageUrls.push(imgData.path);
+                        }
+                    } catch (e) {
+                        console.log('保存图片失败:', e);
+                    }
+                }
+
+                // 如果没有保存成功任何图片，使用空数组
+                if (imageUrls.length === 0 && state.images.length > 0) {
+                    showToast('图片保存失败，但将继续发布', 'warning');
+                }
+
+                showLoading('正在提交商品...');
+                
+                // 获取选中的文案
+                const selectedStyle = state.currentStyle || 'tech';
+                const description = state.descriptions[selectedStyle] || Object.values(state.descriptions)[0] || '';
+
+                const data = await apiCall('/api/product', {
+                    title: info.name,
+                    price: price,
+                    original_price: price,
+                    description: description,
+                    images: imageUrls,
+                    category: info.category || '其他',
+                    condition: info.condition || '9成新'
+                });
+
+                if (data.success) {
+                    showToast('商品发布成功！', 'success');
+                    
+                    // 如果是连续发布模式
+                    if (state.continueAfterPublish) {
+                        // 添加到已发布列表
+                        const previewImage = state.images[0] || '';
+                        state.batchProducts.push({
+                            id: data.product_id,
+                            title: info.name,
+                            price: price,
+                            image: previewImage,
+                            status: 'success'
+                        });
+                        
+                        // 清空状态准备发布下一个
+                        state.images = [];
+                        state.productInfo = null;
+                        state.confirmedInfo = {};
+                        state.descriptions = {};
+                        updateUploadZone();
+                        document.getElementById('product-name').value = '';
+                        document.getElementById('product-price').value = '';
+                        document.getElementById('suggested-price-hint').innerHTML = '';
+                        
+                        // 更新批量发布状态显示
+                        updateBatchStatus();
+                        
+                        // 返回上传页面继续
+                        showPage('generate');
+                        showToast('可以继续上传下一件商品了', 'success');
+                    } else {
+                        // 清空状态
+                        state.images = [];
+                        state.productInfo = null;
+                        state.confirmedInfo = {};
+                        state.descriptions = {};
+                        state.continueAfterPublish = false;
+                        updateUploadZone();
+                        document.getElementById('product-price').value = '';
+                        document.getElementById('suggested-price-hint').innerHTML = '';
+                        
+                        // 跳转到商品详情
+                        setTimeout(() => {
+                            location.href = '/detail?id=' + data.product_id;
+                        }, 1500);
+                    }
+                } else {
+                    showToast(data.error || '发布失败', 'error');
+                }
+            } catch (e) {
+                showToast(e.message || '发布失败，请稍后重试', 'error');
+            } finally {
+                hideLoading();
+                publishBtn.disabled = false;
+                publishBtn.innerHTML = '<span>🚀</span> 发布商品';
+            }
+        }
+        
+        // ==================== 连续发布功能 ====================
+        async function publishAndContinue() {
+            // 先执行正常发布
+            state.continueAfterPublish = true;
+            await publishProduct();
+            // publishProduct内部会处理连续发布的逻辑
+        }
+        
+        function updateBatchStatus() {
+            const batchStatus = document.getElementById('batch-status');
+            if (!batchStatus) return;
+            
+            if (state.batchProducts.length === 0) {
+                batchStatus.classList.remove('show');
+                return;
+            }
+            
+            batchStatus.classList.add('show');
+            const batchItems = state.batchProducts.map(p => `
+                <div class="batch-item">
+                    <img src="${p.image ? 'data:image/jpeg;base64,' + p.image : ''}" class="batch-item-img" alt="${escapeHtml(p.title)}">
+                    <div class="batch-item-info">
+                        <div class="batch-item-title">${escapeHtml(p.title)}</div>
+                        <div class="batch-item-meta">¥${p.price}</div>
+                    </div>
+                    <div class="batch-item-status success">✓ 已发布</div>
+                </div>
+            `).join('');
+            
+            batchStatus.innerHTML = `
+                <div class="batch-status-header">
+                    <div class="batch-status-title"><span>📦</span> 已发布商品</div>
+                    <div class="batch-status-count">共 ${state.batchProducts.length} 件</div>
+                </div>
+                <div class="batch-list">${batchItems}</div>
+                <div class="batch-actions">
+                    <button class="batch-finish-btn" onclick="finishBatchPublish()">
+                        <span>✅</span> 完成发布
+                    </button>
+                </div>
+            `;
+        }
+        
+        function finishBatchPublish() {
+            if (state.batchProducts.length === 0) return;
+            
+            // 询问用户是否查看发布的商品
+            const firstProductId = state.batchProducts[0].id;
+            if (confirm(`您已成功发布 ${state.batchProducts.length} 件商品！\n\n点击"确定"查看第一件商品详情，或点击"取消"返回首页。`)) {
+                location.href = '/detail?id=' + firstProductId;
+            } else {
+                location.href = '/';
+            }
+            
+            // 清空批量发布状态
+            state.batchProducts = [];
+            state.continueAfterPublish = false;
+        }
+        
+        function closeModal(id) { 
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('show');
+        }
+
+        // ==================== Upload ====================
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+
+        // 初始化多图数组
+        state.images = [];
+
+        if (uploadZone && fileInput) {
+            uploadZone.addEventListener('click', () => fileInput.click());
+            uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+            uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+            uploadZone.addEventListener('drop', async e => {
+                e.preventDefault();
+                if (uploadZone) uploadZone.classList.remove('dragover');
+                const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+                if (files.length > 0) await handleUpload(files);
+            });
+            fileInput.addEventListener('change', async e => {
+                const files = Array.from(e.target.files);
+                if (files.length > 0) await handleUpload(files);
+                fileInput.value = ''; // 清空以便重复选择同一文件
+            });
+        }
+
+        async function handleUpload(files) {
+            if (!Array.isArray(files)) files = [files];
+            
+            for (const file of files) {
+                const isImage = file.type.startsWith('image/');
+                
+                if (isImage) {
+                    if (file.size > 10 * 1024 * 1024) { 
+                        showToast(`${file.name} 超过10MB，已跳过`, 'error'); 
+                        continue;
+                    }
+                    try {
+                        const base64 = await fileToBase64(file);
+                        state.images.push(base64);
+                    } catch (e) { 
+                        showToast(`${file.name} 上传失败`, 'error'); 
+                    }
+                }
+            }
+            
+            updateUploadZone();
+            
+            if (state.images.length > 0) {
+                document.getElementById('analyze-btn').disabled = false;
+            }
+        }
+
+        function updateUploadZone() {
+            const uploadZone = document.getElementById('upload-zone');
+            if (!uploadZone) return;
+            
+            const hasContent = state.images.length > 0;
+            
+            if (!hasContent) {
+                uploadZone.classList.remove('has-image');
+                uploadZone.innerHTML = `
+                    <div class="upload-icon">🖼️</div>
+                    <p class="upload-text">拖拽图片到此处，或点击选择文件</p>
+                    <p class="upload-hint">支持 JPG、PNG 图片，建议上传多张不同角度的图片</p>
+                `;
+                return;
+            }
+            
+            let content = '';
+            
+            // 图片预览
+            if (state.images.length > 0) {
+                uploadZone.classList.add('has-image');
+                const previews = state.images.map((img, idx) => `
+                    <div class="preview-item" style="position:relative">
+                        <img src="data:image/jpeg;base64,${img}" class="preview-img" alt="预览${idx + 1}">
+                        <span class="preview-badge">${idx + 1}</span>
+                        <button class="preview-remove" onclick="removeImage(${idx})" title="移除">×</button>
+                    </div>
+                `).join('');
+                content += previews;
+            }
+            
+            uploadZone.innerHTML = `
+                <div class="preview-grid" style="cursor:pointer;">
+                    ${content}
+                </div>
+                <p style="margin-top:0.75rem;color:var(--text-light);font-size:0.85rem;">已上传 ${state.images.length}张图片，点击上方网格或下方+添加更多</p>
+                <div class="preview-add" onclick="event.stopPropagation();document.getElementById('file-input').click()">
+                    <span>+</span>
+                    <small>添加更多</small>
+                </div>
+            `;
+            
+            // 绑定点击事件
+            uploadZone.onclick = (e) => {
+                if (!e.target.closest('.preview-add') && !e.target.closest('.preview-remove')) {
+                    document.getElementById('file-input').click();
+                }
+            };
+        }
+
+        function removeImage(idx) {
+            event.stopPropagation();
+            state.images.splice(idx, 1);
+            updateUploadZone();
+            checkAnalyzeBtn();
+        }
+        
+        function checkAnalyzeBtn() {
+            const analyzeBtn = document.getElementById('analyze-btn');
+            if (analyzeBtn) analyzeBtn.disabled = state.images.length === 0;
+        }
+
+        function clearAllImages() {
+            state.images = [];
+            updateUploadZone();
+            const analyzeBtn = document.getElementById('analyze-btn');
+            if (analyzeBtn) analyzeBtn.disabled = true;
+        }
+
+        // ==================== Analyze ====================
+        async function analyzeProduct() {
+            if (state.images.length === 0) { showToast('请先上传图片', 'error'); return; }
+            
+            showLoading(`正在分析 ${state.images.length}张图片...`);
+            try {
+                const payload = {
+                    images: state.images,
+                    name: document.getElementById('product-name').value.trim()
+                };
+                const data = await apiCall('/api/analyze-product', payload);
+                if (data.success) {
+                    state.productInfo = data.info;
+                    state.confirmedInfo = { ...data.info };
+                    showConfirmPage();
+                } else {
+                    showToast(data.error || '分析失败', 'error');
+                }
+            } catch (e) {
+                showToast(e.message || '分析失败', 'error');
+            } finally { hideLoading(); }
+        }
+
+        function showConfirmPage() {
+            const img = document.getElementById('confirm-img');
+            if (!img) return;
+            // 显示第一张图片作为主图
+            img.src = 'data:image/jpeg;base64,' + state.images[0];
+            img.classList.remove('hidden');
+            
+            // 如果有多张图片，显示缩略图
+            const thumbContainer = document.getElementById('confirm-thumbs');
+            if (thumbContainer && state.images.length > 1) {
+                thumbContainer.style.display = 'flex';
+                thumbContainer.innerHTML = state.images.slice(1).map((imgData, idx) => 
+                    `<img src="data:image/jpeg;base64,${imgData}" class="thumb-img" alt="缩略图${idx + 2}">`
+                ).join('');
+            } else {
+                thumbContainer.style.display = 'none';
+            }
+            
+            // 显示建议价格、市场价和价格区间
+            const priceHint = document.getElementById('suggested-price-hint');
+            const info = state.productInfo;
+            if (info) {
+                let html = '';
+                if (info.market_price) {
+                    html += `<div style="margin-bottom: 4px;">全新市场价: <span style="color: #666; text-decoration: line-through;">¥${info.market_price}</span></div>`;
+                }
+                if (info.suggested_price) {
+                    html += `<div style="margin-bottom: 4px;">二手参考价: <span style="color: var(--success); font-weight: 600;">¥${info.suggested_price}</span></div>`;
+                }
+                if (info.price_range) {
+                    html += `<div style="font-size: 0.85rem; color: #888;">合理区间: ¥${info.price_range}</div>`;
+                }
+                priceHint.innerHTML = html;
+            } else {
+                priceHint.innerHTML = '';
+            }
+            
+            renderConfirmList();
+            showPage('confirm');
+        }
+
+        function renderConfirmList() {
+            const list = document.getElementById('confirm-list');
+            const fields = [
+                { key: 'category', label: '商品类别' },
+                { key: 'name', label: '商品名称' },
+                { key: 'brand', label: '品牌' },
+                { key: 'model', label: '型号/规格' },
+                { key: 'color', label: '颜色' },
+                { key: 'capacity', label: '容量/尺寸' },
+                { key: 'condition', label: '新旧程度' },
+                { key: 'defects', label: '瑕疵情况', isWarning: true }
+            ];
+
+            list.innerHTML = fields.map(f => {
+                const value = state.confirmedInfo[f.key] || state.productInfo[f.key] || '未识别到';
+                const isDefect = f.key === 'defects' && value && value !== '未识别到' && value !== '无明显瑕疵' && value !== '完好';
+                return `
+                    <div class="info-item">
+                        <div class="info-header">
+                            <span class="info-label">${f.label}</span>
+                            <div class="info-actions">
+                                <button class="info-btn confirm ${!isDefect ? 'active' : ''}" onclick="confirmField('${f.key}', this)">✅ 确认</button>
+                                <button class="info-btn edit" onclick="editField('${f.key}', this)">✏️ 修改</button>
+                            </div>
+                        </div>
+                        <div class="info-value" id="value-${f.key}">${escapeHtml(value)}</div>
+                        <input type="text" class="info-input hidden" id="input-${f.key}" value="${escapeHtml(value)}" onblur="saveField('${f.key}')">
+                        ${isDefect ? `<div class="info-warning"><span>⚠️</span><span>请仔细确认瑕疵情况，如实描述有助于交易</span></div>` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function confirmField(key, btn) {
+            if (!btn) return;
+            const item = btn.closest('.info-item');
+            if (!item) return;
+            const confirmEl = item.querySelector('.confirm');
+            const editEl = item.querySelector('.edit');
+            const valueEl = item.querySelector('.info-value');
+            const inputEl = item.querySelector('.info-input');
+            if (confirmEl) confirmEl.classList.add('active');
+            if (editEl) editEl.classList.remove('active');
+            if (valueEl) valueEl.classList.remove('hidden');
+            if (inputEl) inputEl.classList.add('hidden');
+        }
+
+        function editField(key, btn) {
+            if (!btn) return;
+            const item = btn.closest('.info-item');
+            if (!item) return;
+            item.querySelector('.confirm')?.classList.remove('active');
+            item.querySelector('.edit')?.classList.add('active');
+            item.querySelector('.info-value')?.classList.add('hidden');
+            const input = item.querySelector('.info-input');
+            if (input) {
+                input.classList.remove('hidden');
+                input.focus();
+            }
+        }
+
+        function saveField(key) {
+            const input = document.getElementById('input-' + key);
+            if (!input) return;
+            const value = input.value.trim();
+            state.confirmedInfo[key] = value;
+            const valueEl = document.getElementById('value-' + key);
+            if (valueEl) valueEl.textContent = value || '未填写';
+        }
+
+        // ==================== Generate Descriptions ====================
+        async function generateDescriptions() {
+            if (state.images.length === 0) {
+                showToast('请先上传图片', 'error');
+                return;
+            }
+            
+            showLoading('正在生成描述文案...');
+            try {
+                const data = await apiCall('/api/generate-descriptions', {
+                    images: state.images,
+                    info: state.confirmedInfo
+                });
+                if (data.success) {
+                    state.descriptions = data.descriptions;
+                    showResultPage();
+                    // 显示批量发布按钮
+                    showPublishContinueButtons();
+                } else {
+                    showToast(data.error || '生成失败', 'error');
+                }
+            } catch (e) {
+                showToast(e.message || '生成失败', 'error');
+            } finally { hideLoading(); }
+        }
+        
+        function showPublishContinueButtons() {
+            // 在确认页面显示快速发布按钮
+            const publishDirectlyBtn = document.getElementById('publish-directly-btn');
+            const publishContinueDirectBtn = document.getElementById('publish-continue-direct-btn');
+            if (publishDirectlyBtn) {
+                publishDirectlyBtn.style.display = 'block';
+            }
+            if (publishContinueDirectBtn) {
+                publishContinueDirectBtn.style.display = 'block';
+            }
+        }
+        
+        async function publishDirectly() {
+            // 直接发布，不跳转详情页
+            state.continueAfterPublish = false;
+            await publishProduct();
+        }
+        
+        async function publishDirectlyAndContinue() {
+            // 直接发布并继续发布下一个
+            state.continueAfterPublish = true;
+            await publishProduct();
+        }
+
+        function showResultPage() {
+            const img = document.getElementById('result-img');
+            const video = document.getElementById('result-video');
+            if (!img || !video) return;
+            
+            // 如果有视频，优先显示视频
+            if (state.video) {
+                video.src = 'data:video/mp4;base64,' + state.video;
+                video.classList.remove('hidden');
+                img.classList.add('hidden');
+            } else {
+                img.src = 'data:image/jpeg;base64,' + (state.images[0] || '');
+                img.classList.remove('hidden');
+                video.classList.add('hidden');
+            }
+
+            const infoHtml = Object.entries(state.confirmedInfo)
+                .filter(([k, v]) => v && v !== '未识别到')
+                .map(([k, v]) => `<div><strong>${getLabel(k)}：</strong>${escapeHtml(v)}</div>`)
+                .join('');
+            const resultInfo = document.getElementById('result-info');
+            if (resultInfo) resultInfo.innerHTML = infoHtml;
+
+            renderCopyResults('tech');
+            showPage('result');
+        }
+
+        function getLabel(key) {
+            const labels = { category: '类别', name: '名称', brand: '品牌', model: '型号', color: '颜色', capacity: '容量', condition: '成色', defects: '瑕疵' };
+            return labels[key] || key;
+        }
+
+        // Style tabs
+        document.querySelectorAll('.tab-btn[data-style]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn[data-style]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                state.currentStyle = btn.dataset.style;
+                renderCopyResults(state.currentStyle);
+            });
+        });
+
+        function renderCopyResults(style) {
+            const container = document.getElementById('copy-results');
+            if (!container) return;
+            const copy = state.descriptions[style];
+            if (!copy) return;
+
+            const badgeClass = { tech: 'badge-tech', story: 'badge-story', minimal: 'badge-minimal' }[style];
+            const badgeText = { tech: '💻 技术控风格', story: '📖 故事风格', minimal: '⚡ 极简风格' }[style];
+
+            container.innerHTML = `
+                <div class="copy-card">
+                    <div class="copy-card-header">
+                        <span class="badge ${badgeClass}">${badgeText}</span>
+                        <button class="btn btn-sm btn-outline" onclick="copyText(this, '${escapeForAttr(copy)}')">
+                            📋 复制文案
+                        </button>
+                    </div>
+                    <div class="copy-content">${escapeHtml(copy)}</div>
+                </div>
+            `;
+        }
+
+        function copyText(btn, text) {
+            if (!btn) return;
+            const clean = text.replace(/\\n/g, '\n').replace(/\\'/g, "'");
+            navigator.clipboard.writeText(clean).then(() => {
+                btn.innerHTML = '✅ 已复制';
+                setTimeout(() => btn.innerHTML = '📋 复制文案', 2000);
+            });
+        }
+
+        // ==================== Camera Guide ====================
+        const camVideo = document.getElementById('cam-video');
+        const camCanvas = document.getElementById('cam-canvas');
+        const camPlaceholder = document.getElementById('cam-placeholder');
+        const startCamBtn = document.getElementById('start-cam-btn');
+        const stopCamBtn = document.getElementById('stop-cam-btn');
+        const captureBtn = document.getElementById('capture-btn');
+
+        if (startCamBtn) startCamBtn.addEventListener('click', startCamera);
+        if (stopCamBtn) stopCamBtn.addEventListener('click', stopCamera);
+        if (captureBtn) captureBtn.addEventListener('click', capturePhoto);
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'environment', width: 1280, height: 960 }
+                });
+                state.cameraStream = stream;
+                if (camVideo) camVideo.srcObject = stream;
+                if (camVideo) camVideo.classList.remove('hidden');
+                if (camCanvas) camCanvas.classList.remove('hidden');
+                if (camPlaceholder) camPlaceholder.classList.add('hidden');
+                if (startCamBtn) startCamBtn.classList.add('hidden');
+                if (stopCamBtn) stopCamBtn.classList.remove('hidden');
+                if (captureBtn) {
+                    captureBtn.classList.remove('hidden');
+                    captureBtn.disabled = false;
+                }
+                addChatMessage('🎥 摄像头已启动，正在分析取景...', 'ai');
+                state.captureInterval = setInterval(captureAndAnalyze, 2000);
+            } catch (e) {
+                showToast('无法访问摄像头，请授权权限', 'error');
+            }
+        }
+
+        function stopCamera() {
+            if (state.cameraStream) {
+                state.cameraStream.getTracks().forEach(t => t.stop());
+                state.cameraStream = null;
+            }
+            if (state.captureInterval) {
+                clearInterval(state.captureInterval);
+                state.captureInterval = null;
+            }
+            if (camVideo) camVideo.srcObject = null;
+            if (camVideo) camVideo.classList.add('hidden');
+            if (camCanvas) camCanvas.classList.add('hidden');
+            if (camPlaceholder) camPlaceholder.classList.remove('hidden');
+            if (startCamBtn) startCamBtn.classList.remove('hidden');
+            if (stopCamBtn) stopCamBtn.classList.add('hidden');
+            if (captureBtn) captureBtn.classList.add('hidden');
+            addChatMessage('⏹️ 已停止指导', 'ai');
+        }
+
+        async function captureAndAnalyze() {
+            if (!state.cameraStream || !camCanvas || !camVideo) return;
+            const ctx = camCanvas.getContext('2d');
+            camCanvas.width = camVideo.videoWidth;
+            camCanvas.height = camVideo.videoHeight;
+            ctx.drawImage(camVideo, 0, 0);
+            const imgData = camCanvas.toDataURL('image/jpeg', 0.8).split(',')[1];
+            try {
+                const data = await apiCall('/api/analyze-image', { image: imgData, context: 'photography_guide' }, 30000);
+                if (data.success) addChatMessage(data.analysis, 'ai');
+            } catch (e) {
+                addChatMessage('⚠️ 分析超时，正在重试...', 'ai');
+            }
+        }
+
+        async function capturePhoto() {
+            showLoading('正在保存...');
+            const ctx = camCanvas?.getContext('2d');
+            if (!ctx) { hideLoading(); return; }
+            camCanvas.width = camVideo.videoWidth;
+            camCanvas.height = camVideo.videoHeight;
+            ctx.drawImage(camVideo, 0, 0);
+            const imgData = camCanvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+            try {
+                const data = await apiCall('/api/save-image', { image: imgData });
+                if (data.success) {
+                    state.images.push(imgData);
+                    updateUploadZone();
+                    const analyzeBtn = document.getElementById('analyze-btn');
+                    if (analyzeBtn) analyzeBtn.disabled = false;
+                    stopCamera();
+                    showToast('照片已保存！', 'success');
+                    showPage('generate');
+                }
+            } catch (e) {
+                showToast(e.message, 'error');
+            } finally { hideLoading(); }
+        }
+
+        function addChatMessage(text, type) {
+            const container = document.getElementById('chat-messages');
+            if (!container) return;
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble ' + type;
+            bubble.textContent = text;
+            container.appendChild(bubble);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Guide upload
+        const guideZone = document.getElementById('guide-upload-zone');
+        const guideInput = document.getElementById('guide-file-input');
+        if (guideZone && guideInput) {
+            guideZone.addEventListener('click', () => guideInput.click());
+            guideInput.addEventListener('change', async e => {
+                const file = e.target.files[0];
+                if (file) {
+                    showLoading('正在分析...');
+                    addChatMessage('📷 收到照片，正在分析...', 'user');
+                    try {
+                        const base64 = await fileToBase64(file);
+                        const data = await apiCall('/api/analyze-image', { image: base64, context: 'photography_guide' }, 30000);
+                        if (data.success) addChatMessage(data.analysis, 'ai');
+                    } catch (e) {
+                        addChatMessage('⚠️ 分析失败，请重试', 'ai');
+                    } finally { hideLoading(); }
+                }
+            });
+        }
+
+        // ==================== Promotion ====================
+        function showPromoModal() {
+            const promoModal = document.getElementById('promo-modal');
+            if (promoModal) promoModal.classList.add('show');
+        }
+
+        document.querySelectorAll('.promo-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.promo-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                state.currentPlatform = tab.dataset.platform;
+                if (window.promoResult) renderPromoResult(window.promoResult);
+            });
+        });
+
+        const genPromoBtn = document.getElementById('gen-promo-btn');
+        if (genPromoBtn) {
+            genPromoBtn.addEventListener('click', async () => {
+                showLoading('正在生成推广文案...');
+            try {
+                const data = await apiCall('/api/generate-promotion', {
+                    images: state.images,
+                    info: state.confirmedInfo,
+                    platform: state.currentPlatform
+                });
+                if (data.success) {
+                    window.promoResult = data;
+                    renderPromoResult(data);
+                } else {
+                    showToast(data.error || '生成失败', 'error');
+                }
+            } catch (e) {
+                showToast(e.message || '生成失败', 'error');
+            } finally { hideLoading(); }
+            });
+        }
+
+        function renderPromoResult(data) {
+            const container = document.getElementById('promo-content');
+            const platform = state.currentPlatform;
+            const content = data[platform] || data.content || '';
+
+            if (platform === 'xiaohongshu') {
+                const tags = content.match(/#[\w\u4e00-\u9fa5]+/g) || [];
+                const lines = content.replace(/#[\w\u4e00-\u9fa5]+/g, '').trim().split('\n');
+                const title = lines[0] || '好物分享';
+                const body = lines.slice(1).join('\n').trim();
+
+                container.innerHTML = `
+                    <div class="phone-preview">
+                        <div class="phone-header">小红书</div>
+                        <div class="phone-content">
+                            <div style="font-weight:600; font-size:1.1rem; margin-bottom:0.75rem;">${escapeHtml(title)}</div>
+                            <div style="margin-bottom:1rem;">${escapeHtml(body)}</div>
+                            ${tags.length ? `<div class="xhs-tags">${tags.map(t => `<span>${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem; background:#f5f5f5; padding:1rem; border-radius:0.5rem; white-space:pre-wrap;">${escapeHtml(content)}</div>
+                    <button class="btn btn-primary btn-full" style="margin-top:1rem;" onclick="copyPromo('${escapeForAttr(content)}')">📋 复制文案</button>
+                `;
+            } else if (platform === 'moments') {
+                container.innerHTML = `
+                    <div class="phone-preview">
+                        <div class="phone-header">朋友圈</div>
+                        <div class="phone-content">
+                            <div style="background:#f7f7f7; padding:1rem; border-radius:0.5rem; margin-bottom:1rem;">${escapeHtml(content)}</div>
+                            <div style="display:flex; gap:1rem; color:var(--text-light); font-size:0.85rem;">
+                                <span>👍 赞</span><span>💬 评论</span><span>↗️ 分享</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:1rem; background:#f5f5f5; padding:1rem; border-radius:0.5rem; white-space:pre-wrap;">${escapeHtml(content)}</div>
+                    <button class="btn btn-primary btn-full" style="margin-top:1rem;" onclick="copyPromo('${escapeForAttr(content)}')">📋 复制文案</button>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div style="background:#f5f5f5; padding:1rem; border-radius:0.5rem; font-family:monospace; white-space:pre-wrap; line-height:1.8;">${escapeHtml(content)}</div>
+                    <button class="btn btn-primary btn-full" style="margin-top:1rem;" onclick="copyPromo('${escapeForAttr(content)}')">📋 复制文案</button>
+                `;
+            }
+        }
+
+        function copyPromo(text) {
+            const clean = text.replace(/\\n/g, '\n').replace(/\\'/g, "'");
+            navigator.clipboard.writeText(clean).then(() => showToast('已复制！', 'success'));
+        }
+
+        console.log('🎯 AI二手物品描述生成器已就绪');
+
+        // ==================== 用户登录状态 ====================
+        let currentUser = null;
+
+        async function checkAuth() {
+            const token = getAuthToken();
+            if (!token) {
+                showLoginButton();
+                return;
+            }
+            try {
+                const res = await authFetch('/api/auth/me');
+                const data = await res.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    showUserMenu(data.user);
+                    // 同步到 localStorage
+                    if (!localStorage.getItem('auth_token')) {
+                        localStorage.setItem('auth_token', token);
+                        localStorage.setItem('user_uid', data.user.uid);
+                    }
+                } else {
+                    localStorage.removeItem('auth_token');
+                    showLoginButton();
+                }
+            } catch (e) {
+                showLoginButton();
+            }
+        }
+
+        function showLoginButton() {
+            document.getElementById('login-btn').style.display = 'block';
+            document.getElementById('user-menu').classList.remove('show');
+        }
+
+        function showUserMenu(user) {
+            document.getElementById('login-btn').style.display = 'none';
+            document.getElementById('user-menu').classList.add('show');
+            document.getElementById('user-avatar-btn').textContent = user.avatar || '😊';
+        }
+
+        function toggleDropdown() {
+            document.getElementById('user-dropdown').classList.toggle('show');
+        }
+
+        function logout() {
+            const token = getAuthToken();
+            if (token) {
+                fetch('/api/auth/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+            }
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_uid');
+            currentUser = null;
+            showLoginButton();
+            showToast('已退出登录');
+            document.getElementById('user-dropdown').classList.remove('show');
+        }
+
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('user-dropdown');
+            const btn = document.getElementById('user-avatar-btn');
+            if (dropdown && btn && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        checkAuth();
+    </script>
+</body>
+</html>

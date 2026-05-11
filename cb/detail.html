@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情 - 闲置好物</title>
+    <script src="/auth-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+
+        /* Header */
+        .header { background: white; border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1rem; }
+        .back-btn { width: 40px; height: 40px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .back-btn:hover { background: var(--border); }
+        .header-title { flex: 1; font-weight: 600; font-size: 1.1rem; }
+
+        /* Main */
+        .main { max-width: 1100px; margin: 0 auto; padding: 0; background: white; min-height: 100vh; }
+
+        /* Image Gallery */
+        .gallery { position: relative; width: 100%; height: 450px; background: linear-gradient(135deg, #f8fafc, #f0f4ff); overflow: hidden; cursor: pointer; }
+        .gallery-img { width: 100%; height: 100%; object-fit: contain; display: none; }
+        .gallery-img.active { display: block; }
+        .gallery-hint { position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: white; padding: 0.5rem 1rem; border-radius: 2rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; z-index: 10; }
+        .gallery-expand { position: absolute; top: 1rem; right: 1rem; width: 36px; height: 36px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; z-index: 10; }
+
+        /* Image Preview Modal */
+        .preview-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.95); z-index: 1000; display: none; flex-direction: column; }
+        .preview-modal.show { display: flex; }
+        .preview-header { position: absolute; top: 0; left: 0; right: 0; padding: 1rem; display: flex; justify-content: space-between; align-items: center; z-index: 10; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); }
+        .preview-counter { color: white; font-size: 0.9rem; }
+        .preview-close { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .preview-close:hover { background: rgba(255,255,255,0.3); }
+        .preview-body { flex: 1; display: flex; align-items: center; justify-content: center; overflow: auto; padding: 60px 50px; }
+        .preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .preview-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; color: white; font-size: 1.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .preview-nav:hover { background: rgba(255,255,255,0.3); }
+        .preview-nav.prev { left: 1rem; }
+        .preview-nav.next { right: 1rem; }
+        .preview-footer { position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem; display: flex; justify-content: center; gap: 0.5rem; z-index: 10; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
+        .preview-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s; }
+        .preview-dot.active { background: white; transform: scale(1.3); }
+        .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: all 0.3s; z-index: 10; }
+        .gallery-nav:hover { background: white; transform: translateY(-50%) scale(1.1); }
+        .gallery-nav.prev { left: 1rem; }
+        .gallery-nav.next { right: 1rem; }
+        .gallery-dots { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+        .gallery-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.3s; }
+        .gallery-dot.active { background: white; width: 24px; border-radius: 4px; }
+
+        /* Content */
+        .content { padding: 1.5rem; }
+
+        /* Seller */
+        .seller { display: flex; align-items: center; gap: 0.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; cursor: pointer; transition: background 0.2s; }
+        .seller:hover { background: var(--bg); margin: 0 -1rem 0 -1rem; padding-left: 1rem; padding-right: 1rem; border-radius: 0.5rem; }
+        .seller-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; font-weight: 600; flex-shrink: 0; }
+        .seller-info { flex: 1; }
+        .seller-name { font-weight: 600; font-size: 0.95rem; }
+        .seller-meta { font-size: 0.8rem; color: var(--text-light); margin-top: 0.125rem; }
+        .seller-btn { padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 2rem; cursor: pointer; font-size: 0.85rem; flex-shrink: 0; }
+        .seller-btn:hover { background: var(--secondary); }
+
+        /* Title & Price */
+        .title-section { margin-bottom: 1.5rem; }
+        .item-title { font-size: 1.25rem; font-weight: 600; line-height: 1.5; margin-bottom: 0.75rem; }
+        .item-price { font-size: 1.75rem; color: var(--error); font-weight: 700; }
+
+        /* Info Section */
+        .info-section { background: var(--bg); border-radius: 0.75rem; padding: 1.25rem; }
+        .info-title { font-size: 0.9rem; color: var(--text-light); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+        .info-content { line-height: 1.7; font-size: 0.95rem; }
+        
+        .info-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .info-tag { padding: 0.375rem 0.75rem; background: white; border-radius: 2rem; font-size: 0.85rem; color: var(--text); border: 1px solid var(--border); }
+        .info-tag.primary { background: rgba(99,102,241,0.1); border-color: var(--primary); color: var(--primary); }
+        .info-tag.success { background: rgba(16,185,129,0.1); border-color: var(--success); color: var(--success); }
+
+        /* AI Section */
+        .ai-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+        .ai-title { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; margin-bottom: 1rem; font-size: 1rem; }
+        .ai-cards { display: grid; gap: 1rem; }
+        .ai-card { background: var(--bg); border-radius: 0.75rem; padding: 1rem; }
+        .ai-card h4 { font-size: 0.9rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; color: var(--primary); }
+        .ai-card p { font-size: 0.9rem; line-height: 1.6; color: var(--text-light); white-space: pre-line; }
+        .ai-card .copy-btn { margin-top: 0.75rem; padding: 0.5rem 1rem; background: white; border: 1px solid var(--border); border-radius: 0.5rem; cursor: pointer; font-size: 0.85rem; width: 100%; transition: all 0.3s; }
+        .ai-card .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* Review Section */
+        .review-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .review-title { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem; }
+        .review-stats { display: flex; align-items: center; gap: 0.5rem; }
+        .review-avg { font-size: 1.5rem; font-weight: 700; color: var(--warning); }
+        .review-count { font-size: 0.85rem; color: var(--text-light); }
+        .stars { color: #fbbf24; font-size: 1rem; }
+        .stars-empty { color: #e5e7eb; }
+        
+        .review-form { background: var(--bg); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; }
+        .review-form-title { font-weight: 600; margin-bottom: 0.75rem; font-size: 0.95rem; }
+        .rating-input { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .rating-star { font-size: 1.5rem; cursor: pointer; color: #e5e7eb; transition: color 0.2s; }
+        .rating-star.active { color: #fbbf24; }
+        .rating-star:hover { color: #fbbf24; }
+        .review-text { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; font-size: 0.9rem; resize: vertical; min-height: 80px; font-family: inherit; }
+        .review-text:focus { outline: none; border-color: var(--primary); }
+        .review-submit { margin-top: 0.75rem; padding: 0.625rem 1.25rem; background: var(--primary); color: white; border: none; border-radius: 0.5rem; cursor: pointer; font-size: 0.9rem; }
+        .review-submit:hover { background: var(--secondary); }
+        .review-submit:disabled { background: var(--text-light); cursor: not-allowed; }
+        .review-login-hint { text-align: center; padding: 1rem; background: var(--bg); border-radius: 0.75rem; color: var(--text-light); font-size: 0.9rem; }
+        
+        .review-list { display: flex; flex-direction: column; gap: 1rem; }
+        .review-item { background: var(--bg); border-radius: 0.75rem; padding: 1rem; }
+        .review-user { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .review-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 0.75rem; }
+        .review-username { font-weight: 500; font-size: 0.9rem; }
+        .review-rating { color: #fbbf24; font-size: 0.85rem; margin-left: auto; }
+        .review-comment { font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+        .review-time { font-size: 0.8rem; color: var(--text-light); margin-top: 0.5rem; }
+        .review-empty { text-align: center; padding: 2rem; color: var(--text-light); }
+        
+        /* AI Summary */
+        .ai-summary { background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(139,92,246,0.05)); border: 1px solid rgba(99,102,241,0.2); border-radius: 0.75rem; padding: 1rem; margin-bottom: 1rem; }
+        .ai-summary-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--primary); }
+        .ai-summary-header::before { content: '🤖'; font-size: 1.1rem; }
+        .ai-summary-content { font-size: 0.9rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
+        .ai-summary-loading { text-align: center; padding: 1rem; color: var(--text-light); font-size: 0.9rem; }
+        .ai-summary-error { text-align: center; padding: 1rem; color: var(--error); font-size: 0.85rem; }
+        .ai-summary-section { margin-bottom: 0.5rem; font-weight: 500; }
+        .ai-summary-section:last-child { margin-bottom: 0; }
+
+        /* Loading & Error */
+        .loading { text-align: center; padding: 3rem; color: var(--text-light); }
+        .error-msg { text-align: center; padding: 3rem; color: var(--error); }
+
+        /* Bottom Action */
+        .bottom-action { position: fixed; bottom: 0; left: 0; right: 0; max-width: 800px; margin: 0 auto; background: white; border-top: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; gap: 0.75rem; z-index: 100; }
+        .btn-want { flex: 1; padding: 0.875rem; background: var(--warning); color: white; border: none; border-radius: 2rem; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .btn-want:hover { background: #e58e00; }
+        .btn-buy { flex: 1; padding: 0.875rem; background: var(--error); color: white; border: none; border-radius: 2rem; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .btn-buy:hover { background: #dc2626; }
+        .btn-fav { width: 50px; height: 50px; border: 1px solid var(--border); background: white; border-radius: 50%; cursor: pointer; font-size: 1.25rem; }
+        .btn-fav:hover { border-color: var(--error); }
+
+        .content { padding-bottom: 100px; }
+
+        @media (max-width: 768px) {
+            .gallery { height: 350px; }
+            .content { padding: 1rem; }
+            .item-title { font-size: 1.1rem; }
+            .item-price { font-size: 1.5rem; }
+        }
+
+        /* Manage Button */
+        .btn-manage { padding: 0.875rem 1rem; background: var(--text-light); color: white; border: none; border-radius: 2rem; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+        .btn-manage:hover { background: var(--text); }
+        .bottom-action { gap: 0.5rem; }
+
+        /* Status Modal */
+        .status-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: flex-end; justify-content: center; }
+        .status-modal.show { display: flex; }
+        .status-modal-content { background: white; width: 100%; max-width: 500px; border-radius: 1.5rem 1.5rem 0 0; padding: 1.5rem; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .status-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .status-modal-header h3 { font-size: 1.1rem; font-weight: 600; }
+        .status-modal-close { width: 36px; height: 36px; background: var(--bg); border: none; border-radius: 50%; font-size: 1.2rem; cursor: pointer; }
+        .status-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .status-option { display: flex; align-items: center; padding: 1rem; background: var(--bg); border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; }
+        .status-option:has(input:checked) { background: rgba(99,102,241,0.1); border: 2px solid var(--primary); }
+        .status-option input { display: none; }
+        .status-label { font-size: 1rem; font-weight: 500; }
+        .status-label.selling { color: var(--success); }
+        .status-label.sold { color: var(--error); }
+        .status-label.offline { color: var(--text-light); }
+        .btn-confirm { width: 100%; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 2rem; font-size: 1rem; font-weight: 600; cursor: pointer; }
+        .btn-confirm:hover { background: var(--secondary); }
+        
+        /* Utility */
+        .hidden { display: none !important; }
+
+        /* Edit Stock Modal */
+        .edit-stock-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .edit-stock-modal.show { display: flex; }
+        .edit-stock-content { background: white; padding: 1.5rem; border-radius: 1rem; width: 90%; max-width: 400px; }
+        .edit-stock-content h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+        .edit-stock-input { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; font-size: 1rem; }
+        .edit-stock-input:focus { outline: none; border-color: var(--primary); }
+        .edit-stock-btns { display: flex; gap: 0.75rem; margin-top: 1rem; }
+        .btn-cancel { flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--bg); cursor: pointer; font-size: 1rem; }
+        .btn-cancel:hover { background: var(--border); }
+        .btn-save { flex: 1; padding: 0.75rem; border: none; border-radius: 0.5rem; background: var(--primary); color: white; cursor: pointer; font-size: 1rem; }
+        .btn-save:hover { background: var(--secondary); }
+
+        /* Manage Menu Modal */
+        .manage-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: flex-end; justify-content: center; }
+        .manage-modal.show { display: flex; }
+        .manage-modal-content { background: white; width: 100%; max-width: 500px; border-radius: 1.5rem 1.5rem 0 0; padding: 1.5rem; animation: slideUp 0.3s ease; }
+        .manage-options { display: flex; flex-direction: column; gap: 0.75rem; }
+        .manage-option { display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--bg); border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; }
+        .manage-option:hover { background: rgba(99,102,241,0.1); }
+        .manage-option-icon { width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+        .manage-option-text { flex: 1; }
+        .manage-option-title { font-weight: 500; font-size: 1rem; }
+        .manage-option-desc { font-size: 0.85rem; color: var(--text-light); }
+        .manage-option-arrow { color: var(--text-light); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button class="back-btn" onclick="history.back()">←</button>
+        <div class="header-title">商品详情</div>
+    </header>
+
+    <main class="main">
+        <!-- Image Gallery -->
+        <div class="gallery" id="gallery" onclick="openPreview()">
+            <div id="gallery-images"></div>
+            <button class="gallery-expand" onclick="event.stopPropagation(); openPreview()">⛶</button>
+            <span class="gallery-hint"><span>💡</span> 点击查看大图</span>
+            <button class="gallery-nav prev" onclick="event.stopPropagation(); prevImage()">‹</button>
+            <button class="gallery-nav next" onclick="event.stopPropagation(); nextImage()">›</button>
+            <div class="gallery-dots" id="gallery-dots"></div>
+        </div>
+
+        <!-- Image Preview Modal -->
+        <div class="preview-modal" id="preview-modal">
+            <div class="preview-header">
+                <span class="preview-counter" id="preview-counter"></span>
+                <button class="preview-close" onclick="closePreview()">✕</button>
+            </div>
+            <button class="preview-nav prev" onclick="previewPrev()">‹</button>
+            <div class="preview-body">
+                <img src="" alt="" class="preview-img" id="preview-img">
+            </div>
+            <button class="preview-nav next" onclick="previewNext()">›</button>
+            <div class="preview-footer" id="preview-dots"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <div id="item-content">
+                <div class="loading">加载中...</div>
+            </div>
+        </div>
+
+        <!-- Bottom Action -->
+        <div class="bottom-action" id="bottomAction">
+            <button class="btn-fav" onclick="toggleFav(this)">♡</button>
+            <button class="btn-want" onclick="buyNow()">🛒 我想要</button>
+            <button class="btn-buy" onclick="contactSeller()">💬 联系卖家</button>
+            <button class="btn-manage hidden" id="manage-btn" onclick="showManageModal()">⚙️ 管理</button>
+        </div>
+
+        <!-- Status Update Modal -->
+        <div class="status-modal" id="status-modal">
+            <div class="status-modal-content">
+                <div class="status-modal-header">
+                    <h3>修改商品状态</h3>
+                    <button class="status-modal-close" onclick="closeStatusModal()">✕</button>
+                </div>
+                <div class="status-options">
+                    <label class="status-option">
+                        <input type="radio" name="status" value="selling">
+                        <span class="status-label selling">🟢 在售</span>
+                    </label>
+                    <label class="status-option">
+                        <input type="radio" name="status" value="sold">
+                        <span class="status-label sold">✅ 已售出</span>
+                    </label>
+                    <label class="status-option">
+                        <input type="radio" name="status" value="offline">
+                        <span class="status-label offline">⚫ 下架</span>
+                    </label>
+                </div>
+                <button class="btn-confirm" onclick="updateProductStatus()">确认修改</button>
+            </div>
+        </div>
+
+        <!-- Manage Menu Modal -->
+        <div class="manage-modal" id="manage-modal">
+            <div class="manage-modal-content">
+                <div class="status-modal-header">
+                    <h3>商品管理</h3>
+                    <button class="status-modal-close" onclick="closeManageModal()">✕</button>
+                </div>
+                <div class="manage-options">
+                    <div class="manage-option" onclick="showEditStockModal()">
+                        <div class="manage-option-icon">📦</div>
+                        <div class="manage-option-text">
+                            <div class="manage-option-title">编辑库存</div>
+                            <div class="manage-option-desc">当前库存：<span id="current-stock-display">0</span> 件</div>
+                        </div>
+                        <span class="manage-option-arrow">›</span>
+                    </div>
+                    <div class="manage-option" onclick="showStatusModal()">
+                        <div class="manage-option-icon">🔄</div>
+                        <div class="manage-option-text">
+                            <div class="manage-option-title">修改状态</div>
+                            <div class="manage-option-desc">在售 / 已售出 / 下架</div>
+                        </div>
+                        <span class="manage-option-arrow">›</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Stock Modal -->
+        <div class="edit-stock-modal" id="edit-stock-modal">
+            <div class="edit-stock-content">
+                <h3>编辑库存</h3>
+                <input type="number" id="edit-stock-input" class="edit-stock-input" min="0" placeholder="请输入库存数量">
+                <div class="edit-stock-btns">
+                    <button class="btn-cancel" onclick="closeEditStockModal()">取消</button>
+                    <button class="btn-save" onclick="saveProductStock()">保存</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 从URL获取商品ID
+        const params = new URLSearchParams(window.location.search);
+        const itemId = parseInt(params.get('id'));
+        let item = null;
+
+        let currentImageIndex = 0;
+
+        // 从API加载商品数据
+        async function loadProduct() {
+            try {
+                const token = getAuthToken();
+                const headers = { 'Content-Type': 'application/json' };
+                if (token) headers['Authorization'] = `Bearer ${token}`;
+                const res = await fetch(`/api/product/${itemId}`, { headers, credentials: 'include' });
+                const data = await res.json();
+                if (data.success && data.product) {
+                    const p = data.product;
+                    item = {
+                        id: p.id,
+                        uid: p.uid,
+                        title: p.title,
+                        price: p.price,
+                        images: p.images ? JSON.parse(p.images) : [`https://picsum.photos/800/600?${p.id}`],
+                        video: p.video,
+                        videoThumb: p.video_thumb,
+                        cat: p.category,
+                        tags: [p.condition],
+                        user: p.seller?.username || '匿名用户',
+                        avatar: p.seller?.avatar || '😊',
+                        loc: '平台用户',
+                        intro: p.description || '暂无描述',
+                        status: p.status,
+                        stock: p.stock || 0
+                    };
+                    renderItem();
+                    checkIfOwner();
+                    loadReviews();
+                    checkFavoriteStatus(p.id);  // 检查是否已收藏
+                } else {
+                    document.getElementById('item-content').innerHTML = '<div class="error-msg">商品不存在或已被下架</div>';
+                }
+            } catch (e) {
+                document.getElementById('item-content').innerHTML = '<div class="error-msg">加载失败，请刷新重试</div>';
+            }
+        }
+
+        function renderGallery(images) {
+            const container = document.getElementById('gallery-images');
+            const dotsContainer = document.getElementById('gallery-dots');
+            const gallery = document.getElementById('gallery');
+            const galleryHint = gallery.querySelector('.gallery-hint');
+            
+            // 如果有视频，添加视频元素
+            let videoHtml = '';
+            if (item.video) {
+                videoHtml = `<video src="${item.video}" class="gallery-img active" id="gallery-video" controls playsinline style="width:100%;height:100%;object-fit:contain;"></video>`;
+                galleryHint.innerHTML = '<span>🎬</span> 点击播放视频';
+            }
+            
+            container.innerHTML = videoHtml + images.map((img, idx) => 
+                `<img src="${img}" class="gallery-img ${!item.video && idx === 0 ? 'active' : ''}" data-index="${idx}">`
+            ).join('');
+            
+            dotsContainer.innerHTML = images.map((_, idx) => 
+                `<span class="gallery-dot ${!item.video && idx === 0 ? 'active' : ''}" onclick="goToImage(${idx})"></span>`
+            ).join('');
+        }
+
+        function updateGallery() {
+            const video = document.getElementById('gallery-video');
+            document.querySelectorAll('.gallery-img:not(#gallery-video)').forEach((img, idx) => {
+                const actualIndex = item.video ? idx + 1 : idx;
+                img.classList.toggle('active', actualIndex === currentImageIndex);
+            });
+            document.querySelectorAll('.gallery-dot').forEach((dot, idx) => {
+                const actualIndex = item.video ? idx + 1 : idx;
+                dot.classList.toggle('active', actualIndex === currentImageIndex);
+            });
+            // 如果有视频，隐藏视频（当切换到图片时）
+            if (video) {
+                video.style.display = currentImageIndex === 0 ? 'block' : 'none';
+            }
+        }
+
+        function prevImage() {
+            if (!item) return;
+            const totalItems = item.video ? item.images.length + 1 : item.images.length;
+            currentImageIndex = (currentImageIndex - 1 + totalItems) % totalItems;
+            if (currentImageIndex === 0 && item.video) {
+                // 如果是视频位置，切换到最后一个
+                currentImageIndex = totalItems - 1;
+            }
+            updateGallery();
+        }
+
+        function nextImage() {
+            if (!item) return;
+            const totalItems = item.video ? item.images.length + 1 : item.images.length;
+            currentImageIndex = (currentImageIndex + 1) % totalItems;
+            if (currentImageIndex === 0 && item.video) {
+                // 如果是视频位置，切换到第一个
+                currentImageIndex = 0;
+            }
+            updateGallery();
+        }
+
+        function goToImage(index) {
+            currentImageIndex = item.video ? index + 1 : index;
+            updateGallery();
+        }
+
+        // 图片预览功能
+        function openPreview() {
+            if (!item) return;
+            // 如果点击的是视频，播放视频而不是打开预览
+            if (currentImageIndex === 0 && item.video) {
+                const video = document.getElementById('gallery-video');
+                if (video) {
+                    video.play();
+                    return;
+                }
+            }
+            if (!item.images.length) return;
+            const modal = document.getElementById('preview-modal');
+            updatePreview();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePreview() {
+            document.getElementById('preview-modal').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function updatePreview() {
+            const img = document.getElementById('preview-img');
+            // 计算实际的图片索引（跳过视频）
+            const actualImageIndex = item.video ? currentImageIndex - 1 : currentImageIndex;
+            img.src = item.images[actualImageIndex] || item.images[0];
+            const totalImages = item.images.length;
+            document.getElementById('preview-counter').textContent = `${actualImageIndex + 1} / ${totalImages}`;
+
+            // 更新底部小圆点
+            const dotsContainer = document.getElementById('preview-dots');
+            dotsContainer.innerHTML = item.images.map((_, idx) =>
+                `<span class="preview-dot ${idx === currentImageIndex ? 'active' : ''}" onclick="goToPreviewImage(${idx})"></span>`
+            ).join('');
+        }
+
+        function goToPreviewImage(index) {
+            currentImageIndex = index;
+            updatePreview();
+        }
+
+        function previewPrev() {
+            if (!item) return;
+            currentImageIndex = (currentImageIndex - 1 + item.images.length) % item.images.length;
+            updatePreview();
+        }
+
+        function previewNext() {
+            if (!item) return;
+            currentImageIndex = (currentImageIndex + 1) % item.images.length;
+            updatePreview();
+        }
+
+        // ESC关闭预览
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closePreview();
+            if (e.key === 'ArrowLeft') previewPrev();
+            if (e.key === 'ArrowRight') previewNext();
+        });
+
+        // 触摸滑动支持
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.getElementById('gallery').addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        
+        document.getElementById('gallery').addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextImage();
+            if (touchEndX - touchStartX > 50) prevImage();
+        }, {passive: true});
+
+        function renderItem() {
+            const container = document.getElementById('item-content');
+
+            if (!item) {
+                container.innerHTML = '<div class="error-msg">商品不存在或已被下架</div>';
+                return;
+            }
+
+            // 渲染图片轮播
+            renderGallery(item.images);
+
+            // 生成标签HTML
+            const tagsHtml = item.tags.map((t, i) => {
+                let cls = '';
+                if (i === 0) cls = 'primary';
+                if (t === '全新') cls = 'success';
+                return `<span class="info-tag ${cls}">${t}</span>`;
+            }).join('');
+
+            // 生成AI描述
+            const aiDescs = [
+                { type: '技术控', icon: '💻', text: `【商品参数】\n型号：${item.title}\n成色：${item.tags.find(t => t.includes('成') || t === '全新') || '二手'}\n转让价：¥${item.price}\n\n【商品状态】\n${item.intro}\n\n【交易说明】\n支持当面验货，可走平台担保交易。` },
+                { type: '故事风', icon: '📖', text: `用了很久的${item.title}，说实话真有点舍不得。\n\n当初入手的时候花了不少心思挑，现在因为工作调动要搬家带不走了。\n\n东西都是自己用的，很爱惜，功能完好无损。希望能找到下一任主人继续发挥它的价值。\n\n价格已经很实在了，有兴趣的朋友可以私聊~` },
+                { type: '极简风', icon: '✨', text: `${item.title}\n${item.tags.join(' · ')}\n💰 ¥${item.price}\n📍 ${item.loc}\n✅ 功能正常，可验货` }
+            ];
+
+            const aiCardsHtml = aiDescs.map(d => `
+                <div class="ai-card">
+                    <h4>${d.icon} ${d.type}</h4>
+                    <p>${d.text}</p>
+                    <button class="copy-btn" onclick="copyText(this, '${d.text.replace(/'/g, "\\'")}')">📋 复制文案</button>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <!-- Seller -->
+                <div class="seller" onclick="goToUserProfile()">
+                    <div class="seller-avatar">${item.avatar}</div>
+                    <div class="seller-info">
+                        <div class="seller-name">${item.user}</div>
+                        <div class="seller-meta">📍 ${item.loc}</div>
+                    </div>
+                    <button class="seller-btn" onclick="event.stopPropagation(); contactSeller()">发送商品</button>
+                </div>
+
+                <!-- Title & Price -->
+                <div class="title-section">
+                    <h1 class="item-title">${item.title}</h1>
+                    <div class="item-price">
+                        ¥${item.price}
+                    </div>
+                    <div class="item-stock" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-light);">
+                        ${item.status === 'selling' ? '<span style="color: var(--success);">📦 在售</span>' : '<span style="color: var(--error);">⚠️ 已售出</span>'}
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="info-section">
+                    <div class="info-title">📝 商品介绍</div>
+                    <div class="info-content">${item.intro}</div>
+                    <div class="info-tags">
+                        <span class="info-tag">📂 ${item.cat}</span>
+                        ${tagsHtml}
+                    </div>
+                </div>
+
+                <!-- User Reviews -->
+                <div class="review-section">
+                    <div class="review-header">
+                        <div class="review-title">⭐ 商品评价</div>
+                        <div class="review-stats" id="review-stats">
+                            <span class="review-avg" id="review-avg">0.0</span>
+                            <span class="review-count" id="review-count">(0条评价)</span>
+                        </div>
+                    </div>
+                    <div id="ai-summary-container"></div>
+                    <div id="review-form-container"></div>
+                    <div id="review-list"></div>
+                </div>
+
+                <!-- AI Generated Descriptions -->
+                <div class="ai-section">
+                    <div class="ai-title">🤖 AI生成转售文案</div>
+                    <div class="ai-cards">${aiCardsHtml}</div>
+                </div>
+            `;
+        }
+
+        function copyText(btn, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const original = btn.textContent;
+                btn.textContent = '✅ 已复制';
+                btn.style.color = 'var(--success)';
+                setTimeout(() => {
+                    btn.textContent = original;
+                    btn.style.color = '';
+                }, 1500);
+            });
+        }
+
+        function toggleFav(btn) {
+            const isLoggedIn = localStorage.getItem('auth_token');
+            if (!isLoggedIn) {
+                alert('请先登录');
+                window.location.href = '/auth';
+                return;
+            }
+
+            const productId = item.id;
+            const isFavorited = btn.classList.contains('favorited');
+
+            authFetch(`/api/favorites/${productId}`, {
+                method: isFavorited ? 'DELETE' : 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    btn.textContent = isFavorited ? '♡' : '♥';
+                    btn.style.color = isFavorited ? '' : 'var(--error)';
+                    btn.classList.toggle('favorited', !isFavorited);
+                    alert(isFavorited ? '已取消收藏' : '收藏成功');
+                } else {
+                    alert(data.error || '操作失败');
+                }
+            })
+            .catch(err => {
+                console.error('收藏失败:', err);
+                alert('网络错误');
+            });
+        }
+
+        // 检查是否已收藏
+        async function checkFavoriteStatus(productId) {
+            try {
+                const res = await authFetch(`/api/favorites/check/${productId}`);
+                const data = await res.json();
+                if (data.success && data.is_favorited) {
+                    const favBtn = document.querySelector('.btn-fav');
+                    favBtn.textContent = '♥';
+                    favBtn.style.color = 'var(--error)';
+                    favBtn.classList.add('favorited');
+                }
+            } catch (e) {
+                console.error('检查收藏状态失败:', e);
+            }
+        }
+
+        // ========== Review Functions ==========
+        let currentRating = 0;
+        let currentUserUid = null;
+
+        async function loadReviews() {
+            if (!item) return;
+            
+            try {
+                const res = await fetch(`/api/product/${item.id}/reviews`);
+                const data = await res.json();
+                
+                if (data.success) {
+                    renderReviewStats(data.avg_rating, data.total_count);
+                    await loadAISummary();  // 加载AI评价总结
+                    await renderReviewForm();
+                    renderReviewList(data.reviews);
+                }
+            } catch (e) {
+                console.error('加载评价失败:', e);
+            }
+        }
+        
+        async function loadAISummary() {
+            const container = document.getElementById('ai-summary-container');
+            container.innerHTML = '<div class="ai-summary-loading">正在生成AI评价总结...</div>';
+            
+            try {
+                const res = await authFetch(`/api/product/${item.id}/review-summary`);
+                const data = await res.json();
+                
+                if (data.success && data.summary) {
+                    container.innerHTML = `
+                        <div class="ai-summary">
+                            <div class="ai-summary-header">AI评价总结（${data.review_count}条评价）</div>
+                            <div class="ai-summary-content">${formatAISummary(data.summary)}</div>
+                        </div>
+                    `;
+                } else if (data.message === '暂无评价') {
+                    container.innerHTML = '';
+                } else {
+                    container.innerHTML = '<div class="ai-summary-error">暂无足够评价生成总结</div>';
+                }
+            } catch (e) {
+                container.innerHTML = '<div class="ai-summary-error">AI总结加载失败</div>';
+            }
+        }
+        
+        function formatAISummary(summary) {
+            // 将AI总结分段显示
+            return summary.split('\n').map(line => {
+                line = line.trim();
+                if (!line) return '';
+                if (/^[0-9][.、]/.test(line)) {
+                    return `<div class="ai-summary-section">${line}</div>`;
+                }
+                return `<div>${line}</div>`;
+            }).join('');
+        }
+
+        function renderReviewStats(avg, count) {
+            document.getElementById('review-avg').textContent = avg.toFixed(1);
+            document.getElementById('review-count').textContent = `(${count}条评价)`;
+        }
+
+        async function renderReviewForm() {
+            const container = document.getElementById('review-form-container');
+            const token = localStorage.getItem('auth_token');
+            
+            if (!token) {
+                container.innerHTML = '<div class="review-login-hint">登录后可发表评价 <a href="/auth" style="color: var(--primary);">去登录</a></div>';
+                return;
+            }
+            
+            // 检查是否是自己的商品
+            const currentUid = localStorage.getItem('user_uid');
+            if (currentUid === item.uid) {
+                container.innerHTML = '<div class="review-login-hint">这是您的商品</div>';
+                return;
+            }
+            
+            // 检查是否购买过该商品
+            try {
+                const res = await authFetch(`/api/product/${item.id}/has_purchased`);
+                const data = await res.json();
+                
+                if (!data.has_purchased) {
+                    container.innerHTML = '<div class="review-login-hint">购买后才能评价该商品</div>';
+                    return;
+                }
+            } catch (e) {
+                container.innerHTML = '<div class="review-login-hint">加载评价表单失败</div>';
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="review-form">
+                    <div class="review-form-title">给商品打分</div>
+                    <div class="rating-input" id="rating-input">
+                        <span class="rating-star" data-rating="1">★</span>
+                        <span class="rating-star" data-rating="2">★</span>
+                        <span class="rating-star" data-rating="3">★</span>
+                        <span class="rating-star" data-rating="4">★</span>
+                        <span class="rating-star" data-rating="5">★</span>
+                    </div>
+                    <textarea class="review-text" id="review-comment" placeholder="说说你的购买体验...(选填)"></textarea>
+                    <button class="review-submit" id="review-submit" onclick="submitReview()">提交评价</button>
+                </div>
+            `;
+            
+            // 添加星级点击事件
+            document.querySelectorAll('.rating-star').forEach(star => {
+                star.addEventListener('click', () => {
+                    currentRating = parseInt(star.dataset.rating);
+                    updateRatingStars();
+                });
+                star.addEventListener('mouseenter', () => {
+                    const rating = parseInt(star.dataset.rating);
+                    highlightStars(rating);
+                });
+                star.addEventListener('mouseleave', () => {
+                    updateRatingStars();
+                });
+            });
+        }
+
+        function highlightStars(rating) {
+            document.querySelectorAll('.rating-star').forEach(star => {
+                const starRating = parseInt(star.dataset.rating);
+                star.classList.toggle('active', starRating <= rating);
+            });
+        }
+
+        function updateRatingStars() {
+            highlightStars(currentRating);
+        }
+
+        async function submitReview() {
+            if (!item) return;
+            
+            if (currentRating === 0) {
+                alert('请选择评分');
+                return;
+            }
+            
+            const comment = document.getElementById('review-comment').value.trim();
+            const token = localStorage.getItem('auth_token');
+            
+            try {
+                const res = await fetch(`/api/product/${item.id}/review`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        rating: currentRating,
+                        comment: comment
+                    })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    alert('评价成功！');
+                    currentRating = 0;
+                    document.getElementById('review-comment').value = '';
+                    loadReviews(); // 重新加载评价
+                } else {
+                    alert(data.error || '评价失败');
+                }
+            } catch (e) {
+                alert('提交失败，请重试');
+            }
+        }
+
+        function renderReviewList(reviews) {
+            const container = document.getElementById('review-list');
+            
+            if (!reviews || reviews.length === 0) {
+                container.innerHTML = '<div class="review-empty">暂无评价，成为第一个评价的人吧！</div>';
+                return;
+            }
+            
+            container.innerHTML = reviews.map(review => `
+                <div class="review-item">
+                    <div class="review-user">
+                        <div class="review-avatar">${review.user.avatar || review.user.username[0]}</div>
+                        <div class="review-username">${review.user.username}</div>
+                        <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                    </div>
+                    ${review.comment ? `<div class="review-comment">${escapeHtml(review.comment)}</div>` : ''}
+                    <div class="review-time">${formatTime(review.created_at)}</div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const date = new Date(timeStr);
+            const now = new Date();
+            const diff = now - date;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            if (days === 0) return '今天';
+            if (days === 1) return '昨天';
+            if (days < 7) return `${days}天前`;
+            if (days < 30) return `${Math.floor(days / 7)}周前`;
+            if (days < 365) return `${Math.floor(days / 30)}月前`;
+            return `${Math.floor(days / 365)}年前`;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function contactSeller() {
+            if (!item) return;
+            
+            // 检查是否已登录
+            const loggedIn = await checkLoggedIn();
+            if (!loggedIn) {
+                alert('请先登录');
+                window.location.href = '/auth';
+                return;
+            }
+            
+            // 获取当前用户ID
+            const currentUid = localStorage.getItem('user_uid');
+            
+            // 不能给自己发私信
+            if (currentUid === item.uid) {
+                alert('这是您自己的商品');
+                return;
+            }
+            
+            // 跳转到私信页面，并带上商品ID
+            window.location.href = `/message?uid=${item.uid}&product_id=${item.id}`;
+        }
+
+        async function buyNow() {
+            if (!item) return;
+            
+            // 检查是否已登录
+            const loggedIn = await checkLoggedIn();
+            if (!loggedIn) {
+                alert('请先登录');
+                window.location.href = '/auth';
+                return;
+            }
+            
+            // 获取当前用户ID
+            const currentUid = localStorage.getItem('user_uid');
+            
+            // 不能购买自己的商品
+            if (currentUid === item.uid) {
+                alert('这是您自己的商品');
+                return;
+            }
+            
+            // 跳转到订单确认页面
+            window.location.href = `/order-confirm?product_id=${item.id}`;
+        }
+
+        async function checkLoggedIn() {
+            const token = localStorage.getItem('auth_token');
+            if (!token) return false;
+            
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                return data.success === true;
+            } catch (e) {
+                return false;
+            }
+        }
+        
+        async function checkLoggedIn() {
+            const token = localStorage.getItem('auth_token');
+            if (!token) return false;
+            
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                return data.success === true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function goToUserProfile() {
+            if (item) {
+                window.location.href = `/user?uid=${item.uid}`;
+            }
+        }
+
+        // 初始化
+        loadProduct();
+
+        // 检查是否为商品所有者
+        async function checkIfOwner() {
+            const token = localStorage.getItem('auth_token');
+            const currentUid = localStorage.getItem('user_uid');
+            if (!token || !currentUid || !item) return;
+
+            // 获取当前用户信息
+            try {
+                const res = await fetch('/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (data.success && data.user && data.user.uid === item.uid) {
+                    // 是商品所有者，显示管理按钮
+                    document.getElementById('manage-btn').classList.remove('hidden');
+                    // 隐藏"我想要"按钮
+                    document.querySelector('.btn-want').classList.add('hidden');
+                }
+            } catch (e) {
+                console.log('检查所有权失败', e);
+            }
+        }
+
+        // 显示管理菜单弹窗
+        function showManageModal() {
+            // 更新当前库存显示
+            if (document.getElementById('current-stock-display')) {
+                document.getElementById('current-stock-display').textContent = item.stock || 0;
+            }
+            document.getElementById('manage-modal').classList.add('show');
+        }
+
+        function closeManageModal() {
+            document.getElementById('manage-modal').classList.remove('show');
+        }
+
+        // 显示状态修改弹窗
+        function showStatusModal() {
+            closeManageModal();
+            const modal = document.getElementById('status-modal');
+            // 设置当前状态
+            const currentStatus = item.status || 'selling';
+            document.querySelectorAll('input[name="status"]').forEach(radio => {
+                radio.checked = radio.value === currentStatus;
+            });
+            modal.classList.add('show');
+        }
+
+        function closeStatusModal() {
+            document.getElementById('status-modal').classList.remove('show');
+        }
+
+        // 显示编辑库存弹窗
+        function showEditStockModal() {
+            closeManageModal();
+            document.getElementById('edit-stock-input').value = item.stock || 0;
+            document.getElementById('edit-stock-modal').classList.add('show');
+        }
+
+        function closeEditStockModal() {
+            document.getElementById('edit-stock-modal').classList.remove('show');
+        }
+
+        // 保存库存
+        async function saveProductStock() {
+            const newStock = parseInt(document.getElementById('edit-stock-input').value);
+            if (isNaN(newStock) || newStock < 0) {
+                alert('请输入有效的库存数量');
+                return;
+            }
+
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                alert('请先登录');
+                location.href = '/auth';
+                return;
+            }
+
+            try {
+                const newStatus = newStock > 0 ? 'selling' : 'sold';
+                const res = await fetch(`/api/product/${itemId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    item.status = newStatus;
+                    // 更新页面上显示的状态
+                    const stockDisplay = document.querySelector('.item-stock');
+                    if (stockDisplay) {
+                        stockDisplay.innerHTML = newStatus === 'selling' 
+                            ? '<span style="color: var(--success);">📦 在售</span>' 
+                            : '<span style="color: var(--error);">⚠️ 已售出</span>';
+                    }
+                    closeEditStockModal();
+                    alert(newStatus === 'selling' ? '商品已上架' : '商品已标记为已售出');
+                } else {
+                    alert(data.error || '修改失败');
+                }
+            } catch (e) {
+                alert('修改失败，请稍后重试');
+            }
+        }
+
+        // 更新商品状态
+        async function updateProductStatus() {
+            const selected = document.querySelector('input[name="status"]:checked');
+            if (!selected) {
+                alert('请选择商品状态');
+                return;
+            }
+
+            const newStatus = selected.value;
+            const token = localStorage.getItem('auth_token');
+            if (!token) {
+                alert('请先登录');
+                location.href = '/auth';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/product/${itemId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert(data.message);
+                    item.status = newStatus;
+                    closeStatusModal();
+                    // 刷新页面以更新显示
+                    location.reload();
+                } else {
+                    alert(data.error || '修改失败');
+                }
+            } catch (e) {
+                alert('修改失败，请稍后重试');
+            }
+        }
+    </script>
+</body>
+</html>

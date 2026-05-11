@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页 - 闲置好物</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+
+        /* Header */
+        .header { background: white; border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1rem; }
+        .back-btn { width: 40px; height: 40px; border: none; background: var(--bg); border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .back-btn:hover { background: var(--border); }
+        .header-title { flex: 1; font-weight: 600; font-size: 1.1rem; text-align: center; }
+
+        /* Main */
+        .main { max-width: 1200px; margin: 0 auto; padding: 0; background: white; min-height: 100vh; }
+
+        /* Desktop Layout */
+        @media (min-width: 768px) {
+            .profile-section { display: flex; }
+            .profile-left { width: 320px; flex-shrink: 0; border-right: 8px solid var(--bg); }
+            .profile-right { flex: 1; padding: 1.5rem; }
+            .item-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        }
+
+        /* Profile Header */
+        .profile-header { padding: 2rem 1.5rem; text-align: center; border-bottom: 8px solid var(--bg); }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold; margin: 0 auto 1rem; }
+        .profile-name { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .profile-uid { font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.5rem; }
+        .profile-bio { font-size: 0.9rem; color: var(--text-light); padding: 0 1rem; line-height: 1.5; }
+        .profile-stats { display: flex; justify-content: center; gap: 2rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+        .stat-label { font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem; }
+
+        /* Action Buttons */
+        .action-buttons { display: flex; gap: 0.75rem; padding: 1rem 1.5rem; }
+        .action-btn { flex: 1; padding: 0.75rem 1rem; border-radius: 2rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.375rem; }
+        .action-btn.primary { background: var(--primary); color: white; border: none; }
+        .action-btn.primary:hover { background: var(--secondary); }
+        .action-btn.secondary { background: white; color: var(--text); border: 1px solid var(--border); }
+        .action-btn.secondary:hover { border-color: var(--primary); color: var(--primary); }
+        .action-btn.danger { background: white; color: var(--error); border: 1px solid var(--error); }
+        .action-btn.danger:hover { background: var(--error); color: white; }
+        .action-btn.followed { background: var(--success); color: white; border: none; }
+
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 1px solid var(--border); }
+        .tab { flex: 1; padding: 1rem; text-align: center; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+
+        /* Item Grid */
+        .item-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; padding: 1rem; }
+        .item-card { background: var(--bg); border-radius: 0.75rem; overflow: hidden; position: relative; }
+        .item-img-wrap { position: relative; }
+        .item-img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #f0f0f0; }
+        .item-info { padding: 0.75rem; }
+        .item-title { font-size: 0.85rem; font-weight: 500; margin-bottom: 0.25rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .item-price { font-size: 1rem; color: var(--error); font-weight: 600; }
+
+        /* 状态标识 */
+        .item-status { position: absolute; top: 0; left: 0; padding: 0.4rem 0.75rem; border-radius: 0 1rem 1rem 0; font-size: 0.85rem; font-weight: 700; color: white; z-index: 1; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        .item-status.sold { background: var(--error); }
+        .item-status.offline { background: var(--text-light); }
+        .item-status.selling { background: var(--success); }
+
+        /* 售出/下架遮罩 */
+        .item-card.sold .item-img, .item-card.offline .item-img { filter: grayscale(60%); opacity: 0.7; }
+        .item-card.sold { cursor: default; }
+        .item-card.offline { cursor: default; }
+
+        /* Empty State */
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-light); }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+
+        /* Loading */
+        .loading { text-align: center; padding: 3rem; color: var(--text-light); }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(0,0,0,0.8); color: white; padding: 0.75rem 1.5rem; border-radius: 2rem; font-size: 0.9rem; z-index: 1000; opacity: 0; transition: all 0.3s; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* PC端适配 */
+        @media (min-width: 768px) {
+            body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+            .main { max-width: 1000px; margin: 2rem auto; border-radius: 1rem; box-shadow: 0 20px 50px rgba(0,0,0,0.15); overflow: hidden; min-height: calc(100vh - 4rem); }
+            .header { border-radius: 1rem 1rem 0 0; }
+            .profile-header { padding: 3rem 2rem; display: flex; flex-direction: column; align-items: center; }
+            .profile-avatar { width: 120px; height: 120px; font-size: 3rem; margin-bottom: 1.5rem; }
+            .profile-name { font-size: 1.5rem; }
+            .profile-uid { font-size: 1rem; }
+            .profile-bio { font-size: 1rem; max-width: 400px; }
+            .profile-stats { gap: 4rem; }
+            .stat-value { font-size: 1.5rem; }
+            .stat-label { font-size: 1rem; }
+            .action-buttons { padding: 1.5rem 2rem; justify-content: center; max-width: 600px; margin: 0 auto; }
+            .action-btn { max-width: 180px; padding: 1rem 1.5rem; font-size: 1rem; }
+            .tabs { max-width: 400px; margin: 0 auto; border-radius: 0.5rem; background: var(--bg); }
+            .tab { padding: 1rem 2rem; font-size: 1rem; }
+            .item-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 1.5rem 2rem; }
+            .item-card { border-radius: 1rem; transition: transform 0.3s, box-shadow 0.3s; }
+            .item-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+            .item-info { padding: 1rem; }
+            .item-title { font-size: 1rem; }
+            .item-price { font-size: 1.1rem; }
+            .back-btn { width: 48px; height: 48px; font-size: 1.4rem; }
+            .header-title { font-size: 1.25rem; }
+        }
+
+        /* 平板适配 */
+        @media (min-width: 600px) and (max-width: 767px) {
+            .main { max-width: 90%; margin: 1rem auto; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            .item-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; }
+            .profile-avatar { width: 100px; height: 100px; font-size: 2.5rem; }
+            .profile-name { font-size: 1.35rem; }
+            .profile-stats { gap: 3rem; }
+            .stat-value { font-size: 1.35rem; }
+            .action-buttons { padding: 1rem 1.5rem; }
+            .action-btn { padding: 0.875rem 1.25rem; }
+        }
+
+        /* 手机小屏 */
+        @media (max-width: 400px) {
+            .item-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <div class="header-title" id="page-title">个人主页</div>
+    </header>
+
+    <main class="main">
+        <div id="profile-content">
+            <div class="loading">加载中...</div>
+        </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 获取URL参数或路径中的uid
+        const pathParts = window.location.pathname.split('/');
+        const uid = pathParts[2] || new URLSearchParams(window.location.search).get('uid');
+        let currentUser = null;
+
+        // 返回上一页
+        function goBack() {
+            if (document.referrer && document.referrer.includes(window.location.hostname)) {
+                history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        // 显示提示
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // 检查登录状态
+        async function checkAuth() {
+            const token = getAuthToken();
+            if (!token) return null;
+            try {
+                const res = await authFetch('/api/auth/me');
+                const data = await res.json();
+                if (data.success) {
+                    currentUser = data.user;
+                    return data.user;
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        // 检查是否已关注/拉黑
+        async function checkRelations(targetUid) {
+            if (!targetUid) return { followed: false, blocked: false };
+            try {
+                const res = await authFetch(`/api/user/relations?target=${targetUid}`);
+                const data = await res.json();
+                if (data.success) {
+                    return data;
+                }
+            } catch (e) {}
+            return { followed: false, blocked: false };
+        }
+
+        // 关注用户
+        async function followUser(targetUid) {
+            const token = getAuthToken();
+            if (!token) {
+                showToast('请先登录');
+                setTimeout(() => window.location.href = '/auth', 1000);
+                return;
+            }
+
+            try {
+                const res = await authFetch('/api/user/follow', {
+                    method: 'POST',
+                    body: JSON.stringify({ target_uid: targetUid })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('关注成功！');
+                    renderActions(true, false);
+                } else {
+                    showToast(data.error || '操作失败');
+                }
+            } catch (e) {
+                showToast('网络错误');
+            }
+        }
+
+        // 取消关注
+        async function unfollowUser(targetUid) {
+            try {
+                const res = await authFetch(`/api/user/follow?target=${targetUid}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('已取消关注');
+                    renderActions(false, false);
+                }
+            } catch (e) {
+                showToast('网络错误');
+            }
+        }
+
+        // 拉黑用户
+        async function blockUser(targetUid) {
+            const token = getAuthToken();
+            if (!token) {
+                showToast('请先登录');
+                setTimeout(() => window.location.href = '/auth', 1000);
+                return;
+            }
+
+            if (!confirm('确定拉黑该用户吗？拉黑后将看不到对方的任何商品')) return;
+
+            try {
+                const res = await authFetch('/api/user/block', {
+                    method: 'POST',
+                    body: JSON.stringify({ target_uid: targetUid })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('已拉黑该用户');
+                    renderActions(false, true);
+                } else {
+                    showToast(data.error || '操作失败');
+                }
+            } catch (e) {
+                showToast('网络错误');
+            }
+        }
+
+        // 解封用户
+        async function unblockUser(targetUid) {
+            try {
+                const res = await authFetch(`/api/user/block?target=${targetUid}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('已解除拉黑');
+                    renderActions(false, false);
+                }
+            } catch (e) {
+                showToast('网络错误');
+            }
+        }
+
+        // 渲染操作按钮
+        function renderActions(followed, blocked) {
+            const actionsDiv = document.getElementById('action-buttons');
+            if (!actionsDiv) return;
+
+            let html = '';
+            
+            if (blocked) {
+                html = `
+                    <button class="action-btn secondary" onclick="unblockUser('${uid}')">
+                        🔓 解除拉黑
+                    </button>
+                `;
+            } else {
+                html = `
+                    <button class="action-btn ${followed ? 'followed' : 'primary'}" onclick="${followed ? `unfollowUser('${uid}')` : `followUser('${uid}')`}">
+                        ${followed ? '✅ 已关注' : '🔔 关注'}
+                    </button>
+                    <button class="action-btn secondary" onclick="sendMessage()">
+                        💬 私信
+                    </button>
+                    <button class="action-btn danger" onclick="blockUser('${uid}')">
+                        🚫 拉黑
+                    </button>
+                `;
+            }
+            actionsDiv.innerHTML = html;
+        }
+
+        // 发送私信（模拟）
+        function sendMessage() {
+            if (!currentUser) {
+                showToast('请先登录');
+                setTimeout(() => window.location.href = '/auth', 1000);
+                return;
+            }
+            showToast('私信功能开发中...');
+        }
+
+        // Tab切换
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            updateItemGrid(tab);
+        }
+
+        // 从数据库加载商品数据
+        let myProducts = [];
+
+        async function loadMyProducts() {
+            try {
+                // 根据 uid 参数获取该用户的商品
+                const url = uid ? `/api/products?uid=${uid}` : '/api/products';
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.success) {
+                    myProducts = data.products.map(p => ({
+                        id: p.id,
+                        title: p.title,
+                        price: p.price,
+                        original: p.original_price,
+                        img: p.images ? JSON.parse(p.images)[0] : `https://picsum.photos/400/400?${p.id}`,
+                        status: p.status
+                    }));
+                    // 更新当前标签页
+                    const activeTab = document.querySelector('.tab.active');
+                    if (activeTab) {
+                        const tab = activeTab.dataset.tab;
+                        updateItemGrid(tab);
+                    }
+                }
+            } catch (e) {
+                console.error('加载商品失败', e);
+            }
+        }
+
+        // 更新商品网格
+        function updateItemGrid(tab) {
+            const grid = document.getElementById('item-grid');
+            if (tab === 'selling') {
+                const sellingItems = myProducts.filter(item => item.status === 'selling');
+                grid.innerHTML = sellingItems.map(item => renderItemCard(item)).join('');
+            } else {
+                grid.innerHTML = myProducts.map(item => renderItemCard(item)).join('');
+            }
+        }
+
+        // 渲染商品卡片
+        function renderItemCard(item) {
+            const statusMap = { sold: '已售出', offline: '已下架', selling: '在售' };
+            const statusClass = item.status || 'selling';
+            const statusText = statusMap[statusClass] || '在售';
+            const clickHandler = statusClass === 'selling' ? `onclick="window.location.href='/detail?id=${item.id}'"` : '';
+            return `
+                <div class="item-card ${statusClass}" ${clickHandler}>
+                    <div class="item-img-wrap">
+                        <img src="${item.img}" class="item-img" alt="${item.title}">
+                        <span class="item-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-price">¥${item.price}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 渲染页面
+        async function renderProfile() {
+            const container = document.getElementById('profile-content');
+            
+            // 从API或本地获取用户信息
+            let user = null;
+            
+            // 尝试从API获取
+            if (uid) {
+                try {
+                    const res = await fetch(`/api/user/${uid}`);
+                    const data = await res.json();
+                    if (data.success) {
+                        user = data.user;
+                    }
+                } catch (e) {}
+            }
+
+            // 如果没有获取到用户，显示错误
+            if (!user) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-icon">😢</div><div>用户不存在</div></div>';
+                return;
+            }
+
+            // 检查关系状态
+            await checkAuth();
+            const relations = await checkRelations(uid || user.uid);
+
+            container.innerHTML = `
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar">${user.avatar || user.username[0]}</div>
+                    <div class="profile-name">${user.username}</div>
+                    <div class="profile-uid">UID: ${user.uid}</div>
+                    <div class="profile-bio">${user.bio || '暂无简介'}</div>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${user.selling || 0}</div>
+                            <div class="stat-label">在售</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${user.sold || 0}</div>
+                            <div class="stat-label">已售</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">5.0</div>
+                            <div class="stat-label">信用</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons" id="action-buttons"></div>
+
+                <!-- Tabs -->
+                <div class="tabs">
+                    <div class="tab active" data-tab="selling" onclick="switchTab('selling')">在售商品</div>
+                    <div class="tab" data-tab="all" onclick="switchTab('all')">全部宝贝</div>
+                </div>
+
+                <!-- Item Grid -->
+                <div class="item-grid" id="item-grid"></div>
+            `;
+
+            // 渲染操作按钮
+            renderActions(relations.followed, relations.blocked);
+        }
+
+        // 初始化
+        (async () => {
+            await renderProfile();
+            await loadMyProducts();
+        })();
+    </script>
+    <script src="/auth-utils.js"></script>
+</body>
+</html>

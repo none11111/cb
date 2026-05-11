@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私信 - 闲置好物</title>
+    <script src="/auth-utils.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #6366F1; --secondary: #8B5CF6; --success: #10B981;
+            --warning: #F59E0B; --error: #EF4444; --bg: #F8FAFC;
+            --card-bg: #FFFFFF; --text: #1E293B; --text-light: #64748B;
+            --border: #E2E8F0; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); }
+
+        .header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 0.875rem 1.5rem; position: sticky; top: 0; z-index: 99; }
+        .header-content { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .back-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .back-btn:hover { background: rgba(255,255,255,0.3); }
+        .page-title { font-size: 1.1rem; font-weight: 600; }
+        .new-btn { background: white; color: var(--primary); border: none; padding: 0.5rem 1rem; border-radius: 2rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+        .new-btn:hover { background: #f0f0f0; }
+
+        .main { max-width: 800px; margin: 0 auto; padding: 1rem; }
+
+        .search-box { background: white; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; box-shadow: var(--shadow); }
+        .search-input { width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 0.5rem; font-size: 0.95rem; }
+        .search-input:focus { outline: none; border-color: var(--primary); }
+
+        .conversations-list { background: white; border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow); }
+        .conversation-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+        .conversation-item:last-child { border-bottom: none; }
+        .conversation-item:hover { background: var(--bg); }
+        .conversation-item.unread { background: rgba(99,102,241,0.05); }
+
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--secondary)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: 600; flex-shrink: 0; }
+        
+        .conversation-info { flex: 1; min-width: 0; }
+        .conversation-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+        .conversation-name { font-weight: 600; font-size: 1rem; }
+        .conversation-time { font-size: 0.75rem; color: var(--text-light); }
+        .conversation-preview { font-size: 0.9rem; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .unread-badge { background: var(--error); color: white; font-size: 0.75rem; padding: 0.125rem 0.5rem; border-radius: 1rem; font-weight: 600; margin-left: 0.5rem; }
+
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-light); }
+        .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .empty-text { font-size: 1rem; }
+
+        .loading { text-align: center; padding: 2rem; color: var(--text-light); }
+
+        /* 用户选择弹窗 */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; }
+        .modal-overlay.show { display: flex; }
+        .modal { background: white; border-radius: 1rem; width: 90%; max-width: 400px; max-height: 80vh; overflow: hidden; }
+        .modal-header { padding: 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-weight: 600; font-size: 1.1rem; }
+        .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-light); }
+        .modal-body { padding: 1rem; max-height: 400px; overflow-y: auto; }
+        .user-item { display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border-radius: 0.5rem; cursor: pointer; transition: background 0.2s; }
+        .user-item:hover { background: var(--bg); }
+        .user-item .avatar { width: 40px; height: 40px; font-size: 1rem; }
+        .user-name { font-weight: 500; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <button class="back-btn" onclick="goBack()">← 返回</button>
+            <span class="page-title">私信</span>
+            <button class="new-btn" onclick="showUserSelector()">+ 新消息</button>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="搜索会话..." id="searchInput" oninput="filterConversations()">
+        </div>
+
+        <div class="conversations-list" id="conversationsList">
+            <div class="loading">加载中...</div>
+        </div>
+    </main>
+
+    <!-- 用户选择弹窗 -->
+    <div class="modal-overlay" id="userModal">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title">选择用户</span>
+                <button class="modal-close" onclick="closeUserModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="search-input" placeholder="搜索用户..." id="userSearchInput" oninput="searchUsers()" style="margin-bottom: 1rem;">
+                <div id="userList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let conversations = [];
+
+        // 页面加载时获取会话列表
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginAndLoad();
+        });
+
+        async function checkLoginAndLoad() {
+            const loggedIn = await checkLoggedIn();
+            if (!loggedIn) {
+                window.location.href = '/auth';
+                return;
+            }
+            loadConversations();
+        }
+
+        async function loadConversations() {
+            try {
+                const res = await authFetch('/api/conversations');
+                const data = await res.json();
+                
+                if (data.success) {
+                    conversations = data.conversations || [];
+                    renderConversations();
+                } else {
+                    showError('加载失败');
+                }
+            } catch (e) {
+                showError('网络错误');
+            }
+        }
+
+        function renderConversations() {
+            const container = document.getElementById('conversationsList');
+            
+            if (conversations.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">💬</div>
+                        <div class="empty-text">暂无私信会话</div>
+                        <div class="empty-text" style="font-size: 0.85rem; margin-top: 0.5rem;">点击右上角"新消息"开始聊天</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = conversations.map(conv => `
+                <div class="conversation-item ${conv.unread_count > 0 ? 'unread' : ''}" onclick="openChat('${conv.uid}')">
+                    <div class="avatar">${conv.avatar || conv.username.charAt(0).toUpperCase()}</div>
+                    <div class="conversation-info">
+                        <div class="conversation-header">
+                            <span class="conversation-name">${conv.username}</span>
+                            <span class="conversation-time">${formatTime(conv.last_time)}</span>
+                        </div>
+                        <div class="conversation-preview">
+                            ${conv.last_message || '暂无消息'}
+                            ${conv.unread_count > 0 ? `<span class="unread-badge">${conv.unread_count}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '';
+            const date = new Date(timeStr);
+            const now = new Date();
+            const diff = now - date;
+            
+            if (diff < 60000) return '刚刚';
+            if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前';
+            if (diff < 604800000) return Math.floor(diff / 86400000) + '天前';
+            
+            return date.toLocaleDateString();
+        }
+
+        function filterConversations() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = conversations.filter(conv => 
+                conv.username.toLowerCase().includes(keyword) ||
+                (conv.last_message && conv.last_message.toLowerCase().includes(keyword))
+            );
+            
+            const container = document.getElementById('conversationsList');
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <div class="empty-text">没有找到匹配的会话</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(conv => `
+                <div class="conversation-item ${conv.unread_count > 0 ? 'unread' : ''}" onclick="openChat('${conv.uid}')">
+                    <div class="avatar">${conv.avatar || conv.username.charAt(0).toUpperCase()}</div>
+                    <div class="conversation-info">
+                        <div class="conversation-header">
+                            <span class="conversation-name">${conv.username}</span>
+                            <span class="conversation-time">${formatTime(conv.last_time)}</span>
+                        </div>
+                        <div class="conversation-preview">
+                            ${conv.last_message || '暂无消息'}
+                            ${conv.unread_count > 0 ? `<span class="unread-badge">${conv.unread_count}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openChat(uid) {
+            window.location.href = `/message?uid=${uid}`;
+        }
+
+        function showUserSelector() {
+            document.getElementById('userModal').classList.add('show');
+            loadUsers();
+        }
+
+        function closeUserModal() {
+            document.getElementById('userModal').classList.remove('show');
+        }
+
+        async function loadUsers() {
+            try {
+                const res = await authFetch('/api/user/following');
+                const data = await res.json();
+                
+                if (data.success) {
+                    renderUsers(data.following || []);
+                }
+            } catch (e) {
+                console.error('加载用户失败', e);
+            }
+        }
+
+        function renderUsers(users) {
+            const container = document.getElementById('userList');
+            
+            if (users.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-light);">
+                        暂无关注用户
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = users.map(user => `
+                <div class="user-item" onclick="openChat('${user.uid}')">
+                    <div class="avatar">${user.avatar || user.username.charAt(0).toUpperCase()}</div>
+                    <div class="user-name">${user.username}</div>
+                </div>
+            `).join('');
+        }
+
+        function searchUsers() {
+            const keyword = document.getElementById('userSearchInput').value.toLowerCase();
+            // 简单的搜索实现，实际应该调用后端API
+            // 这里暂时只过滤已加载的用户
+        }
+
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        function showError(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html>

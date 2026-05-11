@@ -1,0 +1,2422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理后台 - 闲置好物</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366F1;
+            --primary-dark: #4F46E5;
+            --secondary: #8B5CF6;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --sidebar-width: 260px;
+        }
+
+        body {
+            font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: white;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .nav-item.active {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 1rem 0;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            background: rgba(239, 68, 68, 0.2);
+            border: none;
+            color: white;
+            width: 100%;
+        }
+
+        .logout-btn:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon.blue { background: rgba(99, 102, 241, 0.1); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.1); }
+        .stat-icon.purple { background: rgba(139, 92, 246, 0.1); }
+        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* 卡片样式 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* 表格样式 */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        tr:hover {
+            background: var(--bg);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            margin-right: 0.75rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-admin {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+
+        .badge-user {
+            background: rgba(100, 116, 139, 0.1);
+            color: var(--text-light);
+        }
+
+        .badge-banned {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .action-btn {
+            padding: 0.375rem 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .action-btn.view {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .action-btn.view:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .action-btn.danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .action-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .action-btn.edit {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .action-btn.ban {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .action-btn.ban:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .action-btn.unban {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .action-btn.unban:hover {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .action-btn.reset {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--secondary);
+        }
+
+        .action-btn.reset:hover {
+            background: rgba(139, 92, 246, 0.2);
+        }
+
+        .action-btn.delete {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(239, 68, 68, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--error); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--bg);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--border);
+        }
+
+        .modal-body {
+            padding: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* 加载动画 */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.75rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 侧边栏 -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-icon">🎯</div>
+            <div class="sidebar-title">闲置好物</div>
+            <div class="sidebar-subtitle">管理后台</div>
+        </div>
+
+        <div class="nav-item active" data-page="dashboard">
+            📊 数据概览
+        </div>
+        <div class="nav-item" data-page="users">
+            👥 用户管理
+        </div>
+        <div class="nav-item" data-page="items">
+            📦 物品管理
+        </div>
+        <div class="nav-item" data-page="ai-detection">
+            🤖 AI检测
+        </div>
+        <div class="nav-item" data-page="settings">
+            ⚙️ 系统设置
+        </div>
+
+        <button class="logout-btn" onclick="handleLogout()">
+            🚪 退出登录
+        </button>
+    </div>
+
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 数据概览页面 -->
+        <div id="page-dashboard" class="page">
+            <div class="page-header">
+                <h1 class="page-title">数据概览</h1>
+                <p class="page-subtitle">查看平台整体运营数据</p>
+            </div>
+
+            <div class="stats-grid" id="stats-grid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    加载中...
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">📈 快速统计</h3>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>指标</th>
+                                <th>数值</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quick-stats">
+                            <tr>
+                                <td>总用户数</td>
+                                <td id="stat-total-users">-</td>
+                                <td>平台注册用户总数</td>
+                            </tr>
+                            <tr>
+                                <td>活跃用户</td>
+                                <td id="stat-active-users">-</td>
+                                <td>当前在线用户数</td>
+                            </tr>
+                            <tr>
+                                <td>管理员</td>
+                                <td>1</td>
+                                <td>系统管理员账户</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户管理页面 -->
+        <div id="page-users" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">用户管理</h1>
+                <p class="page-subtitle">管理系统用户</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">用户列表</h3>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="action-btn edit" onclick="showCreateUserModal()">➕ 添加用户</button>
+                        <button class="action-btn ban" onclick="showBatchBanModal()">🚫 批量封禁</button>
+                        <button class="action-btn unban" onclick="batchUnban()">✅ 批量解封</button>
+                        <button class="action-btn delete" onclick="batchDelete()">🗑️ 批量删除</button>
+                        <button class="action-btn view" onclick="loadUsers()">🔄 刷新</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" id="select-all-users" onchange="toggleSelectAll()">
+                                </th>
+                                <th>用户</th>
+                                <th>UID</th>
+                                <th>角色</th>
+                                <th>注册时间</th>
+                                <th>最后登录</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table">
+                            <tr>
+                                <td colspan="7" class="empty-state">
+                                    <div class="loading">
+                                        <div class="spinner"></div>
+                                        加载中...
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 添加用户模态框 -->
+        <div id="modal-create-user" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">添加用户</h3>
+                    <button class="modal-close" onclick="closeModal('modal-create-user')">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">用户名 *</label>
+                        <input type="text" class="form-input" id="create-username" placeholder="输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">密码 *</label>
+                        <input type="password" class="form-input" id="create-password" placeholder="输入密码（至少6位）">
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="createUser()">创建用户</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 编辑用户模态框 -->
+        <div id="modal-edit-user" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">编辑用户</h3>
+                    <button class="modal-close" onclick="closeModal('modal-edit-user')">×</button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="edit-uid">
+                    <div class="form-group">
+                        <label class="form-label">用户名</label>
+                        <input type="text" class="form-input" id="edit-username" placeholder="输入用户名">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">头像</label>
+                        <input type="text" class="form-input" id="edit-avatar" placeholder="输入头像emoji">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">个人简介</label>
+                        <textarea class="form-input" id="edit-bio" placeholder="输入个人简介" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="edit-is-admin">
+                            <span>设为管理员</span>
+                        </label>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="updateUser()">保存修改</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 重置密码模态框 -->
+        <div id="modal-reset-password" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">🔑 重置密码</h3>
+                    <button class="modal-close" onclick="closeModal('modal-reset-password')">×</button>
+                </div>
+                <div class="modal-body">
+                    <p style="margin-bottom: 1rem; color: var(--text-light);">
+                        用户: <strong id="reset-password-username"></strong>
+                    </p>
+                    <input type="hidden" id="reset-password-uid">
+                    <div class="form-group">
+                        <label class="form-label">新密码 *</label>
+                        <input type="password" class="form-input" id="reset-password-new" placeholder="输入新密码（至少6位）">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">确认密码 *</label>
+                        <input type="password" class="form-input" id="reset-password-confirm" placeholder="再次输入新密码" onkeypress="if(event.key==='Enter')resetPassword()">
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="resetPassword()">确认重置</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 批量封禁确认模态框 -->
+        <div id="modal-batch-ban" class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">🚫 批量封禁确认</h3>
+                    <button class="modal-close" onclick="closeModal('modal-batch-ban')">×</button>
+                </div>
+                <div class="modal-body">
+                    <p style="margin-bottom: 1rem; color: var(--text);">
+                        确定要封禁选中的 <strong id="batch-ban-count">0</strong> 个用户吗？<br>
+                        <span style="color: var(--error);">封禁后这些用户将无法登录。</span>
+                    </p>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="btn" style="flex:1; background: var(--bg); color: var(--text);" onclick="closeModal('modal-batch-ban')">取消</button>
+                        <button class="btn btn-primary" style="flex:1; background: var(--warning);" onclick="batchBan()">确认封禁</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 物品管理页面 -->
+        <div id="page-items" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">物品管理</h1>
+                <p class="page-subtitle">管理平台物品列表</p>
+            </div>
+
+            <!-- 搜索和筛选 -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                    <input type="text" class="form-input" id="item-search" placeholder="搜索物品名称..." style="flex: 1; min-width: 200px;">
+                    <select class="form-input" id="item-status-filter" style="width: 150px;">
+                        <option value="">全部状态</option>
+                        <option value="selling">出售中</option>
+                        <option value="reserved">已预约</option>
+                        <option value="sold">已售出</option>
+                        <option value="off_shelf">已下架</option>
+                    </select>
+                    <button class="action-btn view" onclick="loadItems()">🔍 搜索</button>
+                    <button class="action-btn edit" onclick="clearItemFilters()">🗑️ 清空筛选</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">物品列表</h3>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="action-btn delete" onclick="batchDeleteItems()">🗑️ 批量删除</button>
+                        <button class="action-btn view" onclick="loadItems()">🔄 刷新</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" id="select-all-items" onchange="toggleSelectAllItems()">
+                                </th>
+                                <th>物品信息</th>
+                                <th>价格</th>
+                                <th>卖家</th>
+                                <th>分类</th>
+                                <th>成色</th>
+                                <th>状态</th>
+                                <th>浏览</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="items-table">
+                            <tr>
+                                <td colspan="10" class="empty-state">
+                                    <div class="loading">
+                                        <div class="spinner"></div>
+                                        加载中...
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- 分页 -->
+                <div id="items-pagination" style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+                </div>
+            </div>
+        </div>
+
+        <!-- 物品详情模态框 -->
+        <div id="modal-item-detail" class="modal-overlay">
+            <div class="modal" style="max-width: 600px; max-height: 85vh; display: flex; flex-direction: column;">
+                <div class="modal-header">
+                    <h3 class="modal-title">物品详情</h3>
+                    <button class="modal-close" onclick="closeModal('modal-item-detail')">×</button>
+                </div>
+                <div class="modal-body" id="item-detail-content" style="overflow-y: auto; max-height: calc(85vh - 70px);">
+                </div>
+            </div>
+        </div>
+
+        <!-- AI 异常检测页面 -->
+        <div id="page-ai-detection" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🤖 AI 异常账户检测</h1>
+                <p class="page-subtitle">自动检测平台异常账户，保障平台安全</p>
+            </div>
+
+            <!-- 检测统计卡片 -->
+            <div class="stats-grid" id="detection-stats">
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+                    <div class="stat-value" id="stat-total-users-detect">-</div>
+                    <div class="stat-label">总用户数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">⚠️</div>
+                    <div class="stat-value" id="stat-anomaly-count">-</div>
+                    <div class="stat-label">异常账户</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div class="stat-value" id="stat-normal-count">-</div>
+                    <div class="stat-label">正常账户</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1);">🔴</div>
+                    <div class="stat-value" id="stat-high-risk">-</div>
+                    <div class="stat-label">高风险</div>
+                </div>
+            </div>
+
+            <!-- 检测控制面板 -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+                <div class="card-header">
+                    <h3 class="card-title">检测控制</h3>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-primary" onclick="runAnomalyDetection()">
+                        🔍 开始检测
+                    </button>
+                    <button class="action-btn view" onclick="previewAutoBan()">
+                        👁️ 预览高风险账户
+                    </button>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <label style="font-size: 0.9rem; color: var(--text-light);">风险阈值:</label>
+                        <select class="form-input" id="risk-threshold" style="width: 100px;">
+                            <option value="10">低风险+</option>
+                            <option value="25">中风险+</option>
+                            <option value="50" selected>高风险+</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="auto-ban-check">
+                            <span style="font-size: 0.9rem;">自动封禁高风险账户</span>
+                        </label>
+                    </div>
+                </div>
+                <div id="detection-status" style="margin-top: 1rem; padding: 1rem; background: var(--bg); border-radius: 0.5rem; display: none;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div class="spinner"></div>
+                        <span id="detection-status-text">正在检测中...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 异常账户列表 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">异常账户列表</h3>
+                    <button class="action-btn delete" onclick="batchBanAnomaly()">🚫 批量封禁选中</button>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" id="select-all-anomaly" onchange="toggleSelectAllAnomaly()">
+                                </th>
+                                <th>用户</th>
+                                <th>风险等级</th>
+                                <th>风险分数</th>
+                                <th>物品数</th>
+                                <th>注册时间</th>
+                                <th>异常原因</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="anomaly-table">
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    <div style="padding: 2rem;">
+                                        <div class="empty-icon">🤖</div>
+                                        <p>点击"开始检测"扫描异常账户</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 系统设置页面 -->
+        <div id="page-settings" class="page" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">系统设置</h1>
+                <p class="page-subtitle">配置系统参数</p>
+            </div>
+
+            <!-- 云端同步卡片 -->
+            <div class="card" style="margin-bottom: 1.5rem; border-left: 4px solid #6366F1;">
+                <div class="card-header">
+                    <h3 class="card-title">☁️ 云端同步</h3>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <div class="security-status">
+                        <span>连接状态：</span>
+                        <span id="supabase-status" class="status-badge disabled">检测中...</span>
+                    </div>
+                    <p style="color: var(--text-light); font-size: 0.9rem; margin-top: 0.5rem;">
+                        将本地数据同步到 Supabase 云端，实现多设备数据互通
+                    </p>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="action-btn view" onclick="syncToCloud()" id="sync-btn" disabled>
+                        🔄 同步到云端
+                    </button>
+                    <button class="action-btn" style="background: #10B981;" onclick="checkSupabaseStatus()">
+                        🔍 检查连接
+                    </button>
+                </div>
+                <div id="sync-result" style="margin-top: 1rem; display: none;" class="alert"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">账户设置</h3>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">当前管理员</label>
+                    <input type="text" class="form-input" id="admin-username" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">新密码</label>
+                    <input type="password" class="form-input" id="new-password" placeholder="输入新密码（留空则不修改）">
+                </div>
+                <button class="action-btn view" onclick="changePassword()">修改密码</button>
+            </div>
+
+
+            <!-- 登录历史 -->
+            <div class="card" style="margin-top: 1.5rem;">
+                <div class="card-header">
+                    <h3 class="card-title">登录历史</h3>
+                </div>
+                <div id="login-history">
+                    <div style="text-align: center; padding: 2rem; color: var(--text-light);">
+                        加载中...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .security-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .status-badge.enabled {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        .status-badge.disabled {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+    </style>
+
+    <script>
+        // 检查登录状态
+        async function checkLogin() {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                window.location.href = '/admin-login';
+                return false;
+            }
+
+            try {
+                const response = await fetch('/api/admin/verify', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+
+                if (!data.valid) {
+                    localStorage.removeItem('admin_token');
+                    localStorage.removeItem('admin_user');
+                    window.location.href = '/admin-login';
+                    return false;
+                }
+
+                // 显示管理员名称
+                if (data.admin) {
+                    document.getElementById('admin-username').value = data.admin.username;
+                }
+                
+                // 加载登录历史
+                loadLoginHistory();
+
+                return true;
+            } catch (error) {
+                console.error('Verify error:', error);
+                window.location.href = '/admin-login';
+                return false;
+            }
+        }
+
+        // 加载统计数据
+        async function loadStats() {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('stats-grid').innerHTML = `
+                        <div class="stat-card">
+                            <div class="stat-icon blue">👥</div>
+                            <div class="stat-value">${data.stats.total}</div>
+                            <div class="stat-label">总用户数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green">🟢</div>
+                            <div class="stat-value">${data.stats.active}</div>
+                            <div class="stat-label">活跃用户</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon purple">📦</div>
+                            <div class="stat-value">${data.stats.products || 0}</div>
+                            <div class="stat-label">物品总数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon orange">🔄</div>
+                            <div class="stat-value">${data.stats.today || 0}</div>
+                            <div class="stat-label">今日新增用户</div>
+                        </div>
+                    `;
+
+                    document.getElementById('stat-total-users').textContent = data.stats.total;
+                    document.getElementById('stat-active-users').textContent = data.stats.active;
+                }
+            } catch (error) {
+                console.error('Load stats error:', error);
+            }
+        }
+
+        // 加载用户列表
+        async function loadUsers() {
+            const token = localStorage.getItem('admin_token');
+            const tbody = document.getElementById('users-table');
+            
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty-state">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            加载中...
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+
+                if (data.success && data.users.length > 0) {
+                    tbody.innerHTML = data.users.map(user => `
+                        <tr>
+                            <td>
+                                ${!user.is_admin ? `<input type="checkbox" class="user-checkbox" value="${user.uid}" onchange="updateSelectAllState()">` : ''}
+                            </td>
+                            <td>
+                                <div class="user-info">
+                                    <div class="user-avatar">${user.avatar || user.username[0]}</div>
+                                    <span>${user.username}</span>
+                                </div>
+                            </td>
+                            <td><code>${user.uid}</code></td>
+                            <td>
+                                ${user.is_banned ? '<span class="badge badge-banned">已封禁</span>' :
+                                  (user.is_admin ? '<span class="badge badge-admin">管理员</span>' : '<span class="badge badge-user">用户</span>')}
+                            </td>
+                            <td>${formatDate(user.created_at)}</td>
+                            <td>${user.last_login ? formatDate(user.last_login) : '从未登录'}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    ${!user.is_admin ? `
+                                        <button class="action-btn edit" onclick="editUser('${user.uid}')">编辑</button>
+                                        <button class="action-btn reset" onclick="showResetPasswordModal('${user.uid}', '${user.username}')">🔑 重置密码</button>
+                                        <button class="action-btn ${user.is_banned ? 'unban' : 'ban'}" onclick="toggleBan('${user.uid}', ${user.is_banned ? 'false' : 'true'})">
+                                            ${user.is_banned ? '解封' : '封禁'}
+                                        </button>
+                                        <button class="action-btn delete" onclick="deleteUser('${user.uid}')">删除</button>
+                                    ` : '<span style="color: var(--text-light); font-size: 0.85rem;">系统账户</span>'}
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-state">
+                                <div class="empty-icon">👥</div>
+                                <p>暂无用户数据</p>
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Load users error:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-state">
+                            加载失败，请重试
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // 格式化日期
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // 查看用户详情
+        function viewUser(uid) {
+            window.location.href = `/profile?uid=${uid}`;
+        }
+
+        // Modal控制
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+        }
+
+        // 显示创建用户模态框
+        function showCreateUserModal() {
+            document.getElementById('create-username').value = '';
+            document.getElementById('create-password').value = '';
+            openModal('modal-create-user');
+        }
+
+        // 创建用户
+        async function createUser() {
+            const username = document.getElementById('create-username').value.trim();
+            const password = document.getElementById('create-password').value;
+            const token = localStorage.getItem('admin_token');
+
+            if (!username || !password) {
+                showToast('请填写用户名和密码', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showToast('密码至少6位', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/admin/user/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('用户创建成功');
+                    closeModal('modal-create-user');
+                    loadUsers();
+                } else {
+                    showToast(data.message || '创建失败', 'error');
+                }
+            } catch (error) {
+                console.error('Create user error:', error);
+                showToast('创建失败，请重试', 'error');
+            }
+        }
+
+        // 显示编辑用户模态框
+        async function editUser(uid) {
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch('/api/admin/users', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    const user = data.users.find(u => u.uid === uid);
+                    if (user) {
+                        document.getElementById('edit-uid').value = uid;
+                        document.getElementById('edit-username').value = user.username;
+                        document.getElementById('edit-avatar').value = user.avatar || '';
+                        document.getElementById('edit-bio').value = user.bio || '';
+                        document.getElementById('edit-is-admin').checked = user.is_admin === 1;
+                        openModal('modal-edit-user');
+                    }
+                }
+            } catch (error) {
+                console.error('Edit user error:', error);
+                showToast('加载失败', 'error');
+            }
+        }
+
+        // 更新用户
+        async function updateUser() {
+            const uid = document.getElementById('edit-uid').value;
+            const username = document.getElementById('edit-username').value.trim();
+            const avatar = document.getElementById('edit-avatar').value.trim();
+            const bio = document.getElementById('edit-bio').value.trim();
+            const is_admin = document.getElementById('edit-is-admin').checked;
+            const token = localStorage.getItem('admin_token');
+
+            if (!username) {
+                showToast('用户名不能为空', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/user/${uid}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ username, avatar, bio, is_admin })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('用户信息已更新');
+                    closeModal('modal-edit-user');
+                    loadUsers();
+                } else {
+                    showToast(data.message || '更新失败', 'error');
+                }
+            } catch (error) {
+                console.error('Update user error:', error);
+                showToast('更新失败，请重试', 'error');
+            }
+        }
+
+        // 删除用户
+        async function deleteUser(uid) {
+            if (!confirm('确定要删除此用户吗？此操作不可恢复！')) return;
+
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch(`/api/admin/user/${uid}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast('用户已删除');
+                    loadUsers();
+                } else {
+                    showToast(data.message || '删除失败', 'error');
+                }
+            } catch (error) {
+                console.error('Delete user error:', error);
+                showToast('删除失败，请重试', 'error');
+            }
+        }
+
+        // 封禁/解封用户
+        async function toggleBan(uid, ban) {
+            const action = ban ? '封禁' : '解封';
+            if (!confirm(`确定要${action}此用户吗？`)) return;
+
+            const token = localStorage.getItem('admin_token');
+            const endpoint = ban ? 'ban' : 'unban';
+
+            try {
+                const response = await fetch(`/api/admin/user/${uid}/${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(`用户已${action}`);
+                    loadUsers();
+                    loadStats();
+                } else {
+                    showToast(data.message || `${action}失败`, 'error');
+                }
+            } catch (error) {
+                console.error('Toggle ban error:', error);
+                showToast(`${action}失败，请重试`, 'error');
+            }
+        }
+
+        // 全选/取消全选
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('select-all-users');
+            const checkboxes = document.querySelectorAll('.user-checkbox');
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        }
+
+        // 更新全选状态
+        function updateSelectAllState() {
+            const selectAll = document.getElementById('select-all-users');
+            const checkboxes = document.querySelectorAll('.user-checkbox');
+            const checkedBoxes = document.querySelectorAll('.user-checkbox:checked');
+            selectAll.checked = checkboxes.length > 0 && checkedBoxes.length === checkboxes.length;
+        }
+
+        // 获取选中的用户ID
+        function getSelectedUsers() {
+            const checkboxes = document.querySelectorAll('.user-checkbox:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        // 显示批量封禁确认模态框
+        function showBatchBanModal() {
+            const selected = getSelectedUsers();
+            if (selected.length === 0) {
+                showToast('请先选择要封禁的用户', 'error');
+                return;
+            }
+            document.getElementById('batch-ban-count').textContent = selected.length;
+            openModal('modal-batch-ban');
+        }
+
+        // 批量封禁
+        async function batchBan() {
+            const selected = getSelectedUsers();
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch('/api/admin/users/batch-ban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: selected })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message);
+                    closeModal('modal-batch-ban');
+                    loadUsers();
+                    loadStats();
+                } else {
+                    showToast(data.message || '操作失败', 'error');
+                }
+            } catch (error) {
+                console.error('Batch ban error:', error);
+                showToast('操作失败，请重试', 'error');
+            }
+        }
+
+        // 批量解封
+        async function batchUnban() {
+            const selected = getSelectedUsers();
+            if (selected.length === 0) {
+                showToast('请先选择要解封的用户', 'error');
+                return;
+            }
+            if (!confirm(`确定要解封 ${selected.length} 个用户吗？`)) return;
+
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch('/api/admin/users/batch-unban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: selected })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message);
+                    loadUsers();
+                    loadStats();
+                } else {
+                    showToast(data.message || '操作失败', 'error');
+                }
+            } catch (error) {
+                console.error('Batch unban error:', error);
+                showToast('操作失败，请重试', 'error');
+            }
+        }
+
+        // 批量删除
+        async function batchDelete() {
+            const selected = getSelectedUsers();
+            if (selected.length === 0) {
+                showToast('请先选择要删除的用户', 'error');
+                return;
+            }
+            if (!confirm(`确定要删除选中的 ${selected.length} 个用户吗？此操作不可恢复！`)) return;
+
+            const token = localStorage.getItem('admin_token');
+
+            try {
+                const response = await fetch('/api/admin/users/batch-delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: selected })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(data.message);
+                    loadUsers();
+                    loadStats();
+                } else {
+                    showToast(data.message || '操作失败', 'error');
+                }
+            } catch (error) {
+                console.error('Batch delete error:', error);
+                showToast('操作失败，请重试', 'error');
+            }
+        }
+
+        // 显示重置密码模态框
+        function showResetPasswordModal(uid, username) {
+            document.getElementById('reset-password-uid').value = uid;
+            document.getElementById('reset-password-username').textContent = username;
+            document.getElementById('reset-password-new').value = '';
+            document.getElementById('reset-password-confirm').value = '';
+            openModal('modal-reset-password');
+        }
+
+        // 重置密码
+        async function resetPassword() {
+            const uid = document.getElementById('reset-password-uid').value;
+            const newPassword = document.getElementById('reset-password-new').value;
+            const confirmPassword = document.getElementById('reset-password-confirm').value;
+            const username = document.getElementById('reset-password-username').textContent;
+            const token = localStorage.getItem('admin_token');
+
+            if (!newPassword || newPassword.length < 6) {
+                showToast('密码至少6位', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showToast('两次密码输入不一致', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/admin/user/${uid}/reset-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ password: newPassword })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showToast(`用户 ${data.reset_for} 的密码已重置为: ${data.new_password}`, 'success');
+                    closeModal('modal-reset-password');
+                    // 复制密码到剪贴板
+                    navigator.clipboard.writeText(data.new_password).then(() => {
+                        showToast('密码已复制到剪贴板', 'success');
+                    }).catch(() => {});
+                } else {
+                    showToast(data.message || '重置失败', 'error');
+                }
+            } catch (error) {
+                console.error('Reset password error:', error);
+                showToast('重置失败，请重试', 'error');
+            }
+        }
+
+        // 页面导航
+        document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+            item.addEventListener('click', () => {
+                // 更新导航状态
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                // 显示对应页面
+                document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+                const page = item.dataset.page;
+                document.getElementById(`page-${page}`).style.display = 'block';
+
+                // 加载页面数据
+                if (page === 'users') {
+                    loadUsers();
+                } else if (page === 'dashboard') {
+                    loadStats();
+                } else if (page === 'items') {
+                    loadItems(1);
+                } else if (page === 'settings') {
+                    checkSupabaseStatus();
+                } else if (page === 'ai-detection') {
+                    // AI 检测页面不需要自动加载，等待用户点击检测
+                }
+            });
+        });
+
+        // 登出
+        async function handleLogout() {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                await fetch('/api/admin/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
+
+            localStorage.removeItem('admin_token');
+            localStorage.removeItem('admin_user');
+            showToast('已退出登录', 'success');
+            setTimeout(() => {
+                window.location.href = '/admin-login';
+            }, 1000);
+        }
+
+        // Toast提示
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // 修改密码
+        async function changePassword() {
+            const newPassword = document.getElementById('new-password').value;
+            
+            if (!newPassword || newPassword.length < 6) {
+                showToast('密码长度至少6位', 'error');
+                return;
+            }
+
+            try {
+                const token = localStorage.getItem('admin_token');
+                const response = await fetch('/api/admin/password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ password: newPassword })
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('密码修改成功');
+                    document.getElementById('new-password').value = '';
+                } else {
+                    showToast(data.message || '修改失败', 'error');
+                }
+            } catch (error) {
+                showToast('网络错误', 'error');
+            }
+        }
+
+        // 检查 Supabase 连接状态
+        async function checkSupabaseStatus() {
+            try {
+                const response = await fetch('/api/supabase/status');
+                const data = await response.json();
+                
+                const statusEl = document.getElementById('supabase-status');
+                const syncBtn = document.getElementById('sync-btn');
+                
+                if (data.connected) {
+                    statusEl.textContent = '已连接';
+                    statusEl.className = 'status-badge enabled';
+                    syncBtn.disabled = false;
+                } else {
+                    statusEl.textContent = '未连接';
+                    statusEl.className = 'status-badge disabled';
+                    syncBtn.disabled = true;
+                }
+                showToast(data.message, data.connected ? 'success' : 'warning');
+            } catch (error) {
+                showToast('检查连接失败', 'error');
+            }
+        }
+
+        // 同步数据到云端
+        async function syncToCloud() {
+            const syncBtn = document.getElementById('sync-btn');
+            const resultEl = document.getElementById('sync-result');
+            
+            syncBtn.disabled = true;
+            syncBtn.textContent = '⏳ 同步中...';
+            resultEl.style.display = 'none';
+            
+            try {
+                const token = localStorage.getItem('admin_token');
+                const response = await fetch('/api/supabase/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const data = await response.json();
+                
+                resultEl.style.display = 'block';
+                if (data.success) {
+                    resultEl.className = 'alert success';
+                    resultEl.innerHTML = '✅ ' + data.message;
+                    showToast('同步成功！', 'success');
+                } else {
+                    resultEl.className = 'alert error';
+                    resultEl.innerHTML = '❌ ' + (data.message || '同步失败');
+                    showToast(data.message || '同步失败', 'error');
+                }
+            } catch (error) {
+                resultEl.style.display = 'block';
+                resultEl.className = 'alert error';
+                resultEl.innerHTML = '❌ 网络错误';
+                showToast('同步失败', 'error');
+            } finally {
+                syncBtn.disabled = false;
+                syncBtn.textContent = '🔄 同步到云端';
+            }
+        }
+
+        // 页面切换时自动检查状态
+        function showPage(pageName) {
+            if (pageName === 'settings') {
+                setTimeout(checkSupabaseStatus, 100);
+            }
+        }
+
+        // 加载登录历史
+        async function loadLoginHistory() {
+            try {
+                const token = localStorage.getItem('admin_token');
+                const response = await fetch('/api/admin/login-history', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                
+                const container = document.getElementById('login-history');
+                
+                if (data.success && data.history && data.history.length > 0) {
+                    container.innerHTML = data.history.map(item => `
+                        <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
+                            <div>
+                                <div style="font-family: monospace; color: var(--text);">${item.ip_address}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-light);">${item.login_at.replace('T', ' ').substring(0, 19)}</div>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--text-light); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                ${item.user_agent || '-'}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-light);">暂无登录记录</div>';
+                }
+            } catch (error) {
+                console.error('Failed to load login history:', error);
+            }
+        }
+
+        // ==================== 物品管理功能 ====================
+        
+        let itemsPage = 1;
+        let itemsTotalPages = 1;
+        
+        // 加载物品列表
+        async function loadItems(page = 1) {
+            const token = localStorage.getItem('admin_token');
+            const tbody = document.getElementById('items-table');
+            const search = document.getElementById('item-search').value.trim();
+            const status = document.getElementById('item-status-filter').value;
+            
+            itemsPage = page;
+            
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="10" class="empty-state">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            加载中...
+                        </div>
+                    </td>
+                </tr>
+            `;
+
+            try {
+                // 构建查询参数
+                let url = `/api/admin/products?page=${page}&page_size=20`;
+                if (search) url += `&search=${encodeURIComponent(search)}`;
+                if (status) url += `&status=${status}`;
+                
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+
+                if (data.products && data.products.length > 0) {
+                    itemsTotalPages = data.total_pages || 1;
+                    tbody.innerHTML = data.products.map(item => `
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="item-checkbox" value="${item.id}" onchange="updateSelectAllItemsState()">
+                            </td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                    ${item.images && item.images !== '[]' ? 
+                                        `<img src="${JSON.parse(item.images)[0]}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 0.5rem;" onerror="this.style.display='none'">` : 
+                                        '<div style="width: 50px; height: 50px; background: var(--bg); border-radius: 0.5rem; display: flex; align-items: center; justify-content: center;">📦</div>'
+                                    }
+                                    <div>
+                                        <div style="font-weight: 500; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.title}</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-light);">ID: ${item.id}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span style="color: var(--error); font-weight: 600;">¥${item.price}</span>
+                                ${item.original_price && item.original_price > item.price ? 
+                                    `<div style="font-size: 0.75rem; color: var(--text-light); text-decoration: line-through;">¥${item.original_price}</div>` : ''}
+                            </td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div class="user-avatar" style="width: 28px; height: 28px; font-size: 0.8rem;">${(item.seller_name || item.username || 'U')[0]}</div>
+                                    <span style="font-size: 0.9rem;">${item.seller_name || item.username || '未知'}</span>
+                                </div>
+                            </td>
+                            <td>${getCategoryName(item.category)}</td>
+                            <td>${getConditionName(item.condition)}</td>
+                            <td>${getStatusBadge(item.status)}</td>
+                            <td>${item.views || 0}</td>
+                            <td>${formatDate(item.created_at)}</td>
+                            <td>
+                                <div class="action-buttons" style="flex-direction: column; gap: 0.25rem;">
+                                    <button class="action-btn view" onclick="showItemDetail(${item.id})" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">查看详情</button>
+                                    <button class="action-btn delete" onclick="deleteItem(${item.id})" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `).join('');
+                    
+                    renderItemsPagination();
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="10" class="empty-state">
+                                <div class="empty-icon">📦</div>
+                                <p>暂无物品数据</p>
+                            </td>
+                        </tr>
+                    `;
+                    document.getElementById('items-pagination').innerHTML = '';
+                }
+            } catch (error) {
+                console.error('Load items error:', error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="empty-state">
+                            加载失败，请重试
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+        
+        // 获取分类名称
+        function getCategoryName(category) {
+            const categories = {
+                'electronics': '数码电子',
+                'clothing': '服饰鞋包',
+                'books': '图书文具',
+                'home': '家居生活',
+                'sports': '运动户外',
+                'beauty': '美妆护肤',
+                'toys': '玩具手办',
+                'other': '其他'
+            };
+            return categories[category] || category || '其他';
+        }
+        
+        // 获取成色名称
+        function getConditionName(condition) {
+            const conditions = {
+                'new': '全新',
+                'like_new': '几乎全新',
+                'good': '良好',
+                'fair': '一般',
+                'poor': '较差'
+            };
+            return conditions[condition] || condition || '未知';
+        }
+        
+        // 获取状态徽章
+        function getStatusBadge(status) {
+            const badges = {
+                'selling': '<span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">出售中</span>',
+                'reserved': '<span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">已预约</span>',
+                'sold': '<span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6;">已售出</span>',
+                'off_shelf': '<span class="badge badge-banned">已下架</span>'
+            };
+            return badges[status] || `<span class="badge">${status || '未知'}</span>`;
+        }
+        
+        // 渲染分页
+        function renderItemsPagination() {
+            const container = document.getElementById('items-pagination');
+            if (itemsTotalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            
+            // 上一页
+            html += `<button class="action-btn view" onclick="loadItems(${itemsPage - 1})" ${itemsPage <= 1 ? 'disabled style="opacity:0.5"' : ''}>上一页</button>`;
+            
+            // 页码
+            for (let i = 1; i <= itemsTotalPages; i++) {
+                if (i === 1 || i === itemsTotalPages || (i >= itemsPage - 2 && i <= itemsPage + 2)) {
+                    html += `<button class="action-btn ${i === itemsPage ? 'edit' : 'view'}" onclick="loadItems(${i})">${i}</button>`;
+                } else if (i === itemsPage - 3 || i === itemsPage + 3) {
+                    html += '<span style="padding: 0 0.5rem;">...</span>';
+                }
+            }
+            
+            // 下一页
+            html += `<button class="action-btn view" onclick="loadItems(${itemsPage + 1})" ${itemsPage >= itemsTotalPages ? 'disabled style="opacity:0.5"' : ''}>下一页</button>`;
+            
+            container.innerHTML = html;
+        }
+        
+        // 清空筛选
+        function clearItemFilters() {
+            document.getElementById('item-search').value = '';
+            document.getElementById('item-status-filter').value = '';
+            loadItems(1);
+        }
+        
+        // 全选/取消全选物品
+        function toggleSelectAllItems() {
+            const selectAll = document.getElementById('select-all-items');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        }
+        
+        // 更新全选状态
+        function updateSelectAllItemsState() {
+            const selectAll = document.getElementById('select-all-items');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const checkedBoxes = document.querySelectorAll('.item-checkbox:checked');
+            selectAll.checked = checkboxes.length > 0 && checkedBoxes.length === checkboxes.length;
+        }
+        
+        // 获取选中的物品ID
+        function getSelectedItems() {
+            const checkboxes = document.querySelectorAll('.item-checkbox:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+        
+        // 查看物品详情
+        async function showItemDetail(id) {
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`/api/admin/product/${id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                
+                if (data.success || data.product) {
+                    const item = data.product || data;
+                    const images = item.images ? JSON.parse(item.images) : [];
+                    
+                    document.getElementById('item-detail-content').innerHTML = `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            ${images.length > 0 ? 
+                                `<div style="grid-column: span 2;">
+                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        ${images.map(img => `<img src="${img}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem;">`).join('')}
+                                    </div>
+                                </div>` : ''}
+                            <div class="form-group">
+                                <label class="form-label">物品名称</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${item.title}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">物品ID</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem; font-family: monospace;">${item.id}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">出售价格</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem; color: var(--error); font-weight: 600;">¥${item.price}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">原价</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem; text-decoration: line-through; color: var(--text-light);">¥${item.original_price || '-'}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">卖家</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${item.seller_name || item.username || '未知'}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">分类</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${getCategoryName(item.category)}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">成色</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${getConditionName(item.condition)}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">状态</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${getStatusBadge(item.status)}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">浏览量</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem;">${item.views || 0}</div>
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;">
+                                <label class="form-label">物品描述</label>
+                                <div style="padding: 0.75rem; background: var(--bg); border-radius: 0.5rem; min-height: 80px;">${item.description || '无描述'}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">发布时间</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem; font-size: 0.9rem;">${formatDate(item.created_at)}</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">更新时间</label>
+                                <div style="padding: 0.5rem; background: var(--bg); border-radius: 0.5rem; font-size: 0.9rem;">${formatDate(item.updated_at)}</div>
+                            </div>
+                        </div>
+                    `;
+                    openModal('modal-item-detail');
+                }
+            } catch (error) {
+                console.error('Load item detail error:', error);
+                showToast('加载失败', 'error');
+            }
+        }
+        
+        // 删除物品
+        async function deleteItem(id) {
+            if (!confirm('确定要删除此物品吗？此操作不可恢复！')) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`/api/admin/product/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast('物品已删除');
+                    loadItems(itemsPage);
+                } else {
+                    showToast(data.message || '删除失败', 'error');
+                }
+            } catch (error) {
+                console.error('Delete item error:', error);
+                showToast('删除失败，请重试', 'error');
+            }
+        }
+        
+        // 批量删除物品
+        async function batchDeleteItems() {
+            const selected = getSelectedItems();
+            if (selected.length === 0) {
+                showToast('请先选择要删除的物品', 'error');
+                return;
+            }
+            if (!confirm(`确定要删除选中的 ${selected.length} 个物品吗？此操作不可恢复！`)) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('/api/admin/products/batch-delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ ids: selected })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast(data.message);
+                    loadItems(itemsPage);
+                } else {
+                    showToast(data.message || '删除失败', 'error');
+                }
+            } catch (error) {
+                console.error('Batch delete items error:', error);
+                showToast('删除失败，请重试', 'error');
+            }
+        }
+        
+        // ==================== 物品管理功能结束 ====================
+
+        // ==================== AI 异常检测功能 ====================
+        
+        let anomalyUsers = [];
+        
+        // 运行异常检测
+        async function runAnomalyDetection() {
+            const token = localStorage.getItem('admin_token');
+            const statusDiv = document.getElementById('detection-status');
+            const statusText = document.getElementById('detection-status-text');
+            const tbody = document.getElementById('anomaly-table');
+            
+            statusDiv.style.display = 'block';
+            statusText.textContent = '正在分析用户行为数据...';
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="empty-state">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <span style="margin-left: 0.5rem;">检测中，请稍候...</span>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            
+            try {
+                const response = await fetch('/api/admin/anomaly-detection', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                
+                statusDiv.style.display = 'none';
+                
+                if (data.success) {
+                    // 更新统计
+                    document.getElementById('stat-total-users-detect').textContent = data.total_users;
+                    document.getElementById('stat-anomaly-count').textContent = data.anomaly_count;
+                    document.getElementById('stat-normal-count').textContent = data.normal_count;
+                    document.getElementById('stat-high-risk').textContent = data.high_risk_count;
+                    
+                    anomalyUsers = data.anomaly_users;
+                    
+                    if (anomalyUsers.length > 0) {
+                        renderAnomalyTable(anomalyUsers);
+                        showToast(`检测完成！发现 ${data.anomaly_count} 个异常账户，其中 ${data.high_risk_count} 个高风险`);
+                    } else {
+                        tbody.innerHTML = `
+                            <tr>
+                                <td colspan="8" class="empty-state">
+                                    <div class="empty-icon" style="color: var(--success);">✓</div>
+                                    <p>太棒了！未检测到异常账户</p>
+                                </td>
+                            </tr>
+                        `;
+                    }
+                } else {
+                    showToast(data.message || '检测失败', 'error');
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="empty-state">
+                                <p style="color: var(--error);">检测失败: ${data.message}</p>
+                            </td>
+                        </tr>
+                    `;
+                }
+            } catch (error) {
+                console.error('Detection error:', error);
+                statusDiv.style.display = 'none';
+                showToast('检测失败，请重试', 'error');
+            }
+        }
+        
+        // 渲染异常账户表格
+        function renderAnomalyTable(users) {
+            const tbody = document.getElementById('anomaly-table');
+            
+            if (users.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <div class="empty-icon">✓</div>
+                            <p>未检测到异常账户</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = users.map(user => `
+                <tr style="${user.risk_level === '高风险' ? 'background: rgba(239, 68, 68, 0.05);' : ''}">
+                    <td>
+                        <input type="checkbox" class="anomaly-checkbox" value="${user.uid}" onchange="updateSelectAllAnomalyState()">
+                    </td>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-avatar">${user.avatar || user.username[0]}</div>
+                            <div>
+                                <div style="font-weight: 500;">${user.username}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-light);">UID: ${user.uid}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${getRiskLevelBadge(user.risk_level)}</td>
+                    <td>
+                        <span style="font-weight: 600; color: ${getRiskColor(user.risk_score)};">${user.risk_score}</span>
+                    </td>
+                    <td>${user.product_count}</td>
+                    <td>${formatDate(user.created_at)}</td>
+                    <td>
+                        <div style="max-width: 300px;">
+                            ${user.reasons.map(r => `<span style="display: inline-block; background: var(--bg); padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; margin: 0.1rem;">${r}</span>`).join('')}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="action-buttons" style="flex-direction: column; gap: 0.25rem;">
+                            <button class="action-btn ${user.risk_level === '高风险' ? 'ban' : 'view'}" onclick="viewUser('${user.uid}')" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">查看详情</button>
+                            <button class="action-btn danger" onclick="banAnomalyUser('${user.uid}', '${user.username}')" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">封禁</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // 获取风险等级徽章
+        function getRiskLevelBadge(level) {
+            const badges = {
+                '高风险': '<span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #EF4444;">高风险</span>',
+                '中风险': '<span class="badge" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">中风险</span>',
+                '低风险': '<span class="badge" style="background: rgba(99, 102, 241, 0.1); color: #6366F1;">低风险</span>',
+                '正常': '<span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10B981;">正常</span>'
+            };
+            return badges[level] || level;
+        }
+        
+        // 获取风险颜色
+        function getRiskColor(score) {
+            if (score >= 50) return '#EF4444';
+            if (score >= 25) return '#F59E0B';
+            if (score >= 10) return '#6366F1';
+            return '#10B981';
+        }
+        
+        // 全选/取消全选
+        function toggleSelectAllAnomaly() {
+            const selectAll = document.getElementById('select-all-anomaly');
+            const checkboxes = document.querySelectorAll('.anomaly-checkbox');
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        }
+        
+        // 更新全选状态
+        function updateSelectAllAnomalyState() {
+            const selectAll = document.getElementById('select-all-anomaly');
+            const checkboxes = document.querySelectorAll('.anomaly-checkbox');
+            const checkedBoxes = document.querySelectorAll('.anomaly-checkbox:checked');
+            selectAll.checked = checkboxes.length > 0 && checkedBoxes.length === checkboxes.length;
+        }
+        
+        // 获取选中的异常用户
+        function getSelectedAnomalyUsers() {
+            const checkboxes = document.querySelectorAll('.anomaly-checkbox:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+        
+        // 封禁单个异常用户
+        async function banAnomalyUser(uid, username) {
+            if (!confirm(`确定要封禁用户「${username}」吗？`)) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch(`/api/admin/user/${uid}/ban`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast(`用户「${username}」已封禁`);
+                    // 从列表中移除
+                    anomalyUsers = anomalyUsers.filter(u => u.uid !== uid);
+                    renderAnomalyTable(anomalyUsers);
+                    updateAnomalyStats();
+                } else {
+                    showToast(data.message || '封禁失败', 'error');
+                }
+            } catch (error) {
+                console.error('Ban error:', error);
+                showToast('封禁失败，请重试', 'error');
+            }
+        }
+        
+        // 批量封禁异常用户
+        async function batchBanAnomaly() {
+            const selected = getSelectedAnomalyUsers();
+            if (selected.length === 0) {
+                showToast('请先选择要封禁的用户', 'error');
+                return;
+            }
+            if (!confirm(`确定要封禁选中的 ${selected.length} 个用户吗？`)) return;
+            
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('/api/admin/users/batch-ban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ uids: selected })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showToast(data.message);
+                    // 从列表中移除已封禁的用户
+                    anomalyUsers = anomalyUsers.filter(u => !selected.includes(u.uid));
+                    renderAnomalyTable(anomalyUsers);
+                    updateAnomalyStats();
+                } else {
+                    showToast(data.message || '封禁失败', 'error');
+                }
+            } catch (error) {
+                console.error('Batch ban error:', error);
+                showToast('封禁失败，请重试', 'error');
+            }
+        }
+        
+        // 预览自动封禁
+        async function previewAutoBan() {
+            const threshold = parseInt(document.getElementById('risk-threshold').value);
+            const token = localStorage.getItem('admin_token');
+            
+            try {
+                const response = await fetch('/api/admin/anomaly-detection/auto-ban', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ min_risk_score: threshold, auto_ban: false })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (data.preview_users && data.preview_users.length > 0) {
+                        let message = `将封禁 ${data.preview_users.length} 个账户:\n\n`;
+                        data.preview_users.slice(0, 5).forEach(u => {
+                            message += `• ${u.username} (风险: ${u.risk_score}) - ${u.reasons.join(', ')}\n`;
+                        });
+                        if (data.preview_users.length > 5) {
+                            message += `\n...还有 ${data.preview_users.length - 5} 个账户`;
+                        }
+                        alert(message);
+                    } else {
+                        showToast('没有符合条件的高风险账户');
+                    }
+                }
+            } catch (error) {
+                console.error('Preview error:', error);
+                showToast('预览失败', 'error');
+            }
+        }
+        
+        // 更新统计
+        function updateAnomalyStats() {
+            const highRisk = anomalyUsers.filter(u => u.risk_level === '高风险').length;
+            document.getElementById('stat-anomaly-count').textContent = anomalyUsers.length;
+            document.getElementById('stat-high-risk').textContent = highRisk;
+        }
+        
+        // ==================== AI 异常检测功能结束 ====================
+
+        // 初始化
+        (async function init() {
+            const isLoggedIn = await checkLogin();
+            if (isLoggedIn) {
+                loadStats();
+            }
+        })();
+
+        // 点击模态框外部关闭
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
