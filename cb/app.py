@@ -28,11 +28,16 @@ from config import (
 )
 from supabase import create_client, Client
 
-# 初始化 Supabase 客户端
-supabase: Client = create_client(SUPABASE_CONFIG['url'], SUPABASE_CONFIG['anon_key'])
-
-# 使用 service_role_key 的管理员客户端(用于数据同步)
-supabase_admin: Client = create_client(SUPABASE_CONFIG['url'], SUPABASE_CONFIG['service_role_key'])
+# 初始化 Supabase 客户端(未配置时跳过,使用本地 SQLite 模式)
+if SUPABASE_CONFIG.get('url') and SUPABASE_CONFIG.get('anon_key'):
+    supabase: Client = create_client(SUPABASE_CONFIG['url'], SUPABASE_CONFIG['anon_key'])
+    # 使用 service_role_key 的管理员客户端(用于数据同步)
+    supabase_admin: Client = create_client(SUPABASE_CONFIG['url'], SUPABASE_CONFIG['service_role_key'])
+    print('✓ Supabase 客户端已初始化')
+else:
+    supabase = None
+    supabase_admin = None
+    print('⚠ Supabase 未配置(url/anon_key 为空),使用本地 SQLite 模式')
 
 # 管理员权限验证装饰器
 def admin_required(f):
