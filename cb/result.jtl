@@ -1,0 +1,1352 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1787048982294,249,GET /,200,OK,[setUp] 健康检查 1-1,text,true,,87745,116,1,7,http://127.0.0.1:5000/,248,0,84
+1787048982934,118,POST /api/auth/login,200,OK,TG2 商品浏览 3-3,text,true,,571,232,3,10,http://127.0.0.1:5000/api/auth/login,117,0,2
+1787048983151,136,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-2,text,true,,568,229,2,14,http://127.0.0.1:5000/api/auth/login,135,0,7
+1787048983133,109,POST /api/auth/login,200,OK,TG1 用户认证 2-3,text,true,,571,232,3,14,http://127.0.0.1:5000/api/auth/login,109,0,1
+1787048982668,117,POST /api/auth/login,200,OK,TG4 AI 工具 5-2,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,117,0,1
+1787048982294,376,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,229,1,8,http://127.0.0.1:5000/api/auth/login,376,0,201
+1787048982683,343,POST /api/admin/login,200,OK,TG5 管理员 6-2,text,true,,571,226,2,10,http://127.0.0.1:5000/api/admin/login,342,0,1
+1787048982294,469,POST /api/auth/login,200,OK,TG2 商品浏览 3-1,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,468,0,84
+1787048982294,441,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,441,0,84
+1787048982294,570,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,true,,571,226,2,9,http://127.0.0.1:5000/api/admin/login,569,0,84
+1787048982635,156,POST /api/auth/login,200,OK,TG1 用户认证 2-2,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,155,0,2
+1787048982294,395,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,394,0,84
+1787048982533,177,POST /api/auth/login,200,OK,TG2 商品浏览 3-2,text,true,,570,231,2,9,http://127.0.0.1:5000/api/auth/login,176,0,1
+1787048983182,353,POST /api/admin/login,200,OK,TG5 管理员 6-3,text,true,,571,226,3,15,http://127.0.0.1:5000/api/admin/login,353,0,1
+1787048983333,112,POST /api/auth/login,200,OK,TG2 商品浏览 3-4,text,true,,571,232,4,15,http://127.0.0.1:5000/api/auth/login,112,0,3
+1787048983170,148,POST /api/auth/login,200,OK,TG4 AI 工具 5-3,text,true,,571,232,3,14,http://127.0.0.1:5000/api/auth/login,147,0,1
+1787048983633,223,POST /api/auth/login,200,OK,TG1 用户认证 2-4,text,true,,571,232,4,19,http://127.0.0.1:5000/api/auth/login,222,0,2
+1787048983729,134,POST /api/auth/login,200,OK,TG2 商品浏览 3-5,text,true,,571,232,5,19,http://127.0.0.1:5000/api/auth/login,133,0,2
+1787048983807,95,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,431,253,4,19,http://127.0.0.1:5000/api/auth/me,95,0,1
+1787048983807,100,GET /api/auth/me,200,OK,TG1 用户认证 2-3,text,true,,432,253,4,19,http://127.0.0.1:5000/api/auth/me,100,0,3
+1787048983669,259,POST /api/auth/login,200,OK,TG4 AI 工具 5-4,text,true,,571,232,4,19,http://127.0.0.1:5000/api/auth/login,259,0,1
+1787048983808,143,GET /api/auth/me,200,OK,TG1 用户认证 2-2,text,true,,431,253,4,19,http://127.0.0.1:5000/api/auth/me,143,0,3
+1787048983807,160,GET /api/admin/users,200,OK,TG5 管理员 6-2,text,true,,61809,325,4,19,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,158,0,7
+1787048983807,194,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,true,,61809,325,4,19,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,193,0,5
+1787048983807,118,GET /api/products,200,OK,TG2 商品浏览 3-1,text,true,,9845,207,5,19,http://127.0.0.1:5000/api/products?page=5&page_size=20,117,0,2
+1787048983807,93,GET /api/products,200,OK,TG2 商品浏览 3-3,text,true,,9819,207,5,19,http://127.0.0.1:5000/api/products?page=1&page_size=20,92,0,5
+1787048983808,112,GET /api/products,200,OK,TG2 商品浏览 3-2,text,true,,9749,207,5,19,http://127.0.0.1:5000/api/products?page=2&page_size=20,112,0,3
+1787048983808,97,GET /api/products,200,OK,TG2 商品浏览 3-4,text,true,,9819,207,5,19,http://127.0.0.1:5000/api/products?page=1&page_size=20,96,0,6
+1787048983859,383,GET /api/auth/me,200,OK,TG1 用户认证 2-4,text,true,,432,253,5,24,http://127.0.0.1:5000/api/auth/me,382,0,2
+1787048983808,442,GET /api/admin/users,200,OK,TG5 管理员 6-3,text,true,,61809,325,5,24,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,441,0,5
+1787048983807,433,POST /api/product,201,CREATED,TG3 商品发布与下单 4-2,text,true,,298,474,3,24,http://127.0.0.1:5000/api/product,432,0,6
+1787048983807,499,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,true,,298,473,3,24,http://127.0.0.1:5000/api/product,498,0,5
+1787048983865,444,GET /api/products,200,OK,TG2 商品浏览 3-5,text,true,,9844,207,6,24,http://127.0.0.1:5000/api/products?page=5&page_size=20,444,0,2
+1787048983968,360,GET /api/admin/products,200,OK,TG5 管理员 6-2,text,true,,10788,328,5,24,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,360,0,2
+1787048984002,331,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,true,,10788,328,5,24,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,330,0,2
+1787048983909,427,POST /api/auth/login,200,OK,TG1 用户认证 2-3,text,true,,571,291,5,24,http://127.0.0.1:5000/api/auth/login,426,0,2
+1787048983904,456,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,571,291,5,24,http://127.0.0.1:5000/api/auth/login,456,0,2
+1787048984154,194,GET /api/product/368,200,OK,TG2 商品浏览 3-2,text,true,,700,257,6,24,http://127.0.0.1:5000/api/product/368,194,0,1
+1787048984150,224,GET /api/product/293,200,OK,TG2 商品浏览 3-1,text,true,,701,257,6,24,http://127.0.0.1:5000/api/product/293,224,0,2
+1787048984150,234,GET /api/product/391,200,OK,TG2 商品浏览 3-3,text,true,,699,257,6,24,http://127.0.0.1:5000/api/product/391,233,0,2
+1787048984154,248,GET /api/product/375,200,OK,TG2 商品浏览 3-4,text,true,,698,257,6,24,http://127.0.0.1:5000/api/product/375,248,0,43
+1787048983954,476,POST /api/auth/login,200,OK,TG1 用户认证 2-2,text,true,,571,291,5,24,http://127.0.0.1:5000/api/auth/login,476,0,2
+1787048983682,782,POST /api/admin/login,200,OK,TG5 管理员 6-4,text,true,,571,226,5,24,http://127.0.0.1:5000/api/admin/login,781,0,2
+1787048984251,235,GET /api/admin/products,200,OK,TG5 管理员 6-3,text,true,,10788,328,5,24,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,235,0,1
+1787048984168,317,POST /api/auth/login,200,OK,TG2 商品浏览 3-6,text,true,,571,232,6,24,http://127.0.0.1:5000/api/auth/login,316,0,2
+1787048984172,315,POST /api/auth/login,200,OK,TG1 用户认证 2-5,text,true,,571,232,5,24,http://127.0.0.1:5000/api/auth/login,314,0,2
+1787048984267,237,GET /api/product/393,200,OK,TG3 商品发布与下单 4-2,text,true,,701,257,3,24,http://127.0.0.1:5000/api/product/393,236,0,1
+1787048984309,209,GET /api/product/392,200,OK,TG3 商品发布与下单 4-1,text,true,,700,257,3,24,http://127.0.0.1:5000/api/product/392,209,0,1
+1787048984313,228,GET /api/product/305,200,OK,TG2 商品浏览 3-5,text,true,,697,257,7,25,http://127.0.0.1:5000/api/product/305,227,0,2
+1787048984329,226,GET /api/admin/login-history,200,OK,TG5 管理员 6-2,text,true,,3289,313,5,25,http://127.0.0.1:5000/api/admin/login-history,226,0,2
+1787048984223,337,POST /api/auth/login,200,OK,TG4 AI 工具 5-5,text,true,,571,232,5,25,http://127.0.0.1:5000/api/auth/login,337,0,3
+1787048984334,229,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,true,,3289,313,5,25,http://127.0.0.1:5000/api/admin/login-history,229,0,1
+1787048984338,227,GET /api/auth/me,200,OK,TG1 用户认证 2-3,text,true,,432,253,5,25,http://127.0.0.1:5000/api/auth/me,227,0,2
+1787048984363,204,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,432,253,5,25,http://127.0.0.1:5000/api/auth/me,204,0,2
+1787048984243,348,POST /api/auth/login,200,OK,TG1 用户认证 2-4,text,true,,571,291,5,25,http://127.0.0.1:5000/api/auth/login,347,0,2
+1787048984374,225,GET /api/search,200,OK,TG2 商品浏览 3-2,text,true,,1181,266,7,25,http://127.0.0.1:5000/api/search?q=test&page=1,225,0,2
+1787048984377,227,GET /api/search,200,OK,TG2 商品浏览 3-1,text,true,,1181,266,7,25,http://127.0.0.1:5000/api/search?q=test&page=1,227,0,1
+1787048984406,200,GET /api/search,200,OK,TG2 商品浏览 3-4,text,true,,1181,266,7,25,http://127.0.0.1:5000/api/search?q=test&page=1,200,0,2
+1787048984432,180,GET /api/auth/me,200,OK,TG1 用户认证 2-2,text,true,,432,253,5,25,http://127.0.0.1:5000/api/auth/me,180,0,1
+1787048984386,227,GET /api/search,200,OK,TG2 商品浏览 3-3,text,true,,1181,266,7,25,http://127.0.0.1:5000/api/search?q=test&page=1,227,0,2
+1787048984224,389,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-3,text,true,,568,229,3,25,http://127.0.0.1:5000/api/auth/login,389,0,6
+1787048984487,129,GET /api/admin/login-history,200,OK,TG5 管理员 6-3,text,true,,3289,313,5,25,http://127.0.0.1:5000/api/admin/login-history,128,0,1
+1787048984487,132,GET /api/products,200,OK,TG2 商品浏览 3-6,text,true,,9878,207,7,25,http://127.0.0.1:5000/api/products?page=4&page_size=20,132,0,2
+1787048984466,166,GET /api/admin/users,200,OK,TG5 管理员 6-4,text,true,,61833,325,5,26,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,165,0,2
+1787048984489,145,GET /api/auth/me,200,OK,TG1 用户认证 2-5,text,true,,432,253,6,26,http://127.0.0.1:5000/api/auth/me,144,0,2
+1787048984507,127,GET /api/my-products,200,OK,TG3 商品发布与下单 4-2,text,true,,7364,257,3,26,http://127.0.0.1:5000/api/my-products,126,0,1
+1787048984520,114,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,7928,257,3,26,http://127.0.0.1:5000/api/my-products,114,0,2
+1787048984544,141,GET /api/search,200,OK,TG2 商品浏览 3-5,text,true,,1181,266,7,26,http://127.0.0.1:5000/api/search?q=test&page=1,140,0,1
+1787048984556,148,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-2,text,true,,111703,317,6,28,http://127.0.0.1:5000/api/admin/anomaly-detection,147,0,2
+1787048984564,183,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,true,,111703,317,6,28,http://127.0.0.1:5000/api/admin/anomaly-detection,182,0,1
+1787048984593,167,GET /api/auth/me,200,OK,TG1 用户认证 2-4,text,true,,432,253,6,28,http://127.0.0.1:5000/api/auth/me,167,0,2
+1787048984537,250,POST /api/auth/login,200,OK,TG2 商品浏览 3-7,text,true,,571,232,7,28,http://127.0.0.1:5000/api/auth/login,250,0,2
+1787048984183,637,POST /api/admin/login,200,OK,TG5 管理员 6-5,text,true,,571,226,6,28,http://127.0.0.1:5000/api/admin/login,636,0,1
+1787048984567,302,POST /api/auth/login,200,OK,TG1 用户认证 2-3,text,true,,571,291,6,28,http://127.0.0.1:5000/api/auth/login,302,0,1
+1787048984616,311,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-3,text,true,,111727,317,6,28,http://127.0.0.1:5000/api/admin/anomaly-detection,310,0,2
+1787048984616,320,POST /api/product,201,CREATED,TG3 商品发布与下单 4-3,text,true,,298,474,3,29,http://127.0.0.1:5000/api/product,319,0,1
+1787048984608,349,POST /api/auth/login,200,OK,TG2 商品浏览 3-4,text,true,,571,291,8,29,http://127.0.0.1:5000/api/auth/login,349,0,1
+1787048984568,388,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,571,291,6,29,http://127.0.0.1:5000/api/auth/login,388,0,1
+1787048984622,342,GET /api/product/315,200,OK,TG2 商品浏览 3-6,text,true,,701,257,8,29,http://127.0.0.1:5000/api/product/315,342,0,2
+1787048984633,332,GET /api/admin/products,200,OK,TG5 管理员 6-4,text,true,,10767,328,6,29,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,332,0,1
+1787048984601,366,POST /api/auth/login,200,OK,TG2 商品浏览 3-2,text,true,,571,291,8,29,http://127.0.0.1:5000/api/auth/login,365,0,1
+1787048984606,369,POST /api/auth/login,200,OK,TG2 商品浏览 3-1,text,true,,571,291,8,29,http://127.0.0.1:5000/api/auth/login,369,0,1
+1787048984613,373,POST /api/auth/login,200,OK,TG1 用户认证 2-2,text,true,,571,291,6,29,http://127.0.0.1:5000/api/auth/login,373,0,2
+1787048984670,338,PUT /api/my-products/edit/393,200,OK,TG3 商品发布与下单 4-2,text,true,,278,358,3,29,http://127.0.0.1:5000/api/my-products/edit/393,337,0,2
+1787048984670,358,PUT /api/my-products/edit/392,200,OK,TG3 商品发布与下单 4-1,text,true,,278,357,3,29,http://127.0.0.1:5000/api/my-products/edit/392,358,0,2
+1787048984614,423,POST /api/auth/login,200,OK,TG2 商品浏览 3-3,text,true,,571,291,8,29,http://127.0.0.1:5000/api/auth/login,423,0,1
+1787048984630,454,POST /api/auth/login,200,OK,TG1 用户认证 2-6,text,true,,571,232,6,29,http://127.0.0.1:5000/api/auth/login,454,0,2
+1787048984871,317,GET /api/auth/me,200,OK,TG1 用户认证 2-3,text,true,,432,253,7,33,http://127.0.0.1:5000/api/auth/me,317,0,1
+1787048984635,553,POST /api/auth/login,200,OK,TG1 用户认证 2-5,text,true,,571,291,7,33,http://127.0.0.1:5000/api/auth/login,552,0,1
+1787048984822,370,GET /api/admin/users,200,OK,TG5 管理员 6-5,text,true,,61905,325,7,33,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,369,0,1
+1787048984688,504,POST /api/auth/login,200,OK,TG2 商品浏览 3-5,text,true,,571,291,8,33,http://127.0.0.1:5000/api/auth/login,504,0,2
+1787048984692,505,POST /api/auth/login,200,OK,TG4 AI 工具 5-6,text,true,,571,232,7,33,http://127.0.0.1:5000/api/auth/login,504,0,2
+1787048984790,406,GET /api/products,200,OK,TG2 商品浏览 3-7,text,true,,9843,207,8,33,http://127.0.0.1:5000/api/products?page=5&page_size=20,406,0,1
+1787048984938,285,GET /api/product/394,200,OK,TG3 商品发布与下单 4-3,text,true,,701,257,4,33,http://127.0.0.1:5000/api/product/394,285,0,1
+1787048984958,318,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,432,253,7,33,http://127.0.0.1:5000/api/auth/me,317,0,2
+1787048984761,522,POST /api/auth/login,200,OK,TG1 用户认证 2-4,text,true,,571,291,7,33,http://127.0.0.1:5000/api/auth/login,522,0,2
+1787048984966,352,GET /api/search,200,OK,TG2 商品浏览 3-6,text,true,,1181,266,8,33,http://127.0.0.1:5000/api/search?q=test&page=1,351,0,1
+1787048984958,386,GET /api/products,200,OK,TG2 商品浏览 3-4,text,true,,9878,207,9,34,http://127.0.0.1:5000/api/products?page=4&page_size=20,385,0,2
+1787048984966,422,GET /api/admin/login-history,200,OK,TG5 管理员 6-4,text,true,,3308,313,7,34,http://127.0.0.1:5000/api/admin/login-history,421,0,2
+1787048984968,428,GET /api/products,200,OK,TG2 商品浏览 3-2,text,true,,9738,207,9,34,http://127.0.0.1:5000/api/products?page=2&page_size=20,428,0,1
+1787048984935,485,POST /api/auth/login,200,OK,TG2 商品浏览 3-8,text,true,,571,232,9,34,http://127.0.0.1:5000/api/auth/login,484,0,2
+1787048984988,441,GET /api/auth/me,200,OK,TG1 用户认证 2-2,text,true,,432,253,7,34,http://127.0.0.1:5000/api/auth/me,440,0,2
+1787048984694,775,POST /api/admin/login,200,OK,TG5 管理员 6-6,text,true,,571,226,7,34,http://127.0.0.1:5000/api/admin/login,774,0,1
+1787048984977,505,GET /api/products,200,OK,TG2 商品浏览 3-1,text,true,,9823,207,9,34,http://127.0.0.1:5000/api/products?page=1&page_size=20,504,0,1
+1787048985039,519,GET /api/products,200,OK,TG2 商品浏览 3-3,text,true,,9738,207,9,34,http://127.0.0.1:5000/api/products?page=2&page_size=20,518,0,2
+1787048985086,483,GET /api/auth/me,200,OK,TG1 用户认证 2-6,text,true,,432,253,7,34,http://127.0.0.1:5000/api/auth/me,483,0,2
+1787048985009,560,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-2,text,true,,570,290,4,34,http://127.0.0.1:5000/api/auth/login,559,0,6
+1787048984748,884,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,true,,571,312,7,34,http://127.0.0.1:5000/api/admin/login,884,0,1
+1787048984706,932,POST /api/admin/login,200,OK,TG5 管理员 6-2,text,true,,571,312,7,35,http://127.0.0.1:5000/api/admin/login,932,0,2
+1787048984928,749,POST /api/admin/login,200,OK,TG5 管理员 6-3,text,true,,571,312,7,36,http://127.0.0.1:5000/api/admin/login,749,0,1
+1787048985189,494,GET /api/auth/me,200,OK,TG1 用户认证 2-5,text,true,,432,253,8,37,http://127.0.0.1:5000/api/auth/me,494,0,2
+1787048985192,500,GET /api/admin/products,200,OK,TG5 管理员 6-5,text,true,,10809,328,8,37,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,500,0,2
+1787048985029,665,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,4,37,http://127.0.0.1:5000/api/auth/login,665,0,6
+1787048985147,559,POST /api/auth/login,200,OK,TG1 用户认证 2-7,text,true,,571,232,8,37,http://127.0.0.1:5000/api/auth/login,558,0,1
+1787048985198,508,GET /api/product/295,200,OK,TG2 商品浏览 3-7,text,true,,701,257,9,37,http://127.0.0.1:5000/api/product/295,507,0,2
+1787048985225,517,GET /api/my-products,200,OK,TG3 商品发布与下单 4-3,text,true,,6222,257,4,38,http://127.0.0.1:5000/api/my-products,516,0,2
+1787048985194,548,GET /api/products,200,OK,TG2 商品浏览 3-5,text,true,,9878,207,10,38,http://127.0.0.1:5000/api/products?page=4&page_size=20,548,0,1
+1787048985285,463,GET /api/auth/me,200,OK,TG1 用户认证 2-4,text,true,,432,253,8,38,http://127.0.0.1:5000/api/auth/me,463,0,2
+1787048985177,570,POST /api/auth/login,200,OK,TG4 AI 工具 5-7,text,true,,571,232,8,38,http://127.0.0.1:5000/api/auth/login,570,0,1
+1787048985153,603,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-4,text,true,,568,229,4,38,http://127.0.0.1:5000/api/auth/login,603,0,7
+1787048985189,631,POST /api/auth/login,200,OK,TG1 用户认证 2-3,text,true,,568,288,8,38,http://127.0.0.1:5000/api/auth/login,630,0,1
+1787048985346,479,GET /api/product/324,200,OK,TG2 商品浏览 3-4,text,true,,701,257,10,38,http://127.0.0.1:5000/api/product/324,479,0,1
+1787048985390,484,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-4,text,true,,111895,317,8,38,http://127.0.0.1:5000/api/admin/anomaly-detection,483,0,1
+1787048985422,475,GET /api/products,200,OK,TG2 商品浏览 3-8,text,true,,9843,207,10,38,http://127.0.0.1:5000/api/products?page=5&page_size=20,474,0,1
+1787048985319,596,POST /api/auth/login,200,OK,TG2 商品浏览 3-6,text,true,,568,288,10,38,http://127.0.0.1:5000/api/auth/login,595,0,2
+1787048985398,517,GET /api/product/362,200,OK,TG2 商品浏览 3-2,text,true,,701,257,10,38,http://127.0.0.1:5000/api/product/362,517,0,1
+1787048985277,650,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,568,288,8,38,http://127.0.0.1:5000/api/auth/login,649,0,2
+1787048985484,450,GET /api/product/384,200,OK,TG2 商品浏览 3-1,text,true,,698,257,10,38,http://127.0.0.1:5000/api/product/384,449,0,2
+1787048985471,472,GET /api/admin/users,200,OK,TG5 管理员 6-6,text,true,,62025,325,8,38,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,471,0,1
+1787048985329,626,POST /api/auth/login,200,OK,TG2 商品浏览 3-9,text,true,,568,229,10,38,http://127.0.0.1:5000/api/auth/login,626,0,2
+1787048985560,412,GET /api/product/360,200,OK,TG2 商品浏览 3-3,text,true,,634,257,10,38,http://127.0.0.1:5000/api/product/360,411,0,1
+1787048985635,402,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,true,,62025,325,8,38,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,401,0,1
+1787048985571,464,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-2,text,true,,296,323,4,38,http://127.0.0.1:5000/api/orders,464,0,1
+1787048985180,879,POST /api/admin/login,200,OK,TG5 管理员 6-7,text,true,,571,226,8,38,http://127.0.0.1:5000/api/admin/login,879,0,1
+1787048985640,425,GET /api/admin/users,200,OK,TG5 管理员 6-2,text,true,,62025,325,8,38,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,425,0,2
+1787048985679,399,GET /api/admin/users,200,OK,TG5 管理员 6-3,text,true,,62025,325,8,38,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,399,0,1
+1787048985433,669,POST /api/auth/login,200,OK,TG1 用户认证 2-2,text,true,,570,290,8,38,http://127.0.0.1:5000/api/auth/login,668,0,2
+1787048985693,424,GET /api/admin/login-history,200,OK,TG5 管理员 6-5,text,true,,3340,313,8,38,http://127.0.0.1:5000/api/admin/login-history,424,0,1
+1787048983807,2388,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,355,9,43,http://127.0.0.1:5000/api/analyze-image,2387,0,2
+1787048985707,490,GET /api/auth/me,200,OK,TG1 用户认证 2-7,text,true,,432,253,9,43,http://127.0.0.1:5000/api/auth/me,490,0,2
+1787048985571,626,POST /api/auth/login,200,OK,TG1 用户认证 2-6,text,true,,570,290,9,43,http://127.0.0.1:5000/api/auth/login,626,0,1
+1787048985696,501,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-1,text,true,,296,323,5,43,http://127.0.0.1:5000/api/orders,501,0,1
+1787048985707,491,GET /api/search,200,OK,TG2 商品浏览 3-7,text,true,,1181,266,11,43,http://127.0.0.1:5000/api/search?q=test&page=1,491,0,2
+1787048985635,563,POST /api/auth/login,200,OK,TG1 用户认证 2-8,text,true,,570,231,9,43,http://127.0.0.1:5000/api/auth/login,563,0,2
+1787048985677,532,POST /api/auth/login,200,OK,TG4 AI 工具 5-8,text,true,,570,231,9,43,http://127.0.0.1:5000/api/auth/login,531,0,1
+1787048985744,485,PUT /api/my-products/edit/394,200,OK,TG3 商品发布与下单 4-3,text,true,,278,358,5,43,http://127.0.0.1:5000/api/my-products/edit/394,484,0,1
+1787048983808,2421,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,355,9,43,http://127.0.0.1:5000/api/analyze-image,2420,0,2
+1787048985744,498,GET /api/product/329,200,OK,TG2 商品浏览 3-5,text,true,,701,257,11,43,http://127.0.0.1:5000/api/product/329,497,0,1
+1787048983931,2317,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,355,9,43,http://127.0.0.1:5000/api/analyze-image,2317,0,1
+1787048985822,440,GET /api/auth/me,200,OK,TG1 用户认证 2-3,text,true,,429,253,9,43,http://127.0.0.1:5000/api/auth/me,440,0,1
+1787048985760,502,POST /api/product,201,CREATED,TG3 商品发布与下单 4-4,text,true,,298,474,5,43,http://127.0.0.1:5000/api/product,501,0,1
+1787048985827,448,GET /api/search,200,OK,TG2 商品浏览 3-4,text,true,,1181,266,11,43,http://127.0.0.1:5000/api/search?q=test&page=1,448,0,1
+1787048985899,381,GET /api/product/314,200,OK,TG2 商品浏览 3-8,text,true,,700,257,10,42,http://127.0.0.1:5000/api/product/314,380,0,2
+1787048985684,596,POST /api/auth/login,200,OK,TG1 用户认证 2-5,text,true,,570,290,9,42,http://127.0.0.1:5000/api/auth/login,596,0,1
+1787048985917,375,GET /api/products,200,OK,TG2 商品浏览 3-6,text,true,,9823,207,10,42,http://127.0.0.1:5000/api/products?page=1&page_size=20,375,0,1
+1787048985917,377,GET /api/search,200,OK,TG2 商品浏览 3-2,text,true,,1181,266,10,42,http://127.0.0.1:5000/api/search?q=test&page=1,377,0,1
+1787048985928,378,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,429,253,9,41,http://127.0.0.1:5000/api/auth/me,377,0,2
+1787048985936,380,GET /api/search,200,OK,TG2 商品浏览 3-1,text,true,,1181,266,9,41,http://127.0.0.1:5000/api/search?q=test&page=1,380,0,2
+1787048985944,379,GET /api/admin/products,200,OK,TG5 管理员 6-6,text,true,,10809,328,9,40,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,378,0,1
+1787048985958,372,GET /api/products,200,OK,TG2 商品浏览 3-9,text,true,,9878,207,8,40,http://127.0.0.1:5000/api/products?page=4&page_size=20,372,0,2
+1787048983807,2549,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,355,9,40,http://127.0.0.1:5000/api/analyze-image,2548,0,6
+1787048985974,382,GET /api/search,200,OK,TG2 商品浏览 3-3,text,true,,1181,266,8,40,http://127.0.0.1:5000/api/search?q=test&page=1,382,0,1
+1787048986037,320,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,true,,10809,328,9,40,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,319,0,2
+1787048986055,310,GET /api/orders,200,OK,TG3 商品发布与下单 4-2,text,true,,2838,252,5,39,http://127.0.0.1:5000/api/orders,310,0,2
+1787048985725,640,POST /api/auth/login,200,OK,TG2 商品浏览 3-10,text,true,,570,231,7,39,http://127.0.0.1:5000/api/auth/login,640,0,1
+1787048986066,320,GET /api/admin/products,200,OK,TG5 管理员 6-2,text,true,,10809,328,9,39,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,320,0,1
+1787048986079,307,GET /api/admin/products,200,OK,TG5 管理员 6-3,text,true,,10809,328,9,39,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,307,0,1
+1787048986103,284,GET /api/auth/me,200,OK,TG1 用户认证 2-2,text,true,,431,253,9,39,http://127.0.0.1:5000/api/auth/me,284,0,2
+1787048986061,327,GET /api/admin/users,200,OK,TG5 管理员 6-7,text,true,,62025,325,9,39,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,327,0,1
+1787048985749,647,POST /api/auth/login,200,OK,TG1 用户认证 2-4,text,true,,570,290,9,39,http://127.0.0.1:5000/api/auth/login,646,0,1
+1787048986118,297,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-5,text,true,,111895,317,9,39,http://127.0.0.1:5000/api/admin/anomaly-detection,297,0,1
+1787048986199,299,GET /api/auth/me,200,OK,TG1 用户认证 2-6,text,true,,431,253,9,39,http://127.0.0.1:5000/api/auth/me,298,0,1
+1787048985683,818,POST /api/admin/login,200,OK,TG5 管理员 6-8,text,true,,571,226,9,39,http://127.0.0.1:5000/api/admin/login,817,0,1
+1787048986199,309,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,2836,252,5,39,http://127.0.0.1:5000/api/orders,309,0,1
+1787048986160,371,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-5,text,true,,568,229,5,39,http://127.0.0.1:5000/api/auth/login,371,0,8
+1787048986170,363,POST /api/auth/login,200,OK,TG4 AI 工具 5-9,text,true,,571,232,9,39,http://127.0.0.1:5000/api/auth/login,363,0,1
+1787048986199,349,GET /api/auth/me,200,OK,TG1 用户认证 2-8,text,true,,431,253,9,40,http://127.0.0.1:5000/api/auth/me,349,0,2
+1787048986243,325,GET /api/search,200,OK,TG2 商品浏览 3-5,text,true,,1181,266,8,40,http://127.0.0.1:5000/api/search?q=test&page=1,324,0,2
+1787048986125,445,POST /api/auth/login,200,OK,TG2 商品浏览 3-11,text,true,,571,232,7,39,http://127.0.0.1:5000/api/auth/login,444,0,2
+1787048986129,447,POST /api/auth/login,200,OK,TG1 用户认证 2-9,text,true,,571,232,9,39,http://127.0.0.1:5000/api/auth/login,447,0,1
+1787048986198,379,POST /api/auth/login,200,OK,TG1 用户认证 2-7,text,true,,571,291,9,39,http://127.0.0.1:5000/api/auth/login,378,0,1
+1787048986263,334,GET /api/product/395,200,OK,TG3 商品发布与下单 4-4,text,true,,701,257,5,39,http://127.0.0.1:5000/api/product/395,333,0,2
+1787048986282,345,GET /api/auth/me,200,OK,TG1 用户认证 2-5,text,true,,431,253,9,39,http://127.0.0.1:5000/api/auth/me,344,0,1
+1787048986199,473,POST /api/auth/login,200,OK,TG2 商品浏览 3-7,text,true,,571,291,7,40,http://127.0.0.1:5000/api/auth/login,472,0,1
+1787048985875,797,POST /api/admin/login,200,OK,TG5 管理员 6-4,text,true,,571,312,9,40,http://127.0.0.1:5000/api/admin/login,797,0,2
+1787048986282,414,GET /api/search,200,OK,TG2 商品浏览 3-8,text,true,,1181,266,7,42,http://127.0.0.1:5000/api/search?q=test&page=1,414,0,1
+1787048986294,417,GET /api/product/386,200,OK,TG2 商品浏览 3-6,text,true,,698,257,7,42,http://127.0.0.1:5000/api/product/386,416,0,1
+1787048986324,398,GET /api/admin/login-history,200,OK,TG5 管理员 6-6,text,true,,3340,313,10,42,http://127.0.0.1:5000/api/admin/login-history,397,0,1
+1787048986229,494,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-3,text,true,,570,290,5,42,http://127.0.0.1:5000/api/auth/login,494,0,6
+1787048986332,406,GET /api/product/317,200,OK,TG2 商品浏览 3-9,text,true,,701,257,7,42,http://127.0.0.1:5000/api/product/317,405,0,2
+1787048986263,488,POST /api/auth/login,200,OK,TG1 用户认证 2-3,text,true,,571,291,10,42,http://127.0.0.1:5000/api/auth/login,488,0,2
+1787048986357,403,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,true,,3340,313,10,42,http://127.0.0.1:5000/api/admin/login-history,402,0,2
+1787048986366,421,POST /api/orders/245/update (paid),200,OK,TG3 商品发布与下单 4-2,text,true,,324,333,5,42,http://127.0.0.1:5000/api/orders/245/update,421,0,2
+1787048986367,420,GET /api/products,200,OK,TG2 商品浏览 3-10,text,true,,9735,207,7,42,http://127.0.0.1:5000/api/products?page=2&page_size=20,420,0,1
+1787048986387,415,GET /api/admin/login-history,200,OK,TG5 管理员 6-2,text,true,,3340,313,10,42,http://127.0.0.1:5000/api/admin/login-history,415,0,1
+1787048986183,627,POST /api/admin/login,200,OK,TG5 管理员 6-9,text,true,,571,226,10,42,http://127.0.0.1:5000/api/admin/login,627,0,1
+1787048986387,441,GET /api/admin/login-history,200,OK,TG5 管理员 6-3,text,true,,3340,313,10,42,http://127.0.0.1:5000/api/admin/login-history,441,0,1
+1787048984562,2320,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,355,10,42,http://127.0.0.1:5000/api/analyze-image,2320,0,2
+1787048986307,610,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,571,291,10,42,http://127.0.0.1:5000/api/auth/login,610,0,2
+1787048986572,381,GET /api/products,200,OK,TG2 商品浏览 3-11,text,true,,9735,207,7,42,http://127.0.0.1:5000/api/products?page=2&page_size=20,381,0,1
+1787048986389,584,GET /api/admin/products,200,OK,TG5 管理员 6-7,text,true,,10788,328,10,43,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,584,0,1
+1787048986502,472,GET /api/admin/users,200,OK,TG5 管理员 6-8,text,true,,62049,325,10,43,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,472,0,1
+1787048986398,577,GET /api/auth/me,200,OK,TG1 用户认证 2-4,text,true,,431,253,10,43,http://127.0.0.1:5000/api/auth/me,576,0,1
+1787048986578,400,GET /api/auth/me,200,OK,TG1 用户认证 2-9,text,true,,432,253,10,43,http://127.0.0.1:5000/api/auth/me,400,0,1
+1787048986509,476,POST /api/orders/246/update (paid),200,OK,TG3 商品发布与下单 4-1,text,true,,324,333,5,43,http://127.0.0.1:5000/api/orders/246/update,476,0,2
+1787048986578,410,GET /api/auth/me,200,OK,TG1 用户认证 2-7,text,true,,432,253,10,43,http://127.0.0.1:5000/api/auth/me,409,0,1
+1787048986534,455,POST /api/product,201,CREATED,TG3 商品发布与下单 4-5,text,true,,298,474,5,43,http://127.0.0.1:5000/api/product,454,0,1
+1787048986388,606,POST /api/auth/login,200,OK,TG1 用户认证 2-2,text,true,,571,291,10,43,http://127.0.0.1:5000/api/auth/login,605,0,1
+1787048986598,458,GET /api/my-products,200,OK,TG3 商品发布与下单 4-4,text,true,,6225,257,5,43,http://127.0.0.1:5000/api/my-products,458,0,1
+1787048986549,570,POST /api/auth/login,200,OK,TG1 用户认证 2-8,text,true,,571,291,10,43,http://127.0.0.1:5000/api/auth/login,570,0,2
+1787048986535,626,POST /api/auth/login,200,OK,TG2 商品浏览 3-12,text,true,,571,232,8,44,http://127.0.0.1:5000/api/auth/login,625,0,1
+1787048986673,504,GET /api/admin/users,200,OK,TG5 管理员 6-4,text,true,,62049,325,10,44,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,504,0,2
+1787048986499,752,POST /api/auth/login,200,OK,TG1 用户认证 2-6,text,true,,571,291,10,44,http://127.0.0.1:5000/api/auth/login,751,0,1
+1787048986628,645,POST /api/auth/login,200,OK,TG1 用户认证 2-5,text,true,,571,291,10,44,http://127.0.0.1:5000/api/auth/login,645,0,1
+1787048986673,641,GET /api/products,200,OK,TG2 商品浏览 3-7,text,true,,9826,207,8,44,http://127.0.0.1:5000/api/products?page=1&page_size=20,641,0,2
+1787048986713,643,GET /api/search,200,OK,TG2 商品浏览 3-6,text,true,,1181,266,9,45,http://127.0.0.1:5000/api/search?q=test&page=1,643,0,1
+1787048986723,661,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-6,text,true,,111919,317,10,44,http://127.0.0.1:5000/api/admin/anomaly-detection,660,0,1
+1787048986416,968,POST /api/admin/login,200,OK,TG5 管理员 6-5,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,968,0,1
+1787048986739,657,GET /api/search,200,OK,TG2 商品浏览 3-9,text,true,,1181,266,8,44,http://127.0.0.1:5000/api/search?q=test&page=1,657,0,2
+1787048986754,643,GET /api/auth/me,200,OK,TG1 用户认证 2-3,text,true,,432,253,10,44,http://127.0.0.1:5000/api/auth/me,642,0,2
+1787048986725,746,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-3,text,true,,296,323,6,43,http://127.0.0.1:5000/api/orders,745,0,1
+1787048986681,797,POST /api/auth/login,200,OK,TG4 AI 工具 5-10,text,true,,571,232,10,43,http://127.0.0.1:5000/api/auth/login,797,0,1
+1787048986637,842,POST /api/auth/login,200,OK,TG1 用户认证 2-10,text,true,,571,232,9,43,http://127.0.0.1:5000/api/auth/login,842,0,2
+1787048986698,787,POST /api/auth/login,200,OK,TG2 商品浏览 3-8,text,true,,571,291,8,43,http://127.0.0.1:5000/api/auth/login,787,0,1
+1787048986788,780,POST /api/orders/245/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-2,text,true,,286,338,6,43,http://127.0.0.1:5000/api/orders/245/update,779,0,2
+1787048986761,841,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,true,,111919,317,10,43,http://127.0.0.1:5000/api/admin/anomaly-detection,840,0,1
+1787048986789,827,GET /api/product/366,200,OK,TG2 商品浏览 3-10,text,true,,701,257,8,43,http://127.0.0.1:5000/api/product/366,826,0,1
+1787048986803,820,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-2,text,true,,111919,317,10,43,http://127.0.0.1:5000/api/admin/anomaly-detection,820,0,1
+1787048986812,815,GET /api/admin/users,200,OK,TG5 管理员 6-9,text,true,,62049,325,10,43,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,814,0,1
+1787048986829,801,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-3,text,true,,111919,317,10,43,http://127.0.0.1:5000/api/admin/anomaly-detection,801,0,1
+1787048986919,720,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,432,253,9,43,http://127.0.0.1:5000/api/auth/me,720,0,1
+1787048986956,687,GET /api/product/368,200,OK,TG2 商品浏览 3-11,text,true,,700,257,8,42,http://127.0.0.1:5000/api/product/368,687,0,1
+1787048986974,685,GET /api/admin/login-history,200,OK,TG5 管理员 6-7,text,true,,3340,313,10,42,http://127.0.0.1:5000/api/admin/login-history,684,0,1
+1787048986686,972,POST /api/admin/login,200,OK,TG5 管理员 6-10,text,true,,571,226,10,42,http://127.0.0.1:5000/api/admin/login,972,0,2
+1787048986975,687,GET /api/admin/products,200,OK,TG5 管理员 6-8,text,true,,10788,328,10,42,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,687,0,1
+1787048986986,1155,POST /api/orders/246/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-1,text,true,,286,338,6,44,http://127.0.0.1:5000/api/orders/246/update,1155,0,1
+1787048986961,1181,POST /api/auth/login,200,OK,TG2 商品浏览 3-13,text,true,,571,232,10,44,http://127.0.0.1:5000/api/auth/login,1181,0,1
+1787048985198,2946,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,355,10,44,http://127.0.0.1:5000/api/analyze-image,2946,0,2
+1787048986990,1157,GET /api/product/396,200,OK,TG3 商品发布与下单 4-5,text,true,,701,257,6,44,http://127.0.0.1:5000/api/product/396,1156,0,1
+1787048986975,1172,POST /api/auth/login,200,OK,TG1 用户认证 2-4,text,true,,571,291,8,44,http://127.0.0.1:5000/api/auth/login,1172,0,1
+1787048987253,1082,GET /api/auth/me,200,OK,TG1 用户认证 2-6,text,true,,432,253,8,45,http://127.0.0.1:5000/api/auth/me,1082,0,1
+1787048986989,1424,POST /api/auth/login,200,OK,TG1 用户认证 2-7,text,true,,571,291,8,45,http://127.0.0.1:5000/api/auth/login,1424,0,1
+1787048987178,1302,GET /api/admin/products,200,OK,TG5 管理员 6-4,text,true,,10788,328,10,45,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,1301,0,1
+1787048987317,1282,GET /api/product/383,200,OK,TG2 商品浏览 3-7,text,true,,698,257,11,46,http://127.0.0.1:5000/api/product/383,1281,0,1
+1787048987646,1064,GET /api/search,200,OK,TG2 商品浏览 3-11,text,true,,1181,266,11,46,http://127.0.0.1:5000/api/search?q=test&page=1,1064,0,1
+1787048987275,1447,GET /api/auth/me,200,OK,TG1 用户认证 2-5,text,true,,432,253,8,46,http://127.0.0.1:5000/api/auth/me,1447,0,2
+1787048987618,1106,GET /api/search,200,OK,TG2 商品浏览 3-10,text,true,,1181,266,11,46,http://127.0.0.1:5000/api/search?q=test&page=1,1106,0,1
+1787048987058,1673,PUT /api/my-products/edit/395,200,OK,TG3 商品发布与下单 4-4,text,true,,278,357,7,46,http://127.0.0.1:5000/api/my-products/edit/395,1673,0,2
+1787048987660,1079,GET /api/admin/users,200,OK,TG5 管理员 6-10,text,true,,62049,325,10,46,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,1078,0,1
+1787048987627,1120,GET /api/admin/products,200,OK,TG5 管理员 6-9,text,true,,10808,328,10,46,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,1120,0,1
+1787048987487,1260,GET /api/products,200,OK,TG2 商品浏览 3-8,text,true,,9734,207,11,46,http://127.0.0.1:5000/api/products?page=2&page_size=20,1260,0,2
+1787048987162,1586,GET /api/products,200,OK,TG2 商品浏览 3-12,text,true,,9878,207,11,46,http://127.0.0.1:5000/api/products?page=4&page_size=20,1586,0,1
+1787048987663,1105,GET /api/admin/login-history,200,OK,TG5 管理员 6-8,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,1104,0,0
+1787048987480,1308,GET /api/auth/me,200,OK,TG1 用户认证 2-10,text,true,,432,253,8,46,http://127.0.0.1:5000/api/auth/me,1308,0,1
+1787048987472,1345,GET /api/orders,200,OK,TG3 商品发布与下单 4-3,text,true,,2840,252,7,46,http://127.0.0.1:5000/api/orders,1345,0,2
+1787048986996,1826,GET /api/auth/me,200,OK,TG1 用户认证 2-2,text,true,,432,253,8,46,http://127.0.0.1:5000/api/auth/me,1826,0,1
+1787048987386,1439,GET /api/admin/users,200,OK,TG5 管理员 6-5,text,true,,62049,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,1438,0,1
+1787048987659,1166,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-7,text,true,,111919,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,1165,0,2
+1787048987121,1711,GET /api/auth/me,200,OK,TG1 用户认证 2-8,text,true,,432,253,7,45,http://127.0.0.1:5000/api/auth/me,1711,0,2
+1787048986979,1856,POST /api/auth/login,200,OK,TG1 用户认证 2-9,text,true,,571,291,7,45,http://127.0.0.1:5000/api/auth/login,1856,0,1
+1787048988148,692,GET /api/my-products,200,OK,TG3 商品发布与下单 4-5,text,true,,6232,257,7,45,http://127.0.0.1:5000/api/my-products,692,0,1
+1787048988148,696,GET /api/auth/me,200,OK,TG1 用户认证 2-4,text,true,,432,253,7,45,http://127.0.0.1:5000/api/auth/me,695,0,1
+1787048988144,701,GET /api/products,200,OK,TG2 商品浏览 3-13,text,true,,9822,207,11,44,http://127.0.0.1:5000/api/products?page=1&page_size=20,701,0,1
+1787048987397,1450,POST /api/auth/login,200,OK,TG2 商品浏览 3-9,text,true,,571,291,11,44,http://127.0.0.1:5000/api/auth/login,1450,0,1
+1787048987157,1691,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-6,text,true,,568,229,7,44,http://127.0.0.1:5000/api/auth/login,1691,0,5
+1787048987569,1279,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-2,text,true,,568,288,7,44,http://127.0.0.1:5000/api/auth/login,1279,0,5
+1787048988122,727,POST /api/auth/login,200,OK,TG2 商品浏览 3-16,text,true,,571,232,11,44,http://127.0.0.1:5000/api/auth/login,727,0,1
+1787048987334,1524,POST /api/auth/login,200,OK,TG2 商品浏览 3-14,text,true,,571,232,11,44,http://127.0.0.1:5000/api/auth/login,1524,0,1
+1787048985749,3148,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,355,10,44,http://127.0.0.1:5000/api/analyze-image,3148,0,1
+1787048987624,1274,POST /api/admin/login,200,OK,TG5 管理员 6-2,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,1274,0,1
+1787048988414,486,GET /api/auth/me,200,OK,TG1 用户认证 2-7,text,true,,432,253,6,44,http://127.0.0.1:5000/api/auth/me,486,0,1
+1787048988481,420,GET /api/admin/login-history,200,OK,TG5 管理员 6-4,text,true,,3340,313,10,44,http://127.0.0.1:5000/api/admin/login-history,420,0,1
+1787048988142,761,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,288,7,44,http://127.0.0.1:5000/api/auth/login,760,0,4
+1787048987737,1165,POST /api/auth/login,200,OK,TG2 商品浏览 3-15,text,true,,571,232,11,44,http://127.0.0.1:5000/api/auth/login,1165,0,1
+1787048987631,1272,POST /api/admin/login,200,OK,TG5 管理员 6-3,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,1272,0,1
+1787048987603,1301,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,1300,0,2
+1787048987386,1518,POST /api/admin/login,200,OK,TG5 管理员 6-6,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,1518,0,1
+1787048988600,307,GET /api/search,200,OK,TG2 商品浏览 3-7,text,true,,1181,266,11,44,http://127.0.0.1:5000/api/search?q=test&page=1,307,0,1
+1787048988151,757,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-7,text,true,,568,229,7,44,http://127.0.0.1:5000/api/auth/login,756,0,5
+1787048988336,572,POST /api/auth/login,200,OK,TG1 用户认证 2-6,text,true,,571,291,6,43,http://127.0.0.1:5000/api/auth/login,572,0,1
+1787048986197,2716,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,392,10,43,http://127.0.0.1:5000/api/generate-copy,2715,0,1
+1787048986211,2702,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,355,10,43,http://127.0.0.1:5000/api/analyze-image,2702,0,2
+1787048986230,2684,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,392,10,43,http://127.0.0.1:5000/api/generate-copy,2684,0,1
+1787048986249,2666,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,392,10,43,http://127.0.0.1:5000/api/generate-copy,2665,0,2
+1787048988739,178,GET /api/admin/products,200,OK,TG5 管理员 6-10,text,true,,10808,328,10,43,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,178,0,1
+1787048988534,383,POST /api/auth/login,200,OK,TG2 商品浏览 3-17,text,true,,571,232,10,43,http://127.0.0.1:5000/api/auth/login,383,0,1
+1787048988748,188,GET /api/admin/login-history,200,OK,TG5 管理员 6-9,text,true,,3340,313,10,44,http://127.0.0.1:5000/api/admin/login-history,188,0,1
+1787048988749,203,GET /api/product/357,200,OK,TG2 商品浏览 3-8,text,true,,701,257,11,44,http://127.0.0.1:5000/api/product/357,202,0,1
+1787048988750,212,GET /api/product/318,200,OK,TG2 商品浏览 3-12,text,true,,701,257,11,44,http://127.0.0.1:5000/api/product/318,212,0,0
+1787048988825,160,GET /api/admin/products,200,OK,TG5 管理员 6-5,text,true,,10808,328,10,44,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,159,0,2
+1787048988769,229,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-8,text,true,,111943,317,10,44,http://127.0.0.1:5000/api/admin/anomaly-detection,229,0,2
+1787048988711,286,POST /api/auth/login,200,OK,TG2 商品浏览 3-11,text,true,,571,291,11,44,http://127.0.0.1:5000/api/auth/login,286,0,2
+1787048988818,181,POST /api/orders/247/update (paid),200,OK,TG3 商品发布与下单 4-3,text,true,,324,333,7,44,http://127.0.0.1:5000/api/orders/247/update,181,0,1
+1787048988723,309,POST /api/auth/login,200,OK,TG1 用户认证 2-5,text,true,,571,291,6,44,http://127.0.0.1:5000/api/auth/login,308,0,2
+1787048988837,201,GET /api/auth/me,200,OK,TG1 用户认证 2-9,text,true,,432,253,6,44,http://127.0.0.1:5000/api/auth/me,201,0,1
+1787048988725,312,POST /api/auth/login,200,OK,TG2 商品浏览 3-10,text,true,,571,291,11,44,http://127.0.0.1:5000/api/auth/login,312,0,1
+1787048988842,205,PUT /api/my-products/edit/396,200,OK,TG3 商品发布与下单 4-5,text,true,,278,358,7,44,http://127.0.0.1:5000/api/my-products/edit/396,205,0,1
+1787048988847,208,GET /api/product/387,200,OK,TG2 商品浏览 3-13,text,true,,698,257,11,44,http://127.0.0.1:5000/api/product/387,207,0,1
+1787048988848,220,GET /api/products,200,OK,TG2 商品浏览 3-9,text,true,,9734,207,11,44,http://127.0.0.1:5000/api/products?page=2&page_size=20,220,0,2
+1787048988732,339,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-4,text,true,,570,290,7,44,http://127.0.0.1:5000/api/auth/login,339,0,4
+1787048988849,241,POST /api/product,201,CREATED,TG3 商品发布与下单 4-2,text,true,,298,474,7,44,http://127.0.0.1:5000/api/product,241,0,1
+1787048988850,243,GET /api/products,200,OK,TG2 商品浏览 3-16,text,true,,9731,207,11,44,http://127.0.0.1:5000/api/products?page=2&page_size=20,243,0,1
+1787048988860,235,GET /api/products,200,OK,TG2 商品浏览 3-14,text,true,,9731,207,11,44,http://127.0.0.1:5000/api/products?page=2&page_size=20,235,0,1
+1787048988849,288,POST /api/product,201,CREATED,TG3 商品发布与下单 4-6,text,true,,298,474,7,44,http://127.0.0.1:5000/api/product,287,0,1
+1787048988899,244,GET /api/admin/users,200,OK,TG5 管理员 6-2,text,true,,62097,325,10,44,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,243,0,2
+1787048988904,262,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,true,,298,474,8,45,http://127.0.0.1:5000/api/product,261,0,1
+1787048988904,263,GET /api/admin/users,200,OK,TG5 管理员 6-3,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,262,0,1
+1787048988902,266,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-4,text,true,,111967,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,265,0,1
+1787048988789,378,POST /api/auth/login,200,OK,TG1 用户认证 2-10,text,true,,571,291,6,45,http://127.0.0.1:5000/api/auth/login,377,0,2
+1787048988905,265,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,264,0,1
+1787048988905,265,GET /api/admin/users,200,OK,TG5 管理员 6-6,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,265,0,1
+1787048988904,266,GET /api/products,200,OK,TG2 商品浏览 3-15,text,true,,9877,207,11,45,http://127.0.0.1:5000/api/products?page=4&page_size=20,265,0,1
+1787048988833,339,POST /api/auth/login,200,OK,TG1 用户认证 2-8,text,true,,568,288,6,45,http://127.0.0.1:5000/api/auth/login,339,0,2
+1787048988909,267,GET /api/auth/me,200,OK,TG1 用户认证 2-6,text,true,,432,253,6,45,http://127.0.0.1:5000/api/auth/me,267,0,1
+1787048988909,279,POST /api/product,201,CREATED,TG3 商品发布与下单 4-7,text,true,,298,474,8,45,http://127.0.0.1:5000/api/product,278,0,2
+1787048988918,293,GET /api/admin/login-history,200,OK,TG5 管理员 6-10,text,true,,3340,313,10,45,http://127.0.0.1:5000/api/admin/login-history,293,0,1
+1787048988919,293,GET /api/products,200,OK,TG2 商品浏览 3-17,text,true,,9809,207,11,45,http://127.0.0.1:5000/api/products?page=3&page_size=20,293,0,1
+1787048986357,2868,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,392,10,45,http://127.0.0.1:5000/api/generate-copy,2867,0,1
+1787048988953,302,GET /api/search,200,OK,TG2 商品浏览 3-8,text,true,,1181,266,11,45,http://127.0.0.1:5000/api/search?q=test&page=1,301,0,2
+1787048988937,353,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-9,text,true,,111967,317,10,44,http://127.0.0.1:5000/api/admin/anomaly-detection,353,0,1
+1787048988964,369,GET /api/search,200,OK,TG2 商品浏览 3-12,text,true,,1181,266,11,45,http://127.0.0.1:5000/api/search?q=test&page=1,369,0,1
+1787048988901,439,POST /api/auth/login,200,OK,TG1 用户认证 2-7,text,true,,568,288,6,45,http://127.0.0.1:5000/api/auth/login,439,0,1
+1787048988985,358,GET /api/admin/login-history,200,OK,TG5 管理员 6-5,text,true,,3340,313,10,45,http://127.0.0.1:5000/api/admin/login-history,357,0,2
+1787048986535,2837,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,355,10,45,http://127.0.0.1:5000/api/analyze-image,2837,0,1
+1787048988933,454,POST /api/auth/login,200,OK,TG2 商品浏览 3-18,text,true,,568,229,11,45,http://127.0.0.1:5000/api/auth/login,453,0,1
+1787048988999,397,GET /api/products,200,OK,TG2 商品浏览 3-11,text,true,,9809,207,11,45,http://127.0.0.1:5000/api/products?page=3&page_size=20,396,0,1
+1787048989000,550,POST /api/orders/247/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-3,text,true,,286,338,8,45,http://127.0.0.1:5000/api/orders/247/update,550,0,1
+1787048989034,519,GET /api/auth/me,200,OK,TG1 用户认证 2-5,text,true,,432,253,6,45,http://127.0.0.1:5000/api/auth/me,519,0,1
+1787048989056,507,GET /api/search,200,OK,TG2 商品浏览 3-13,text,true,,1181,266,11,44,http://127.0.0.1:5000/api/search?q=test&page=1,507,0,2
+1787048988826,737,POST /api/admin/login,200,OK,TG5 管理员 6-7,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,737,0,1
+1787048989039,538,GET /api/products,200,OK,TG2 商品浏览 3-10,text,true,,9877,207,11,44,http://127.0.0.1:5000/api/products?page=4&page_size=20,538,0,1
+1787048989046,556,POST /api/auth/login,200,OK,TG1 用户认证 2-9,text,true,,570,290,5,44,http://127.0.0.1:5000/api/auth/login,555,0,2
+1787048989048,558,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-5,text,true,,570,290,8,44,http://127.0.0.1:5000/api/auth/login,558,0,4
+1787048989092,515,GET /api/product/397,200,OK,TG3 商品发布与下单 4-2,text,true,,701,257,8,44,http://127.0.0.1:5000/api/product/397,515,0,1
+1787048989070,540,GET /api/product/366,200,OK,TG2 商品浏览 3-9,text,true,,701,257,11,44,http://127.0.0.1:5000/api/product/366,540,0,2
+1787048989095,515,GET /api/product/369,200,OK,TG2 商品浏览 3-16,text,true,,700,257,11,44,http://127.0.0.1:5000/api/product/369,515,0,1
+1787048989097,516,GET /api/product/374,200,OK,TG2 商品浏览 3-14,text,true,,698,257,11,44,http://127.0.0.1:5000/api/product/374,516,0,1
+1787048989138,478,GET /api/product/398,200,OK,TG3 商品发布与下单 4-6,text,true,,701,257,8,44,http://127.0.0.1:5000/api/product/398,478,0,2
+1787048989072,576,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-4,text,true,,296,323,8,44,http://127.0.0.1:5000/api/orders,576,0,2
+1787048989143,510,GET /api/admin/products,200,OK,TG5 管理员 6-2,text,true,,10745,328,10,44,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,510,0,1
+1787048989167,527,GET /api/product/399,200,OK,TG3 商品发布与下单 4-1,text,true,,701,257,8,44,http://127.0.0.1:5000/api/product/399,526,0,1
+1787048989167,544,GET /api/admin/products,200,OK,TG5 管理员 6-3,text,true,,10745,328,10,44,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,543,0,2
+1787048988999,719,POST /api/admin/login,200,OK,TG5 管理员 6-8,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,719,0,1
+1787048989168,561,GET /api/auth/me,200,OK,TG1 用户认证 2-10,text,true,,432,253,5,44,http://127.0.0.1:5000/api/auth/me,561,0,2
+1787048989171,582,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,true,,10745,328,10,45,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,582,0,1
+1787048989171,597,GET /api/admin/products,200,OK,TG5 管理员 6-6,text,true,,10745,328,10,45,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,597,0,1
+1787048986883,2907,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,392,10,45,http://127.0.0.1:5000/api/generate-copy,2907,0,2
+1787048989173,652,GET /api/auth/me,200,OK,TG1 用户认证 2-8,text,true,,429,253,5,45,http://127.0.0.1:5000/api/auth/me,651,0,1
+1787048989151,678,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-8,text,true,,568,229,8,45,http://127.0.0.1:5000/api/auth/login,677,0,12
+1787048989172,699,GET /api/product/329,200,OK,TG2 商品浏览 3-15,text,true,,701,257,12,45,http://127.0.0.1:5000/api/product/329,698,0,0
+1787048989190,687,GET /api/product/400,200,OK,TG3 商品发布与下单 4-7,text,true,,701,257,8,45,http://127.0.0.1:5000/api/product/400,687,0,1
+1787048989212,681,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-10,text,true,,111967,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,680,0,1
+1787048989214,682,GET /api/product/348,200,OK,TG2 商品浏览 3-17,text,true,,701,257,12,45,http://127.0.0.1:5000/api/product/348,681,0,1
+1787048989177,749,POST /api/auth/login,200,OK,TG1 用户认证 2-6,text,true,,570,290,5,45,http://127.0.0.1:5000/api/auth/login,748,0,1
+1787048989342,615,GET /api/auth/me,200,OK,TG1 用户认证 2-7,text,true,,429,253,5,45,http://127.0.0.1:5000/api/auth/me,615,0,1
+1787048989343,650,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-5,text,true,,111967,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,649,0,1
+1787048989389,678,GET /api/products,200,OK,TG2 商品浏览 3-18,text,true,,9809,207,12,45,http://127.0.0.1:5000/api/products?page=3&page_size=20,677,0,1
+1787048989332,735,POST /api/auth/login,200,OK,TG2 商品浏览 3-19,text,true,,570,231,12,45,http://127.0.0.1:5000/api/auth/login,734,0,2
+1787048989334,766,POST /api/auth/login,200,OK,TG2 商品浏览 3-12,text,true,,570,290,12,45,http://127.0.0.1:5000/api/auth/login,766,0,1
+1787048989397,703,GET /api/product/357,200,OK,TG2 商品浏览 3-11,text,true,,701,257,12,45,http://127.0.0.1:5000/api/product/357,703,0,2
+1787048989564,557,GET /api/admin/users,200,OK,TG5 管理员 6-7,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,557,0,2
+1787048989168,981,POST /api/admin/login,200,OK,TG5 管理员 6-4,text,true,,571,312,10,46,http://127.0.0.1:5000/api/admin/login,981,0,1
+1787048989579,576,GET /api/product/328,200,OK,TG2 商品浏览 3-10,text,true,,701,257,13,46,http://127.0.0.1:5000/api/product/328,575,0,1
+1787048989603,581,GET /api/auth/me,200,OK,TG1 用户认证 2-9,text,true,,431,253,5,47,http://127.0.0.1:5000/api/auth/me,580,0,1
+1787048989608,673,GET /api/my-products,200,OK,TG3 商品发布与下单 4-2,text,true,,7933,257,9,47,http://127.0.0.1:5000/api/my-products,673,0,2
+1787048989611,771,GET /api/search,200,OK,TG2 商品浏览 3-9,text,true,,1181,266,13,47,http://127.0.0.1:5000/api/search?q=test&page=1,771,0,1
+1787048989608,773,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-5,text,true,,296,323,9,47,http://127.0.0.1:5000/api/orders,773,0,1
+1787048989291,1092,POST /api/admin/login,200,OK,TG5 管理员 6-9,text,true,,571,312,10,46,http://127.0.0.1:5000/api/admin/login,1092,0,2
+1787048989564,822,POST /api/auth/login,200,OK,TG2 商品浏览 3-13,text,true,,570,290,12,46,http://127.0.0.1:5000/api/auth/login,822,0,2
+1787048989551,835,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-3,text,true,,568,288,9,46,http://127.0.0.1:5000/api/auth/login,835,0,5
+1787048989611,786,GET /api/search,200,OK,TG2 商品浏览 3-16,text,true,,1181,266,12,46,http://127.0.0.1:5000/api/search?q=test&page=1,786,0,1
+1787048989614,791,GET /api/search,200,OK,TG2 商品浏览 3-14,text,true,,1181,266,12,46,http://127.0.0.1:5000/api/search?q=test&page=1,791,0,1
+1787048989618,787,GET /api/my-products,200,OK,TG3 商品发布与下单 4-6,text,true,,8497,257,9,46,http://127.0.0.1:5000/api/my-products,787,0,1
+1787048989650,765,GET /api/orders,200,OK,TG3 商品发布与下单 4-4,text,true,,2836,252,9,46,http://127.0.0.1:5000/api/orders,764,0,1
+1787048989654,763,GET /api/admin/login-history,200,OK,TG5 管理员 6-2,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,762,0,1
+1787048989711,714,GET /api/admin/login-history,200,OK,TG5 管理员 6-3,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,714,0,1
+1787048989695,730,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,8497,257,9,46,http://127.0.0.1:5000/api/my-products,730,0,1
+1787048989720,726,GET /api/admin/users,200,OK,TG5 管理员 6-8,text,true,,62097,325,10,46,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,725,0,1
+1787048989754,748,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,747,0,1
+1787048989769,763,GET /api/admin/login-history,200,OK,TG5 管理员 6-6,text,true,,3340,313,10,47,http://127.0.0.1:5000/api/admin/login-history,763,0,1
+1787048989928,751,GET /api/auth/me,200,OK,TG1 用户认证 2-6,text,true,,431,253,5,47,http://127.0.0.1:5000/api/auth/me,750,0,1
+1787048989873,811,GET /api/search,200,OK,TG2 商品浏览 3-15,text,true,,1181,266,13,46,http://127.0.0.1:5000/api/search?q=test&page=1,811,0,1
+1787048989878,814,GET /api/my-products,200,OK,TG3 商品发布与下单 4-7,text,true,,7933,257,9,46,http://127.0.0.1:5000/api/my-products,813,0,2
+1787048989897,890,GET /api/search,200,OK,TG2 商品浏览 3-17,text,true,,1181,266,13,46,http://127.0.0.1:5000/api/search?q=test&page=1,889,0,1
+1787048989730,1065,POST /api/auth/login,200,OK,TG1 用户认证 2-10,text,true,,571,291,4,46,http://127.0.0.1:5000/api/auth/login,1065,0,1
+1787048989830,1208,POST /api/product,201,CREATED,TG3 商品发布与下单 4-8,text,true,,298,474,9,47,http://127.0.0.1:5000/api/product,1207,0,2
+1787048990068,978,GET /api/product/345,200,OK,TG2 商品浏览 3-18,text,true,,701,257,14,47,http://127.0.0.1:5000/api/product/345,978,0,2
+1787048989730,1336,POST /api/auth/login,200,OK,TG2 商品浏览 3-20,text,true,,571,232,14,47,http://127.0.0.1:5000/api/auth/login,1336,0,2
+1787048990102,977,GET /api/search,200,OK,TG2 商品浏览 3-11,text,true,,1181,266,14,47,http://127.0.0.1:5000/api/search?q=test&page=1,977,0,1
+1787048990068,1050,GET /api/products,200,OK,TG2 商品浏览 3-19,text,true,,9834,207,13,46,http://127.0.0.1:5000/api/products?page=1&page_size=20,1050,0,2
+1787048989826,1315,POST /api/auth/login,200,OK,TG1 用户认证 2-8,text,true,,571,291,4,46,http://127.0.0.1:5000/api/auth/login,1314,0,2
+1787048990102,1054,GET /api/products,200,OK,TG2 商品浏览 3-12,text,true,,9848,207,13,47,http://127.0.0.1:5000/api/products?page=2&page_size=20,1054,0,1
+1787048989958,1207,POST /api/auth/login,200,OK,TG1 用户认证 2-7,text,true,,571,291,4,47,http://127.0.0.1:5000/api/auth/login,1207,0,1
+1787048990122,1053,GET /api/admin/products,200,OK,TG5 管理员 6-7,text,true,,10724,328,10,47,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,1053,0,1
+1787048988145,3056,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,392,10,47,http://127.0.0.1:5000/api/generate-copy,3056,0,1
+1787048987480,3730,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,355,10,47,http://127.0.0.1:5000/api/analyze-image,3729,0,1
+1787048990150,1070,GET /api/admin/users,200,OK,TG5 管理员 6-4,text,true,,62097,325,10,47,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,1070,0,1
+1787048989894,1333,POST /api/admin/login,200,OK,TG5 管理员 6-10,text,true,,571,312,10,47,http://127.0.0.1:5000/api/admin/login,1333,0,1
+1787048989994,1267,POST /api/admin/login,200,OK,TG5 管理员 6-5,text,true,,571,312,10,47,http://127.0.0.1:5000/api/admin/login,1267,0,1
+1787048990383,894,GET /api/orders,200,OK,TG3 商品发布与下单 4-5,text,true,,2838,252,10,47,http://127.0.0.1:5000/api/orders,893,0,1
+1787048990283,1022,PUT /api/my-products/edit/397,200,OK,TG3 商品发布与下单 4-2,text,true,,278,358,10,47,http://127.0.0.1:5000/api/my-products/edit/397,1022,0,1
+1787048990156,1170,GET /api/search,200,OK,TG2 商品浏览 3-10,text,true,,1181,266,13,47,http://127.0.0.1:5000/api/search?q=test&page=1,1170,0,2
+1787048990387,964,GET /api/products,200,OK,TG2 商品浏览 3-13,text,true,,9848,207,13,47,http://127.0.0.1:5000/api/products?page=2&page_size=20,964,0,2
+1787048990385,993,GET /api/admin/users,200,OK,TG5 管理员 6-9,text,true,,62097,325,10,47,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,993,0,1
+1787048990131,1248,POST /api/auth/login,200,OK,TG2 商品浏览 3-21,text,true,,571,232,13,47,http://127.0.0.1:5000/api/auth/login,1248,0,1
+1787048990408,977,PUT /api/my-products/edit/398,200,OK,TG3 商品发布与下单 4-6,text,true,,278,357,10,47,http://127.0.0.1:5000/api/my-products/edit/398,977,0,1
+1787048990388,997,POST /api/product,201,CREATED,TG3 商品发布与下单 4-3,text,true,,298,474,10,47,http://127.0.0.1:5000/api/product,997,0,1
+1787048990415,1000,POST /api/orders/248/update (paid),200,OK,TG3 商品发布与下单 4-4,text,true,,324,333,10,47,http://127.0.0.1:5000/api/orders/248/update,1000,0,1
+1787048990185,1255,POST /api/auth/login,200,OK,TG1 用户认证 2-9,text,true,,571,291,4,47,http://127.0.0.1:5000/api/auth/login,1255,0,1
+1787048990181,1265,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-9,text,true,,568,229,10,47,http://127.0.0.1:5000/api/auth/login,1265,0,9
+1787048990406,1058,POST /api/auth/login,200,OK,TG2 商品浏览 3-14,text,true,,571,291,13,47,http://127.0.0.1:5000/api/auth/login,1057,0,2
+1787048988915,2576,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,383,10,47,http://127.0.0.1:5000/api/generate-all-copies,2575,0,1
+1787048990398,1100,POST /api/auth/login,200,OK,TG2 商品浏览 3-16,text,true,,571,291,13,47,http://127.0.0.1:5000/api/auth/login,1099,0,2
+1787048990427,1111,PUT /api/my-products/edit/399,200,OK,TG3 商品发布与下单 4-1,text,true,,278,358,10,47,http://127.0.0.1:5000/api/my-products/edit/399,1110,0,1
+1787048990417,1130,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-2,text,true,,111967,317,10,47,http://127.0.0.1:5000/api/admin/anomaly-detection,1129,0,1
+1787048990446,1110,GET /api/admin/products,200,OK,TG5 管理员 6-8,text,true,,10765,328,10,47,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,1110,0,2
+1787048988914,2646,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,383,10,47,http://127.0.0.1:5000/api/generate-all-copies,2645,0,1
+1787048990693,867,PUT /api/my-products/edit/400,200,OK,TG3 商品发布与下单 4-7,text,true,,278,358,10,47,http://127.0.0.1:5000/api/my-products/edit/400,867,0,1
+1787048990426,1145,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-3,text,true,,111967,317,10,47,http://127.0.0.1:5000/api/admin/anomaly-detection,1144,0,1
+1787048990797,800,GET /api/auth/me,200,OK,TG1 用户认证 2-10,text,true,,432,253,4,47,http://127.0.0.1:5000/api/auth/me,799,0,1
+1787048988898,2724,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,392,10,47,http://127.0.0.1:5000/api/generate-copy,2723,0,1
+1787048990502,1123,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,true,,111967,317,10,47,http://127.0.0.1:5000/api/admin/anomaly-detection,1122,0,1
+1787048990533,1094,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-6,text,true,,111967,317,10,47,http://127.0.0.1:5000/api/admin/anomaly-detection,1094,0,1
+1787048991048,582,GET /api/search,200,OK,TG2 商品浏览 3-18,text,true,,1181,266,13,47,http://127.0.0.1:5000/api/search?q=test&page=1,582,0,1
+1787048991039,589,GET /api/product/401,200,OK,TG3 商品发布与下单 4-8,text,true,,701,257,10,47,http://127.0.0.1:5000/api/product/401,589,0,2
+1787048990531,1102,POST /api/auth/login,200,OK,TG2 商品浏览 3-22,text,true,,571,232,13,47,http://127.0.0.1:5000/api/auth/login,1101,0,1
+1787048988914,2731,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,392,10,47,http://127.0.0.1:5000/api/generate-copy,2731,0,1
+1787048991068,578,GET /api/products,200,OK,TG2 商品浏览 3-20,text,true,,9824,207,13,47,http://127.0.0.1:5000/api/products?page=1&page_size=20,578,0,1
+1787048991142,507,GET /api/auth/me,200,OK,TG1 用户认证 2-8,text,true,,432,253,4,47,http://127.0.0.1:5000/api/auth/me,506,0,1
+1787048991120,528,GET /api/product/400,200,OK,TG2 商品浏览 3-19,text,true,,698,257,13,47,http://127.0.0.1:5000/api/product/400,528,0,1
+1787048991175,480,GET /api/admin/login-history,200,OK,TG5 管理员 6-7,text,true,,3340,313,10,47,http://127.0.0.1:5000/api/admin/login-history,480,0,1
+1787048990788,866,POST /api/auth/login,200,OK,TG2 商品浏览 3-17,text,true,,571,291,13,47,http://127.0.0.1:5000/api/auth/login,866,0,1
+1787048991158,496,GET /api/product/380,200,OK,TG2 商品浏览 3-12,text,true,,698,257,13,47,http://127.0.0.1:5000/api/product/380,496,0,1
+1787048991166,492,GET /api/auth/me,200,OK,TG1 用户认证 2-7,text,true,,432,253,4,47,http://127.0.0.1:5000/api/auth/me,492,0,8
+1787048991221,458,GET /api/admin/products,200,OK,TG5 管理员 6-4,text,true,,10786,328,10,46,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,457,0,1
+1787048988914,2780,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,383,10,46,http://127.0.0.1:5000/api/generate-all-copies,2779,0,2
+1787048991229,480,GET /api/admin/users,200,OK,TG5 管理员 6-10,text,true,,62097,325,10,46,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,479,0,1
+1787048990685,1028,POST /api/auth/login,200,OK,TG2 商品浏览 3-15,text,true,,571,291,13,46,http://127.0.0.1:5000/api/auth/login,1028,0,1
+1787048990931,782,POST /api/auth/login,200,OK,TG2 商品浏览 3-23,text,true,,571,232,13,46,http://127.0.0.1:5000/api/auth/login,782,0,1
+1787048991263,478,GET /api/admin/users,200,OK,TG5 管理员 6-5,text,true,,62097,325,10,47,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,478,0,1
+1787048991379,376,GET /api/admin/products,200,OK,TG5 管理员 6-9,text,true,,10786,328,10,47,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,376,0,2
+1787048991353,402,GET /api/product/364,200,OK,TG2 商品浏览 3-13,text,true,,701,257,14,47,http://127.0.0.1:5000/api/product/364,401,0,0
+1787048991277,480,POST /api/orders/249/update (paid),200,OK,TG3 商品发布与下单 4-5,text,true,,324,333,10,47,http://127.0.0.1:5000/api/orders/249/update,479,0,1
+1787048991381,378,GET /api/products,200,OK,TG2 商品浏览 3-21,text,true,,9877,207,14,47,http://127.0.0.1:5000/api/products?page=4&page_size=20,378,0,0
+1787048991386,379,GET /api/product/402,200,OK,TG3 商品发布与下单 4-3,text,true,,701,257,10,47,http://127.0.0.1:5000/api/product/402,378,0,1
+1787048991442,378,GET /api/auth/me,200,OK,TG1 用户认证 2-9,text,true,,432,253,3,47,http://127.0.0.1:5000/api/auth/me,377,0,1
+1787048991157,662,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-10,text,true,,568,229,10,47,http://127.0.0.1:5000/api/auth/login,662,0,5
+1787048991416,408,POST /api/orders/248/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-4,text,true,,286,338,10,47,http://127.0.0.1:5000/api/orders/248/update,407,0,1
+1787048991307,536,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-2,text,true,,570,290,10,47,http://127.0.0.1:5000/api/auth/login,535,0,4
+1787048991465,381,GET /api/products,200,OK,TG2 商品浏览 3-14,text,true,,9748,207,14,47,http://127.0.0.1:5000/api/products?page=3&page_size=20,380,0,2
+1787048991448,416,POST /api/product,201,CREATED,TG3 商品发布与下单 4-9,text,true,,298,474,10,47,http://127.0.0.1:5000/api/product,416,0,2
+1787048991499,365,GET /api/products,200,OK,TG2 商品浏览 3-16,text,true,,9827,207,14,47,http://127.0.0.1:5000/api/products?page=1&page_size=20,365,0,1
+1787048991557,326,GET /api/admin/login-history,200,OK,TG5 管理员 6-8,text,true,,3340,313,10,47,http://127.0.0.1:5000/api/admin/login-history,325,0,1
+1787048991351,545,POST /api/auth/login,200,OK,TG2 商品浏览 3-24,text,true,,571,232,14,47,http://127.0.0.1:5000/api/auth/login,544,0,1
+1787048991386,637,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-6,text,true,,570,290,10,47,http://127.0.0.1:5000/api/auth/login,636,0,4
+1787048991538,515,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,10,47,http://127.0.0.1:5000/api/auth/login,515,0,4
+1787048991561,593,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-7,text,true,,570,290,10,47,http://127.0.0.1:5000/api/auth/login,593,0,12
+1787048991631,550,GET /api/my-products,200,OK,TG3 商品发布与下单 4-8,text,true,,6791,257,10,47,http://127.0.0.1:5000/api/my-products,550,0,1
+1787048991599,599,POST /api/auth/login,200,OK,TG1 用户认证 2-10,text,true,,571,291,3,47,http://127.0.0.1:5000/api/auth/login,599,0,3
+1787048991635,601,GET /api/products,200,OK,TG2 商品浏览 3-22,text,true,,9842,207,14,47,http://127.0.0.1:5000/api/products?page=2&page_size=20,600,0,1
+1787048991648,603,GET /api/product/391,200,OK,TG2 商品浏览 3-20,text,true,,699,257,14,47,http://127.0.0.1:5000/api/product/391,603,0,1
+1787048991649,646,GET /api/search,200,OK,TG2 商品浏览 3-19,text,true,,1181,266,14,47,http://127.0.0.1:5000/api/search?q=test&page=1,645,0,2
+1787048991631,711,POST /api/auth/login,200,OK,TG2 商品浏览 3-18,text,true,,571,291,14,47,http://127.0.0.1:5000/api/auth/login,711,0,2
+1787048989229,3162,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,383,10,47,http://127.0.0.1:5000/api/generate-all-copies,3162,0,1
+1787048991548,844,POST /api/admin/login,200,OK,TG5 管理员 6-2,text,true,,571,312,10,47,http://127.0.0.1:5000/api/admin/login,843,0,1
+1787048991656,742,GET /api/search,200,OK,TG2 商品浏览 3-12,text,true,,1181,266,14,47,http://127.0.0.1:5000/api/search?q=test&page=1,742,0,1
+1787048991574,826,POST /api/admin/login,200,OK,TG5 管理员 6-3,text,true,,571,312,10,46,http://127.0.0.1:5000/api/admin/login,826,0,1
+1787048991656,760,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-7,text,true,,111967,317,10,46,http://127.0.0.1:5000/api/admin/anomaly-detection,760,0,1
+1787048991656,763,GET /api/products,200,OK,TG2 商品浏览 3-17,text,true,,9859,207,13,46,http://127.0.0.1:5000/api/products?page=5&page_size=20,763,0,1
+1787048991680,786,GET /api/admin/login-history,200,OK,TG5 管理员 6-4,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,785,0,1
+1787048989373,3132,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,392,10,46,http://127.0.0.1:5000/api/generate-copy,3131,0,1
+1787048991710,798,GET /api/admin/products,200,OK,TG5 管理员 6-10,text,true,,10765,328,10,46,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,797,0,1
+1787048991649,859,POST /api/auth/login,200,OK,TG1 用户认证 2-8,text,true,,571,291,3,46,http://127.0.0.1:5000/api/auth/login,859,0,1
+1787048991715,795,GET /api/products,200,OK,TG2 商品浏览 3-15,text,true,,9827,207,13,46,http://127.0.0.1:5000/api/products?page=1&page_size=20,795,0,1
+1787048991741,772,GET /api/admin/products,200,OK,TG5 管理员 6-5,text,true,,10765,328,10,46,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,772,0,2
+1787048991715,803,GET /api/products,200,OK,TG2 商品浏览 3-23,text,true,,9748,207,13,46,http://127.0.0.1:5000/api/products?page=3&page_size=20,803,0,1
+1787048991756,770,GET /api/admin/login-history,200,OK,TG5 管理员 6-9,text,true,,3340,313,10,46,http://127.0.0.1:5000/api/admin/login-history,770,0,2
+1787048991756,775,GET /api/search,200,OK,TG2 商品浏览 3-13,text,true,,1181,266,13,46,http://127.0.0.1:5000/api/search?q=test&page=1,775,0,2
+1787048991626,905,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,true,,571,312,10,46,http://127.0.0.1:5000/api/admin/login,905,0,1
+1787048991758,776,POST /api/orders/249/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-5,text,true,,286,338,10,45,http://127.0.0.1:5000/api/orders/249/update,776,0,1
+1787048991628,908,POST /api/admin/login,200,OK,TG5 管理员 6-6,text,true,,571,312,10,45,http://127.0.0.1:5000/api/admin/login,907,0,1
+1787048991761,774,GET /api/product/330,200,OK,TG2 商品浏览 3-21,text,true,,701,257,12,45,http://127.0.0.1:5000/api/product/330,774,0,1
+1787048991766,770,GET /api/my-products,200,OK,TG3 商品发布与下单 4-3,text,true,,6791,257,10,45,http://127.0.0.1:5000/api/my-products,770,0,1
+1787048991730,811,POST /api/auth/login,200,OK,TG2 商品浏览 3-25,text,true,,571,232,12,45,http://127.0.0.1:5000/api/auth/login,810,0,2
+1787048991821,770,POST /api/product,201,CREATED,TG3 商品发布与下单 4-10,text,true,,298,474,10,45,http://127.0.0.1:5000/api/product,770,0,1
+1787048991845,814,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-2,text,true,,296,323,10,45,http://127.0.0.1:5000/api/orders,814,0,1
+1787048991847,823,GET /api/product/345,200,OK,TG2 商品浏览 3-14,text,true,,701,257,12,45,http://127.0.0.1:5000/api/product/345,823,0,1
+1787048991865,805,GET /api/product/403,200,OK,TG3 商品发布与下单 4-9,text,true,,701,257,10,45,http://127.0.0.1:5000/api/product/403,805,0,1
+1787048991865,807,GET /api/product/391,200,OK,TG2 商品浏览 3-16,text,true,,699,257,12,45,http://127.0.0.1:5000/api/product/391,807,0,1
+1787048991884,804,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-8,text,true,,111967,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,804,0,1
+1787048991898,801,GET /api/products,200,OK,TG2 商品浏览 3-24,text,true,,9839,207,12,45,http://127.0.0.1:5000/api/products?page=2&page_size=20,800,0,1
+1787048991820,884,POST /api/auth/login,200,OK,TG1 用户认证 2-9,text,true,,571,291,3,45,http://127.0.0.1:5000/api/auth/login,884,0,2
+1787048992024,705,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-6,text,true,,296,323,10,45,http://127.0.0.1:5000/api/orders,705,0,2
+1787048992157,599,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-7,text,true,,296,323,10,45,http://127.0.0.1:5000/api/orders,598,0,1
+1787048991825,964,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-4,text,true,,568,288,10,45,http://127.0.0.1:5000/api/auth/login,964,0,5
+1787048992055,734,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-1,text,true,,296,323,10,45,http://127.0.0.1:5000/api/orders,734,0,1
+1787048992199,591,GET /api/auth/me,200,OK,TG1 用户认证 2-10,text,true,,432,253,3,45,http://127.0.0.1:5000/api/auth/me,591,0,1
+1787048992182,609,PUT /api/my-products/edit/401,200,OK,TG3 商品发布与下单 4-8,text,true,,278,358,10,45,http://127.0.0.1:5000/api/my-products/edit/401,608,0,2
+1787048992252,540,GET /api/search,200,OK,TG2 商品浏览 3-20,text,true,,1181,266,12,45,http://127.0.0.1:5000/api/search?q=test&page=1,540,0,2
+1787048992237,555,GET /api/product/382,200,OK,TG2 商品浏览 3-22,text,true,,698,257,12,45,http://127.0.0.1:5000/api/product/382,554,0,1
+1787048992343,448,GET /api/products,200,OK,TG2 商品浏览 3-18,text,true,,9839,207,12,45,http://127.0.0.1:5000/api/products?page=2&page_size=20,448,0,1
+1787048992392,400,GET /api/admin/users,200,OK,TG5 管理员 6-2,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,400,0,1
+1787048992401,392,GET /api/admin/users,200,OK,TG5 管理员 6-3,text,true,,62097,325,10,45,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,391,0,1
+1787048992420,410,GET /api/product/309,200,OK,TG2 商品浏览 3-17,text,true,,699,257,12,45,http://127.0.0.1:5000/api/product/309,410,0,1
+1787048992465,395,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-4,text,true,,111967,317,10,45,http://127.0.0.1:5000/api/admin/anomaly-detection,395,0,2
+1787048992294,608,POST /api/auth/login,200,OK,TG2 商品浏览 3-19,text,true,,571,291,12,45,http://127.0.0.1:5000/api/auth/login,607,0,1
+1787048992507,420,GET /api/admin/login-history,200,OK,TG5 管理员 6-10,text,true,,3340,313,10,45,http://127.0.0.1:5000/api/admin/login-history,420,0,1
+1787048992508,481,GET /api/auth/me,200,OK,TG1 用户认证 2-8,text,true,,432,253,3,45,http://127.0.0.1:5000/api/auth/me,480,0,1
+1787048992510,523,GET /api/product/389,200,OK,TG2 商品浏览 3-15,text,true,,698,257,12,44,http://127.0.0.1:5000/api/product/389,523,0,1
+1787048992512,543,GET /api/admin/login-history,200,OK,TG5 管理员 6-5,text,true,,3340,313,10,44,http://127.0.0.1:5000/api/admin/login-history,543,0,1
+1787048992518,577,GET /api/product/347,200,OK,TG2 商品浏览 3-23,text,true,,700,257,12,44,http://127.0.0.1:5000/api/product/347,576,0,1
+1787048992525,610,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-9,text,true,,111967,317,10,44,http://127.0.0.1:5000/api/admin/anomaly-detection,610,0,2
+1787048992531,614,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,true,,62097,325,10,44,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,613,0,2
+1787048992535,652,GET /api/admin/users,200,OK,TG5 管理员 6-6,text,true,,62097,325,10,44,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,651,0,2
+1787048992535,673,GET /api/search,200,OK,TG2 商品浏览 3-21,text,true,,1181,266,12,44,http://127.0.0.1:5000/api/search?q=test&page=1,673,0,2
+1787048989791,3549,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,383,10,44,http://127.0.0.1:5000/api/generate-all-copies,3549,0,2
+1787048992536,803,PUT /api/my-products/edit/402,200,OK,TG3 商品发布与下单 4-3,text,true,,278,357,10,44,http://127.0.0.1:5000/api/my-products/edit/402,803,0,1
+1787048992416,931,POST /api/admin/login,200,OK,TG5 管理员 6-7,text,true,,571,312,10,44,http://127.0.0.1:5000/api/admin/login,931,0,1
+1787048992541,806,GET /api/products,200,OK,TG2 商品浏览 3-25,text,true,,9823,207,12,44,http://127.0.0.1:5000/api/products?page=1&page_size=20,806,0,1
+1787048992591,760,GET /api/product/404,200,OK,TG3 商品发布与下单 4-10,text,true,,701,257,10,44,http://127.0.0.1:5000/api/product/404,760,0,1
+1787048992659,693,GET /api/orders,200,OK,TG3 商品发布与下单 4-2,text,true,,3488,252,10,44,http://127.0.0.1:5000/api/orders,693,0,1
+1787048992534,829,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-5,text,true,,568,288,10,44,http://127.0.0.1:5000/api/auth/login,829,0,4
+1787048992670,697,GET /api/search,200,OK,TG2 商品浏览 3-14,text,true,,1181,266,12,44,http://127.0.0.1:5000/api/search?q=test&page=1,697,0,1
+1787048992670,705,GET /api/my-products,200,OK,TG3 商品发布与下单 4-9,text,true,,6507,257,10,43,http://127.0.0.1:5000/api/my-products,704,0,1
+1787048992672,706,GET /api/search,200,OK,TG2 商品浏览 3-16,text,true,,1181,266,11,43,http://127.0.0.1:5000/api/search?q=test&page=1,706,0,1
+1787048992699,704,GET /api/product/366,200,OK,TG2 商品浏览 3-24,text,true,,701,257,10,42,http://127.0.0.1:5000/api/product/366,704,0,1
+1787048992704,730,GET /api/auth/me,200,OK,TG1 用户认证 2-9,text,true,,432,253,2,42,http://127.0.0.1:5000/api/auth/me,729,0,1
+1787048992729,745,GET /api/orders,200,OK,TG3 商品发布与下单 4-6,text,true,,2838,252,10,41,http://127.0.0.1:5000/api/orders,744,0,1
+1787048992756,737,GET /api/orders,200,OK,TG3 商品发布与下单 4-7,text,true,,2840,252,10,41,http://127.0.0.1:5000/api/orders,737,0,1
+1787048992789,727,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,3486,252,10,41,http://127.0.0.1:5000/api/orders,727,0,1
+1787048992789,879,POST /api/product,201,CREATED,TG3 商品发布与下单 4-4,text,true,,298,474,10,41,http://127.0.0.1:5000/api/product,879,0,1
+1787048992792,887,GET /api/search,200,OK,TG2 商品浏览 3-22,text,true,,1181,266,10,41,http://127.0.0.1:5000/api/search?q=test&page=1,886,0,1
+1787048992792,899,GET /api/product/366,200,OK,TG2 商品浏览 3-18,text,true,,701,257,10,41,http://127.0.0.1:5000/api/product/366,899,0,1
+1787048992792,908,GET /api/admin/products,200,OK,TG5 管理员 6-2,text,true,,10764,328,10,41,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,908,0,2
+1787048992789,913,POST /api/auth/login,200,OK,TG1 用户认证 2-10,text,true,,571,291,1,41,http://127.0.0.1:5000/api/auth/login,913,0,2
+1787048992792,961,POST /api/auth/login,200,OK,TG2 商品浏览 3-20,text,true,,571,291,10,41,http://127.0.0.1:5000/api/auth/login,961,0,1
+1787048992793,983,GET /api/admin/products,200,OK,TG5 管理员 6-3,text,true,,10764,328,10,41,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,982,0,1
+1787048992832,954,GET /api/search,200,OK,TG2 商品浏览 3-17,text,true,,1181,266,10,41,http://127.0.0.1:5000/api/search?q=test&page=1,953,0,1
+1787048992688,1124,POST /api/admin/login,200,OK,TG5 管理员 6-8,text,true,,571,312,10,40,http://127.0.0.1:5000/api/admin/login,1124,0,2
+1787048992903,942,GET /api/products,200,OK,TG2 商品浏览 3-19,text,true,,9876,207,9,40,http://127.0.0.1:5000/api/products?page=4&page_size=20,942,0,2
+1787048992928,918,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-10,text,true,,111967,317,10,40,http://127.0.0.1:5000/api/admin/anomaly-detection,918,0,1
+1787048992790,1069,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-8,text,true,,570,290,10,40,http://127.0.0.1:5000/api/auth/login,1069,0,4
+1787048993035,850,GET /api/search,200,OK,TG2 商品浏览 3-15,text,true,,1181,266,9,40,http://127.0.0.1:5000/api/search?q=test&page=1,850,0,1
+1787048993056,833,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-5,text,true,,111967,317,10,39,http://127.0.0.1:5000/api/admin/anomaly-detection,833,0,1
+1787048993096,800,GET /api/search,200,OK,TG2 商品浏览 3-23,text,true,,1181,266,8,39,http://127.0.0.1:5000/api/search?q=test&page=1,799,0,1
+1787048993145,784,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,true,,10764,328,10,39,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,783,0,1
+1787048993187,756,GET /api/admin/products,200,OK,TG5 管理员 6-6,text,true,,10764,328,10,39,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,756,0,1
+1787048991211,2734,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,392,10,39,http://127.0.0.1:5000/api/generate-copy,2734,0,1
+1787048991202,3023,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,383,10,39,http://127.0.0.1:5000/api/generate-all-copies,3023,0,2
+1787048993352,883,GET /api/my-products,200,OK,TG3 商品发布与下单 4-10,text,true,,6515,257,10,39,http://127.0.0.1:5000/api/my-products,883,0,1
+1787048993348,894,GET /api/admin/users,200,OK,TG5 管理员 6-7,text,true,,62097,325,10,39,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,893,0,1
+1787048991623,2638,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,383,10,39,http://127.0.0.1:5000/api/generate-all-copies,2638,0,1
+1787048991492,2791,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,580,374,10,39,http://127.0.0.1:5000/api/analyze-product,2791,0,1
+1787048993209,1075,POST /api/auth/login,200,OK,TG2 商品浏览 3-21,text,true,,571,291,8,39,http://127.0.0.1:5000/api/auth/login,1074,0,1
+1787048992861,1426,POST /api/admin/login,200,OK,TG5 管理员 6-4,text,true,,571,312,10,39,http://127.0.0.1:5000/api/admin/login,1426,0,1
+1787048993376,916,PUT /api/my-products/edit/403,200,OK,TG3 商品发布与下单 4-9,text,true,,278,358,10,39,http://127.0.0.1:5000/api/my-products/edit/403,916,0,1
+1787048993340,952,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-3,text,true,,570,290,10,39,http://127.0.0.1:5000/api/auth/login,951,0,3
+1787048993365,927,POST /api/product,201,CREATED,TG3 商品发布与下单 4-5,text,true,,298,474,10,39,http://127.0.0.1:5000/api/product,926,0,2
+1787048993474,819,POST /api/orders/251/update (paid),200,OK,TG3 商品发布与下单 4-6,text,true,,324,333,10,39,http://127.0.0.1:5000/api/orders/251/update,819,0,2
+1787048993405,887,GET /api/search,200,OK,TG2 商品浏览 3-24,text,true,,1181,266,8,39,http://127.0.0.1:5000/api/search?q=test&page=1,887,0,1
+1787048993348,950,GET /api/product/392,200,OK,TG2 商品浏览 3-25,text,true,,697,257,8,39,http://127.0.0.1:5000/api/product/392,950,0,2
+1787048993494,812,POST /api/orders/253/update (paid),200,OK,TG3 商品发布与下单 4-7,text,true,,324,333,10,39,http://127.0.0.1:5000/api/orders/253/update,812,0,1
+1787048993516,795,POST /api/orders/252/update (paid),200,OK,TG3 商品发布与下单 4-1,text,true,,324,333,10,39,http://127.0.0.1:5000/api/orders/252/update,795,0,1
+1787048993669,649,GET /api/product/405,200,OK,TG3 商品发布与下单 4-4,text,true,,701,257,10,39,http://127.0.0.1:5000/api/product/405,648,0,2
+1787048991561,2767,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,580,374,10,39,http://127.0.0.1:5000/api/analyze-product,2766,0,1
+1787048993692,636,GET /api/search,200,OK,TG2 商品浏览 3-18,text,true,,1181,266,8,39,http://127.0.0.1:5000/api/search?q=test&page=1,635,0,1
+1787048993352,989,POST /api/orders/250/update (paid),200,OK,TG3 商品发布与下单 4-2,text,true,,324,333,10,38,http://127.0.0.1:5000/api/orders/250/update,988,0,2
+1787048993703,641,GET /api/auth/me,200,OK,TG1 用户认证 2-10,text,true,,432,253,1,38,http://127.0.0.1:5000/api/auth/me,641,0,1
+1787048993701,644,GET /api/admin/login-history,200,OK,TG5 管理员 6-2,text,true,,3340,313,10,37,http://127.0.0.1:5000/api/admin/login-history,644,0,0
+1787048993754,595,GET /api/products,200,OK,TG2 商品浏览 3-20,text,true,,9870,207,7,37,http://127.0.0.1:5000/api/products?page=5&page_size=20,595,0,1
+1787048993776,577,GET /api/admin/login-history,200,OK,TG5 管理员 6-3,text,true,,3340,313,10,37,http://127.0.0.1:5000/api/admin/login-history,577,0,1
+1787048993813,553,GET /api/admin/users,200,OK,TG5 管理员 6-8,text,true,,62097,325,10,37,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,552,0,1
+1787048993847,527,GET /api/product/329,200,OK,TG2 商品浏览 3-19,text,true,,701,257,7,37,http://127.0.0.1:5000/api/product/329,527,0,1
+1787048993860,521,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-8,text,true,,296,323,10,37,http://127.0.0.1:5000/api/orders,520,0,2
+1787048993136,1265,POST /api/admin/login,200,OK,TG5 管理员 6-9,text,true,,571,312,10,37,http://127.0.0.1:5000/api/admin/login,1264,0,1
+1787048993929,475,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,true,,3340,313,10,37,http://127.0.0.1:5000/api/admin/login-history,474,0,1
+1787048993944,461,GET /api/admin/login-history,200,OK,TG5 管理员 6-6,text,true,,3340,313,10,37,http://127.0.0.1:5000/api/admin/login-history,461,0,1
+1787048994236,192,PUT /api/my-products/edit/404,200,OK,TG3 商品发布与下单 4-10,text,true,,278,359,10,37,http://127.0.0.1:5000/api/my-products/edit/404,191,0,2
+1787048994242,189,GET /api/admin/products,200,OK,TG5 管理员 6-7,text,true,,10786,328,10,37,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,189,0,1
+1787048993680,761,POST /api/auth/login,200,OK,TG2 商品浏览 3-22,text,true,,571,291,7,37,http://127.0.0.1:5000/api/auth/login,760,0,1
+1787048994285,221,GET /api/products,200,OK,TG2 商品浏览 3-21,text,true,,9824,207,7,37,http://127.0.0.1:5000/api/products?page=1&page_size=20,220,0,1
+1787048994288,250,GET /api/admin/users,200,OK,TG5 管理员 6-4,text,true,,62097,325,10,37,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,249,0,2
+1787048993896,661,POST /api/auth/login,200,OK,TG2 商品浏览 3-23,text,true,,571,291,7,37,http://127.0.0.1:5000/api/auth/login,661,0,1
+1787048994293,279,GET /api/product/406,200,OK,TG3 商品发布与下单 4-5,text,true,,701,257,10,37,http://127.0.0.1:5000/api/product/406,279,0,1
+1787048994293,352,POST /api/orders/251/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-6,text,true,,286,338,10,37,http://127.0.0.1:5000/api/orders/251/update,352,0,2
+1787048994293,529,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-3,text,true,,296,323,10,37,http://127.0.0.1:5000/api/orders,529,0,2
+1787048991646,3183,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,383,10,37,http://127.0.0.1:5000/api/generate-all-copies,3183,0,2
+1787048994300,529,GET /api/search,200,OK,TG2 商品浏览 3-25,text,true,,1181,266,7,37,http://127.0.0.1:5000/api/search?q=test&page=1,528,0,1
+1787048994292,537,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-9,text,true,,570,290,10,37,http://127.0.0.1:5000/api/auth/login,537,0,5
+1787048994294,535,POST /api/auth/login,200,OK,TG2 商品浏览 3-24,text,true,,571,291,7,37,http://127.0.0.1:5000/api/auth/login,535,0,1
+1787048994307,526,POST /api/orders/253/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-7,text,true,,286,338,10,37,http://127.0.0.1:5000/api/orders/253/update,526,0,2
+1787048994312,522,POST /api/orders/252/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-1,text,true,,286,338,10,37,http://127.0.0.1:5000/api/orders/252/update,522,0,1
+1787048991694,3142,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,580,374,10,37,http://127.0.0.1:5000/api/analyze-product,3141,0,2
+1787048993847,988,POST /api/admin/login,200,OK,TG5 管理员 6-10,text,true,,571,312,10,37,http://127.0.0.1:5000/api/admin/login,988,0,1
+1787048993890,946,POST /api/admin/login,200,OK,TG5 管理员 6-5,text,true,,571,312,10,37,http://127.0.0.1:5000/api/admin/login,946,0,1
+1787048994319,523,GET /api/my-products,200,OK,TG3 商品发布与下单 4-4,text,true,,6790,257,10,37,http://127.0.0.1:5000/api/my-products,523,0,1
+1787048994341,525,POST /api/orders/250/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-2,text,true,,286,338,10,37,http://127.0.0.1:5000/api/orders/250/update,524,0,1
+1787048994346,539,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-2,text,true,,111967,317,10,37,http://127.0.0.1:5000/api/admin/anomaly-detection,539,0,1
+1787048994351,546,GET /api/product/315,200,OK,TG2 商品浏览 3-20,text,true,,701,257,7,37,http://127.0.0.1:5000/api/product/315,545,0,1
+1787048994367,540,GET /api/admin/products,200,OK,TG5 管理员 6-8,text,true,,10786,328,10,37,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,540,0,1
+1787048994375,534,GET /api/search,200,OK,TG2 商品浏览 3-19,text,true,,1181,266,7,37,http://127.0.0.1:5000/api/search?q=test&page=1,534,0,1
+1787048994382,529,GET /api/orders,200,OK,TG3 商品发布与下单 4-8,text,true,,2840,252,10,36,http://127.0.0.1:5000/api/orders,529,0,1
+1787048994402,521,GET /api/admin/users,200,OK,TG5 管理员 6-9,text,true,,62098,325,10,36,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,521,0,1
+1787048994404,549,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,true,,111967,317,10,36,http://127.0.0.1:5000/api/admin/anomaly-detection,548,0,1
+1787048994353,605,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-3,text,true,,111967,317,10,36,http://127.0.0.1:5000/api/admin/anomaly-detection,605,0,1
+1787048994432,533,GET /api/admin/login-history,200,OK,TG5 管理员 6-7,text,true,,3340,313,10,36,http://127.0.0.1:5000/api/admin/login-history,533,0,1
+1787048994442,539,GET /api/products,200,OK,TG2 商品浏览 3-22,text,true,,9833,207,6,36,http://127.0.0.1:5000/api/products?page=2&page_size=20,539,0,1
+1787048994507,481,GET /api/product/399,200,OK,TG2 商品浏览 3-21,text,true,,698,257,6,36,http://127.0.0.1:5000/api/product/399,481,0,1
+1787048994405,584,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-6,text,true,,111967,317,10,36,http://127.0.0.1:5000/api/admin/anomaly-detection,584,0,1
+1787048994538,476,GET /api/admin/products,200,OK,TG5 管理员 6-4,text,true,,10786,328,10,36,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,475,0,1
+1787048994559,457,GET /api/products,200,OK,TG2 商品浏览 3-23,text,true,,9870,207,6,36,http://127.0.0.1:5000/api/products?page=5&page_size=20,457,0,1
+1787048994573,487,GET /api/my-products,200,OK,TG3 商品发布与下单 4-5,text,true,,6799,257,10,36,http://127.0.0.1:5000/api/my-products,486,0,2
+1787048994428,646,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-10,text,true,,571,291,10,36,http://127.0.0.1:5000/api/auth/login,645,0,4
+1787048994823,254,GET /api/orders,200,OK,TG3 商品发布与下单 4-3,text,true,,3488,252,10,36,http://127.0.0.1:5000/api/orders,254,0,1
+1787048994830,520,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-9,text,true,,296,323,10,36,http://127.0.0.1:5000/api/orders,520,0,1
+1787048994830,521,GET /api/products,200,OK,TG2 商品浏览 3-24,text,true,,9824,207,6,36,http://127.0.0.1:5000/api/products?page=1&page_size=20,521,0,1
+1787048994836,536,GET /api/admin/users,200,OK,TG5 管理员 6-10,text,true,,62098,325,10,36,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,536,0,1
+1787048994837,550,GET /api/admin/users,200,OK,TG5 管理员 6-5,text,true,,62098,325,10,36,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,549,0,1
+1787048994844,549,PUT /api/my-products/edit/405,200,OK,TG3 商品发布与下单 4-4,text,true,,278,358,10,36,http://127.0.0.1:5000/api/my-products/edit/405,548,0,1
+1787048994646,774,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-6,text,true,,568,288,10,36,http://127.0.0.1:5000/api/auth/login,774,0,4
+1787048994829,605,POST /api/auth/login,200,OK,TG2 商品浏览 3-25,text,true,,568,288,6,36,http://127.0.0.1:5000/api/auth/login,604,0,1
+1787048994834,639,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-7,text,true,,568,288,10,36,http://127.0.0.1:5000/api/auth/login,638,0,3
+1787048994898,578,GET /api/search,200,OK,TG2 商品浏览 3-20,text,true,,1181,266,6,36,http://127.0.0.1:5000/api/search?q=test&page=1,578,0,1
+1787048994908,648,GET /api/admin/login-history,200,OK,TG5 管理员 6-8,text,true,,3340,313,10,35,http://127.0.0.1:5000/api/admin/login-history,648,0,1
+1787048994835,740,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,288,10,35,http://127.0.0.1:5000/api/auth/login,739,0,3
+1787048992505,3206,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,383,10,35,http://127.0.0.1:5000/api/generate-all-copies,3206,0,2
+1787048994924,788,GET /api/admin/products,200,OK,TG5 管理员 6-9,text,true,,10807,328,10,35,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,787,0,1
+1787048994868,858,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-2,text,true,,568,288,10,35,http://127.0.0.1:5000/api/auth/login,857,0,4
+1787048994966,771,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-7,text,true,,111967,317,10,35,http://127.0.0.1:5000/api/admin/anomaly-detection,771,0,1
+1787048994982,777,GET /api/product/380,200,OK,TG2 商品浏览 3-22,text,true,,698,257,5,35,http://127.0.0.1:5000/api/product/380,777,0,1
+1787048994989,790,GET /api/search,200,OK,TG2 商品浏览 3-21,text,true,,1181,266,5,35,http://127.0.0.1:5000/api/search?q=test&page=1,790,0,2
+1787048994912,869,POST /api/orders/254/update (paid),200,OK,TG3 商品发布与下单 4-8,text,true,,324,333,10,34,http://127.0.0.1:5000/api/orders/254/update,869,0,1
+1787048992391,3476,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,580,374,10,34,http://127.0.0.1:5000/api/analyze-product,3476,0,1
+1787048995014,855,GET /api/admin/login-history,200,OK,TG5 管理员 6-4,text,true,,3340,313,10,34,http://127.0.0.1:5000/api/admin/login-history,855,0,2
+1787048995018,857,GET /api/product/310,200,OK,TG2 商品浏览 3-23,text,true,,701,257,4,34,http://127.0.0.1:5000/api/product/310,856,0,1
+1787048995061,816,PUT /api/my-products/edit/406,200,OK,TG3 商品发布与下单 4-5,text,true,,278,358,10,34,http://127.0.0.1:5000/api/my-products/edit/406,816,0,1
+1787048994887,990,POST /api/admin/login,200,OK,TG5 管理员 6-2,text,true,,571,312,10,34,http://127.0.0.1:5000/api/admin/login,990,0,2
+1787048995075,808,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-10,text,true,,296,323,10,34,http://127.0.0.1:5000/api/orders,808,0,1
+1787048995078,806,POST /api/orders/255/update (paid),200,OK,TG3 商品发布与下单 4-3,text,true,,324,333,10,34,http://127.0.0.1:5000/api/orders/255/update,806,0,1
+1787048995352,535,GET /api/orders,200,OK,TG3 商品发布与下单 4-9,text,true,,2840,252,10,34,http://127.0.0.1:5000/api/orders,535,0,1
+1787048994959,928,POST /api/admin/login,200,OK,TG5 管理员 6-3,text,true,,571,312,10,34,http://127.0.0.1:5000/api/admin/login,927,0,2
+1787048995352,535,GET /api/product/399,200,OK,TG2 商品浏览 3-24,text,true,,698,257,4,34,http://127.0.0.1:5000/api/product/399,535,0,1
+1787048994954,935,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,true,,571,312,10,34,http://127.0.0.1:5000/api/admin/login,935,0,1
+1787048995372,518,GET /api/admin/products,200,OK,TG5 管理员 6-10,text,true,,10828,328,10,34,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,517,0,2
+1787048995387,504,GET /api/admin/products,200,OK,TG5 管理员 6-5,text,true,,10828,328,10,34,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,503,0,1
+1787048994990,904,POST /api/admin/login,200,OK,TG5 管理员 6-6,text,true,,571,312,10,34,http://127.0.0.1:5000/api/admin/login,904,0,1
+1787048995422,558,POST /api/product,201,CREATED,TG3 商品发布与下单 4-6,text,true,,298,474,10,34,http://127.0.0.1:5000/api/product,558,0,1
+1787048995436,547,GET /api/products,200,OK,TG2 商品浏览 3-25,text,true,,9830,207,4,34,http://127.0.0.1:5000/api/products?page=2&page_size=20,547,0,1
+1787048995712,302,GET /api/admin/login-history,200,OK,TG5 管理员 6-9,text,true,,3340,313,10,34,http://127.0.0.1:5000/api/admin/login-history,302,0,1
+1787048995557,458,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-8,text,true,,111967,317,10,34,http://127.0.0.1:5000/api/admin/anomaly-detection,457,0,1
+1787048995475,539,POST /api/product,201,CREATED,TG3 商品发布与下单 4-7,text,true,,298,473,10,34,http://127.0.0.1:5000/api/product,539,0,2
+1787048995576,442,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,true,,298,474,10,34,http://127.0.0.1:5000/api/product,442,0,1
+1787048995727,473,POST /api/product,201,CREATED,TG3 商品发布与下单 4-2,text,true,,298,474,10,34,http://127.0.0.1:5000/api/product,473,0,1
+1787048995761,445,GET /api/search,200,OK,TG2 商品浏览 3-22,text,true,,1181,266,4,34,http://127.0.0.1:5000/api/search?q=test&page=1,444,0,1
+1787048995781,493,POST /api/orders/254/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-8,text,true,,286,338,10,33,http://127.0.0.1:5000/api/orders/254/update,492,0,1
+1787048995869,407,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-4,text,true,,111967,317,10,33,http://127.0.0.1:5000/api/admin/anomaly-detection,406,0,1
+1787048995393,896,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-4,text,true,,570,290,10,33,http://127.0.0.1:5000/api/auth/login,896,0,4
+1787048995876,430,GET /api/search,200,OK,TG2 商品浏览 3-23,text,true,,1181,266,3,33,http://127.0.0.1:5000/api/search?q=test&page=1,429,0,1
+1787048995878,479,GET /api/admin/users,200,OK,TG5 管理员 6-2,text,true,,62098,325,10,32,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,479,0,1
+1787048995885,486,GET /api/orders,200,OK,TG3 商品发布与下单 4-10,text,true,,2844,252,10,32,http://127.0.0.1:5000/api/orders,486,0,0
+1787048995885,571,POST /api/orders/255/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-3,text,true,,286,338,10,32,http://127.0.0.1:5000/api/orders/255/update,571,0,0
+1787048995888,576,POST /api/orders/256/update (paid),200,OK,TG3 商品发布与下单 4-9,text,true,,324,333,10,32,http://127.0.0.1:5000/api/orders/256/update,576,0,1
+1787048995888,578,GET /api/admin/users,200,OK,TG5 管理员 6-3,text,true,,62098,325,10,32,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,578,0,1
+1787048995889,577,GET /api/search,200,OK,TG2 商品浏览 3-24,text,true,,1181,266,2,32,http://127.0.0.1:5000/api/search?q=test&page=1,577,0,1
+1787048995890,578,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,true,,62098,325,10,31,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,578,0,1
+1787048995877,592,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-5,text,true,,570,290,10,31,http://127.0.0.1:5000/api/auth/login,592,0,4
+1787048995890,580,GET /api/admin/login-history,200,OK,TG5 管理员 6-10,text,true,,3340,313,10,31,http://127.0.0.1:5000/api/admin/login-history,580,0,2
+1787048995891,581,GET /api/admin/login-history,200,OK,TG5 管理员 6-5,text,true,,3340,313,10,31,http://127.0.0.1:5000/api/admin/login-history,581,0,1
+1787048995895,578,GET /api/admin/users,200,OK,TG5 管理员 6-6,text,true,,62098,325,10,31,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,577,0,1
+1787048995738,735,POST /api/admin/login,200,OK,TG5 管理员 6-7,text,true,,571,312,10,31,http://127.0.0.1:5000/api/admin/login,734,0,1
+1787048995981,494,GET /api/product/407,200,OK,TG3 商品发布与下单 4-6,text,true,,701,257,10,31,http://127.0.0.1:5000/api/product/407,494,0,1
+1787048995984,513,GET /api/product/371,200,OK,TG2 商品浏览 3-25,text,true,,702,257,1,31,http://127.0.0.1:5000/api/product/371,513,0,1
+1787048996014,501,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-9,text,true,,111967,317,10,31,http://127.0.0.1:5000/api/admin/anomaly-detection,500,0,2
+1787048996015,517,GET /api/product/408,200,OK,TG3 商品发布与下单 4-7,text,true,,700,257,10,31,http://127.0.0.1:5000/api/product/408,516,0,1
+1787048996019,520,GET /api/product/409,200,OK,TG3 商品发布与下单 4-1,text,true,,701,257,10,31,http://127.0.0.1:5000/api/product/409,519,0,1
+1787048996201,366,GET /api/product/410,200,OK,TG3 商品发布与下单 4-2,text,true,,701,257,10,31,http://127.0.0.1:5000/api/product/410,365,0,1
+1787048993340,3272,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,580,374,10,31,http://127.0.0.1:5000/api/analyze-product,3272,0,1
+1787048996358,267,GET /api/admin/products,200,OK,TG5 管理员 6-2,text,true,,10744,328,10,31,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,266,0,1
+1787048996291,371,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-4,text,true,,296,323,10,31,http://127.0.0.1:5000/api/orders,371,0,1
+1787048996372,295,POST /api/orders/257/update (paid),200,OK,TG3 商品发布与下单 4-10,text,true,,324,333,10,31,http://127.0.0.1:5000/api/orders/257/update,295,0,1
+1787048996464,245,POST /api/orders/256/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-9,text,true,,286,338,10,31,http://127.0.0.1:5000/api/orders/256/update,245,0,1
+1787048993945,2780,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,383,10,31,http://127.0.0.1:5000/api/generate-all-copies,2780,0,0
+1787048996466,286,GET /api/admin/products,200,OK,TG5 管理员 6-3,text,true,,10744,328,10,31,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,286,0,1
+1787048994283,2469,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,359,10,31,http://127.0.0.1:5000/api/detect-product,2469,0,1
+1787048996468,285,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,true,,10744,328,10,31,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,285,0,1
+1787048996470,299,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-5,text,true,,296,323,10,31,http://127.0.0.1:5000/api/orders,298,0,1
+1787048996470,299,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-10,text,true,,111967,317,10,31,http://127.0.0.1:5000/api/admin/anomaly-detection,299,0,1
+1787048996473,296,GET /api/admin/products,200,OK,TG5 管理员 6-6,text,true,,10744,328,10,31,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,296,0,0
+1787048994225,2545,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,580,374,10,31,http://127.0.0.1:5000/api/analyze-product,2544,0,1
+1787048996472,300,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-5,text,true,,111967,317,10,31,http://127.0.0.1:5000/api/admin/anomaly-detection,300,0,1
+1787048996473,300,GET /api/admin/users,200,OK,TG5 管理员 6-7,text,true,,62098,325,10,31,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,300,0,1
+1787048996274,498,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-8,text,true,,568,288,10,31,http://127.0.0.1:5000/api/auth/login,498,0,4
+1787048996476,299,GET /api/my-products,200,OK,TG3 商品发布与下单 4-6,text,true,,9062,257,10,31,http://127.0.0.1:5000/api/my-products,299,0,1
+1787048996457,325,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-3,text,true,,568,288,10,31,http://127.0.0.1:5000/api/auth/login,324,0,4
+1787048996498,287,GET /api/search,200,OK,TG2 商品浏览 3-25,text,true,,1181,266,1,31,http://127.0.0.1:5000/api/search?q=test&page=1,287,0,1
+1787048996533,257,GET /api/my-products,200,OK,TG3 商品发布与下单 4-7,text,true,,8498,257,10,30,http://127.0.0.1:5000/api/my-products,257,0,1
+1787048996540,250,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,9062,257,10,30,http://127.0.0.1:5000/api/my-products,250,0,1
+1787048994261,2532,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,580,374,10,30,http://127.0.0.1:5000/api/analyze-product,2531,0,1
+1787048996625,170,GET /api/admin/login-history,200,OK,TG5 管理员 6-2,text,true,,3340,313,10,30,http://127.0.0.1:5000/api/admin/login-history,169,0,1
+1787048996568,226,GET /api/my-products,200,OK,TG3 商品发布与下单 4-2,text,true,,8498,257,10,30,http://127.0.0.1:5000/api/my-products,226,0,1
+1787048996663,166,GET /api/orders,200,OK,TG3 商品发布与下单 4-4,text,true,,3486,252,10,30,http://127.0.0.1:5000/api/orders,165,0,1
+1787048996668,218,POST /api/orders/257/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-10,text,true,,286,338,10,30,http://127.0.0.1:5000/api/orders/257/update,218,0,0
+1787048996752,140,GET /api/admin/login-history,200,OK,TG5 管理员 6-3,text,true,,3340,313,10,30,http://127.0.0.1:5000/api/admin/login-history,140,0,1
+1787048996276,640,POST /api/admin/login,200,OK,TG5 管理员 6-4,text,true,,571,312,10,30,http://127.0.0.1:5000/api/admin/login,640,0,1
+1787048996015,921,POST /api/admin/login,200,OK,TG5 管理员 6-8,text,true,,571,312,10,30,http://127.0.0.1:5000/api/admin/login,920,0,2
+1787048996753,189,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,true,,3340,313,10,30,http://127.0.0.1:5000/api/admin/login-history,189,0,1
+1787048996770,182,GET /api/admin/login-history,200,OK,TG5 管理员 6-6,text,true,,3340,313,10,30,http://127.0.0.1:5000/api/admin/login-history,181,0,1
+1787048996770,205,GET /api/orders,200,OK,TG3 商品发布与下单 4-5,text,true,,3488,252,10,30,http://127.0.0.1:5000/api/orders,204,0,1
+1787048996773,206,GET /api/admin/products,200,OK,TG5 管理员 6-7,text,true,,10744,328,10,30,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,205,0,1
+1787048996710,288,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-9,text,true,,568,288,10,30,http://127.0.0.1:5000/api/auth/login,288,0,4
+1787048996776,254,PUT /api/my-products/edit/407,200,OK,TG3 商品发布与下单 4-6,text,true,,278,358,10,30,http://127.0.0.1:5000/api/my-products/edit/407,254,0,0
+1787048994327,2793,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,359,10,30,http://127.0.0.1:5000/api/detect-product,2792,0,2
+1787048996791,332,PUT /api/my-products/edit/409,200,OK,TG3 商品发布与下单 4-1,text,true,,278,358,10,30,http://127.0.0.1:5000/api/my-products/edit/409,332,0,1
+1787048996791,342,PUT /api/my-products/edit/408,200,OK,TG3 商品发布与下单 4-7,text,true,,278,357,10,30,http://127.0.0.1:5000/api/my-products/edit/408,342,0,1
+1787048996774,486,POST /api/product,201,CREATED,TG3 商品发布与下单 4-8,text,true,,298,473,10,30,http://127.0.0.1:5000/api/product,485,0,0
+1787048996795,466,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-2,text,true,,111967,317,10,30,http://127.0.0.1:5000/api/admin/anomaly-detection,465,0,1
+1787048996752,520,POST /api/auth/login,200,OK,TG4 AI 工具 5-4,text,true,,571,291,10,29,http://127.0.0.1:5000/api/auth/login,519,0,2
+1787048996783,547,POST /api/product,201,CREATED,TG3 商品发布与下单 4-3,text,true,,298,474,10,29,http://127.0.0.1:5000/api/product,546,0,1
+1787048996516,816,POST /api/admin/login,200,OK,TG5 管理员 6-9,text,true,,571,312,9,29,http://127.0.0.1:5000/api/admin/login,816,0,1
+1787048996795,539,PUT /api/my-products/edit/410,200,OK,TG3 商品发布与下单 4-2,text,true,,278,358,10,29,http://127.0.0.1:5000/api/my-products/edit/410,539,0,1
+1787048996829,506,POST /api/orders/258/update (paid),200,OK,TG3 商品发布与下单 4-4,text,true,,324,333,10,29,http://127.0.0.1:5000/api/orders/258/update,506,0,1
+1787048996892,448,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-3,text,true,,111967,317,9,29,http://127.0.0.1:5000/api/admin/anomaly-detection,448,0,1
+1787048996917,424,GET /api/admin/users,200,OK,TG5 管理员 6-4,text,true,,62098,325,9,29,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,424,0,1
+1787048996937,407,GET /api/admin/users,200,OK,TG5 管理员 6-8,text,true,,62098,325,8,28,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,407,0,1
+1787048996942,405,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,true,,111967,317,8,28,http://127.0.0.1:5000/api/admin/anomaly-detection,405,0,2
+1787048996887,461,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-10,text,true,,568,288,10,27,http://127.0.0.1:5000/api/auth/login,461,0,4
+1787048996952,399,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-6,text,true,,111967,317,7,27,http://127.0.0.1:5000/api/admin/anomaly-detection,399,0,2
+1787048996770,582,POST /api/admin/login,200,OK,TG5 管理员 6-10,text,true,,571,312,7,27,http://127.0.0.1:5000/api/admin/login,582,0,1
+1787048994829,2526,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,580,374,10,27,http://127.0.0.1:5000/api/analyze-product,2526,0,1
+1787048996975,389,POST /api/orders/259/update (paid),200,OK,TG3 商品发布与下单 4-5,text,true,,324,333,10,27,http://127.0.0.1:5000/api/orders/259/update,389,0,1
+1787048996979,388,GET /api/admin/login-history,200,OK,TG5 管理员 6-7,text,true,,3340,313,7,27,http://127.0.0.1:5000/api/admin/login-history,388,0,1
+1787048996773,694,POST /api/admin/login,200,OK,TG5 管理员 6-5,text,true,,571,312,7,27,http://127.0.0.1:5000/api/admin/login,694,0,1
+1787048996999,468,POST /api/product,201,CREATED,TG3 商品发布与下单 4-9,text,true,,298,474,10,27,http://127.0.0.1:5000/api/product,468,0,1
+1787048997261,207,GET /api/product/411,200,OK,TG3 商品发布与下单 4-8,text,true,,700,257,10,27,http://127.0.0.1:5000/api/product/411,207,0,1
+1787048994835,2634,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,359,10,27,http://127.0.0.1:5000/api/detect-product,2634,0,1
+1787048997330,139,GET /api/product/412,200,OK,TG3 商品发布与下单 4-3,text,true,,701,257,10,27,http://127.0.0.1:5000/api/product/412,139,0,1
+1787048997332,149,GET /api/admin/users,200,OK,TG5 管理员 6-9,text,true,,62098,325,7,27,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,148,0,1
+1787048997124,364,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,10,27,http://127.0.0.1:5000/api/auth/login,363,0,3
+1787048997031,464,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-6,text,true,,570,290,10,27,http://127.0.0.1:5000/api/auth/login,464,0,4
+1787048997334,162,POST /api/orders/258/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-4,text,true,,286,338,10,27,http://127.0.0.1:5000/api/orders/258/update,162,0,1
+1787048997121,383,POST /api/auth/login,200,OK,TG4 AI 工具 5-2,text,true,,571,291,10,27,http://127.0.0.1:5000/api/auth/login,382,0,1
+1787048997340,169,GET /api/admin/products,200,OK,TG5 管理员 6-4,text,true,,10763,328,7,27,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,169,0,1
+1787048997343,177,GET /api/admin/products,200,OK,TG5 管理员 6-8,text,true,,10763,328,7,27,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,176,0,1
+1787048997348,175,POST /api/product,201,CREATED,TG3 商品发布与下单 4-10,text,true,,298,475,10,27,http://127.0.0.1:5000/api/product,174,0,1
+1787048997352,182,GET /api/admin/users,200,OK,TG5 管理员 6-10,text,true,,62098,325,7,27,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,182,0,1
+1787048997134,408,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-7,text,true,,570,290,10,27,http://127.0.0.1:5000/api/auth/login,408,0,4
+1787048997364,185,POST /api/orders/259/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-5,text,true,,286,338,10,27,http://127.0.0.1:5000/api/orders/259/update,184,0,1
+1787048997467,96,GET /api/admin/users,200,OK,TG5 管理员 6-5,text,true,,62098,325,7,27,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,96,0,1
+1787048997467,107,GET /api/my-products,200,OK,TG3 商品发布与下单 4-8,text,true,,7355,257,10,27,http://127.0.0.1:5000/api/my-products,107,0,1
+1787048997367,218,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-7,text,true,,111967,317,7,27,http://127.0.0.1:5000/api/admin/anomaly-detection,217,0,1
+1787048997467,159,GET /api/product/413,200,OK,TG3 商品发布与下单 4-9,text,true,,701,257,10,27,http://127.0.0.1:5000/api/product/413,159,0,1
+1787048997334,306,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-2,text,true,,570,290,10,27,http://127.0.0.1:5000/api/auth/login,306,0,3
+1787048997470,178,GET /api/my-products,200,OK,TG3 商品发布与下单 4-3,text,true,,7355,257,10,27,http://127.0.0.1:5000/api/my-products,178,0,1
+1787048997481,189,GET /api/admin/products,200,OK,TG5 管理员 6-9,text,true,,10743,328,7,27,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,188,0,1
+1787048997488,311,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-1,text,true,,296,323,10,27,http://127.0.0.1:5000/api/orders,311,0,1
+1787048997495,414,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-6,text,true,,296,323,10,27,http://127.0.0.1:5000/api/orders,414,0,1
+1787048997469,442,POST /api/auth/login,200,OK,TG4 AI 工具 5-3,text,true,,571,291,10,27,http://127.0.0.1:5000/api/auth/login,442,0,1
+1787048997509,403,GET /api/admin/login-history,200,OK,TG5 管理员 6-4,text,true,,3340,313,7,27,http://127.0.0.1:5000/api/admin/login-history,403,0,1
+1787048997520,397,GET /api/admin/login-history,200,OK,TG5 管理员 6-8,text,true,,3340,313,7,27,http://127.0.0.1:5000/api/admin/login-history,397,0,1
+1787048997351,571,POST /api/admin/login,200,OK,TG5 管理员 6-6,text,true,,571,312,7,27,http://127.0.0.1:5000/api/admin/login,571,0,1
+1787048997523,401,GET /api/product/414,200,OK,TG3 商品发布与下单 4-10,text,true,,702,257,10,27,http://127.0.0.1:5000/api/product/414,401,0,1
+1787048997496,428,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-4,text,true,,568,288,10,27,http://127.0.0.1:5000/api/auth/login,428,0,4
+1787048997535,392,GET /api/admin/products,200,OK,TG5 管理员 6-10,text,true,,10743,328,7,27,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,392,0,1
+1787048997542,405,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-7,text,true,,296,323,10,27,http://127.0.0.1:5000/api/orders,404,0,1
+1787048997564,428,GET /api/admin/products,200,OK,TG5 管理员 6-5,text,true,,10743,328,7,27,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,427,0,2
+1787048997575,447,PUT /api/my-products/edit/411,200,OK,TG3 商品发布与下单 4-8,text,true,,278,358,10,27,http://127.0.0.1:5000/api/my-products/edit/411,446,0,1
+1787048997549,516,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-5,text,true,,568,288,10,27,http://127.0.0.1:5000/api/auth/login,515,0,6
+1787048997627,440,GET /api/my-products,200,OK,TG3 商品发布与下单 4-9,text,true,,7073,257,10,27,http://127.0.0.1:5000/api/my-products,440,0,1
+1787048997649,456,PUT /api/my-products/edit/412,200,OK,TG3 商品发布与下单 4-3,text,true,,278,358,10,27,http://127.0.0.1:5000/api/my-products/edit/412,456,0,0
+1787048997670,474,GET /api/admin/login-history,200,OK,TG5 管理员 6-9,text,true,,3340,313,7,27,http://127.0.0.1:5000/api/admin/login-history,474,0,1
+1787048997801,382,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,4136,252,10,27,http://127.0.0.1:5000/api/orders,381,0,1
+1787048997642,602,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-2,text,true,,296,323,10,27,http://127.0.0.1:5000/api/orders,602,0,1
+1787048997911,342,GET /api/orders,200,OK,TG3 商品发布与下单 4-6,text,true,,3488,252,10,27,http://127.0.0.1:5000/api/orders,342,0,0
+1787048997912,342,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-4,text,true,,111967,317,7,27,http://127.0.0.1:5000/api/admin/anomaly-detection,341,0,1
+1787048997917,362,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-8,text,true,,111967,317,6,26,http://127.0.0.1:5000/api/admin/anomaly-detection,361,0,1
+1787048997924,381,GET /api/admin/users,200,OK,TG5 管理员 6-6,text,true,,62098,325,6,26,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,380,0,1
+1787048997925,395,GET /api/my-products,200,OK,TG3 商品发布与下单 4-10,text,true,,7083,257,10,26,http://127.0.0.1:5000/api/my-products,395,0,0
+1787048995712,2663,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,580,374,10,26,http://127.0.0.1:5000/api/analyze-product,2663,0,1
+1787048995868,2529,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,359,10,26,http://127.0.0.1:5000/api/detect-product,2529,0,1
+1787048997925,525,POST /api/product,201,CREATED,TG3 商品发布与下单 4-4,text,true,,298,474,10,26,http://127.0.0.1:5000/api/product,525,0,1
+1787048997586,875,POST /api/admin/login,200,OK,TG5 管理员 6-7,text,true,,571,312,6,26,http://127.0.0.1:5000/api/admin/login,874,0,1
+1787048997992,473,GET /api/admin/login-history,200,OK,TG5 管理员 6-5,text,true,,3340,313,6,26,http://127.0.0.1:5000/api/admin/login-history,473,0,1
+1787048997927,573,GET /api/admin/login-history,200,OK,TG5 管理员 6-10,text,true,,3340,313,6,26,http://127.0.0.1:5000/api/admin/login-history,573,0,1
+1787048998068,506,PUT /api/my-products/edit/413,200,OK,TG3 商品发布与下单 4-9,text,true,,278,358,10,26,http://127.0.0.1:5000/api/my-products/edit/413,506,0,1
+1787048997948,739,GET /api/orders,200,OK,TG3 商品发布与下单 4-7,text,true,,3488,252,10,26,http://127.0.0.1:5000/api/orders,739,0,1
+1787048998322,405,PUT /api/my-products/edit/414,200,OK,TG3 商品发布与下单 4-10,text,true,,278,359,10,26,http://127.0.0.1:5000/api/my-products/edit/414,405,0,1
+1787048998144,650,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-9,text,true,,111967,317,6,26,http://127.0.0.1:5000/api/admin/anomaly-detection,650,0,2
+1787048998245,606,GET /api/orders,200,OK,TG3 商品发布与下单 4-2,text,true,,4138,252,10,26,http://127.0.0.1:5000/api/orders,606,0,1
+1787048998451,444,GET /api/product/415,200,OK,TG3 商品发布与下单 4-4,text,true,,701,257,10,26,http://127.0.0.1:5000/api/product/415,443,0,1
+1787048998305,612,GET /api/admin/products,200,OK,TG5 管理员 6-6,text,true,,10785,328,6,26,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,611,0,2
+1787048998462,495,GET /api/admin/users,200,OK,TG5 管理员 6-7,text,true,,62098,325,6,26,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,495,0,1
+1787048998183,816,POST /api/orders/260/update (paid),200,OK,TG3 商品发布与下单 4-1,text,true,,324,333,10,26,http://127.0.0.1:5000/api/orders/260/update,816,0,2
+1787048998066,933,POST /api/product,201,CREATED,TG3 商品发布与下单 4-5,text,true,,298,473,10,26,http://127.0.0.1:5000/api/product,933,0,2
+1787048998466,534,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-5,text,true,,111967,317,6,26,http://127.0.0.1:5000/api/admin/anomaly-detection,534,0,1
+1787048998254,746,POST /api/orders/261/update (paid),200,OK,TG3 商品发布与下单 4-6,text,true,,324,333,10,26,http://127.0.0.1:5000/api/orders/261/update,746,0,1
+1787048998501,501,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-10,text,true,,111967,317,5,25,http://127.0.0.1:5000/api/admin/anomaly-detection,500,0,1
+1787048998444,558,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,571,291,10,25,http://127.0.0.1:5000/api/auth/login,558,0,2
+1787048998023,982,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-8,text,true,,570,290,10,25,http://127.0.0.1:5000/api/auth/login,982,0,3
+1787048998106,899,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-3,text,true,,570,290,10,25,http://127.0.0.1:5000/api/auth/login,898,0,4
+1787048998895,111,GET /api/my-products,200,OK,TG3 商品发布与下单 4-4,text,true,,7356,257,10,25,http://127.0.0.1:5000/api/my-products,110,0,2
+1787048998688,320,POST /api/orders/262/update (paid),200,OK,TG3 商品发布与下单 4-7,text,true,,324,333,10,25,http://127.0.0.1:5000/api/orders/262/update,319,0,1
+1787048998852,156,POST /api/orders/263/update (paid),200,OK,TG3 商品发布与下单 4-2,text,true,,324,333,10,25,http://127.0.0.1:5000/api/orders/263/update,155,0,1
+1787048998917,92,GET /api/admin/login-history,200,OK,TG5 管理员 6-6,text,true,,3340,313,5,25,http://127.0.0.1:5000/api/admin/login-history,90,0,1
+1787048998958,51,GET /api/admin/products,200,OK,TG5 管理员 6-7,text,true,,10785,328,5,25,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,51,0,1
+1787048998728,280,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-10,text,true,,571,291,10,25,http://127.0.0.1:5000/api/auth/login,280,0,4
+1787048998575,433,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-9,text,true,,570,290,10,25,http://127.0.0.1:5000/api/auth/login,432,0,3
+1787048998279,731,POST /api/admin/login,200,OK,TG5 管理员 6-8,text,true,,571,312,5,25,http://127.0.0.1:5000/api/admin/login,730,0,2
+1787048996612,2408,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,359,10,25,http://127.0.0.1:5000/api/detect-product,2408,0,1
+1787048999000,19,POST /api/orders/260/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-1,text,true,,286,338,10,25,http://127.0.0.1:5000/api/orders/260/update,19,0,1
+1787048999000,24,GET /api/product/416,200,OK,TG3 商品发布与下单 4-5,text,true,,700,257,10,25,http://127.0.0.1:5000/api/product/416,24,0,2
+1787048999001,36,POST /api/orders/261/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-6,text,true,,286,338,10,25,http://127.0.0.1:5000/api/orders/261/update,36,0,2
+1787048996725,2323,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,580,374,10,25,http://127.0.0.1:5000/api/analyze-product,2323,0,1
+1787048999006,77,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-8,text,true,,296,323,10,25,http://127.0.0.1:5000/api/orders,77,0,1
+1787048999006,80,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-3,text,true,,296,323,10,25,http://127.0.0.1:5000/api/orders,79,0,1
+1787048999006,100,PUT /api/my-products/edit/415,200,OK,TG3 商品发布与下单 4-4,text,true,,278,358,10,25,http://127.0.0.1:5000/api/my-products/edit/415,100,0,2
+1787048999008,157,POST /api/orders/262/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-7,text,true,,286,338,10,25,http://127.0.0.1:5000/api/orders/262/update,157,0,1
+1787048999008,159,POST /api/orders/263/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-2,text,true,,286,338,10,25,http://127.0.0.1:5000/api/orders/263/update,159,0,1
+1787048999009,159,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-6,text,true,,111967,317,5,25,http://127.0.0.1:5000/api/admin/anomaly-detection,158,0,0
+1787048999009,163,GET /api/admin/login-history,200,OK,TG5 管理员 6-7,text,true,,3340,313,4,24,http://127.0.0.1:5000/api/admin/login-history,163,0,1
+1787048999009,184,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-10,text,true,,296,323,10,24,http://127.0.0.1:5000/api/orders,184,0,1
+1787048999011,208,GET /api/admin/users,200,OK,TG5 管理员 6-8,text,true,,62098,325,4,24,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,207,0,1
+1787048999009,210,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-9,text,true,,296,323,10,24,http://127.0.0.1:5000/api/orders,209,0,1
+1787048998795,472,POST /api/admin/login,200,OK,TG5 管理员 6-9,text,true,,571,312,4,24,http://127.0.0.1:5000/api/admin/login,472,0,1
+1787048999025,308,GET /api/my-products,200,OK,TG3 商品发布与下单 4-5,text,true,,7365,257,10,24,http://127.0.0.1:5000/api/my-products,307,0,1
+1787048999019,333,POST /api/auth/login,200,OK,TG4 AI 工具 5-5,text,true,,571,291,10,24,http://127.0.0.1:5000/api/auth/login,333,0,2
+1787048999084,311,GET /api/orders,200,OK,TG3 商品发布与下单 4-8,text,true,,3490,252,10,24,http://127.0.0.1:5000/api/orders,311,0,1
+1787048999086,318,GET /api/orders,200,OK,TG3 商品发布与下单 4-3,text,true,,4138,252,10,24,http://127.0.0.1:5000/api/orders,318,0,1
+1787048999020,387,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,288,10,24,http://127.0.0.1:5000/api/auth/login,386,0,3
+1787048996770,2720,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,359,10,24,http://127.0.0.1:5000/api/detect-product,2720,0,1
+1787048999003,521,POST /api/admin/login,200,OK,TG5 管理员 6-10,text,true,,571,312,4,24,http://127.0.0.1:5000/api/admin/login,521,0,1
+1787048999173,352,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-7,text,true,,111967,317,4,24,http://127.0.0.1:5000/api/admin/anomaly-detection,351,0,0
+1787048999038,505,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-6,text,true,,568,288,10,23,http://127.0.0.1:5000/api/auth/login,505,0,4
+1787048999194,366,GET /api/orders,200,OK,TG3 商品发布与下单 4-10,text,true,,3495,252,10,23,http://127.0.0.1:5000/api/orders,365,0,1
+1787048999219,343,GET /api/admin/products,200,OK,TG5 管理员 6-8,text,true,,10806,328,3,23,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,343,0,1
+1787048999219,345,GET /api/orders,200,OK,TG3 商品发布与下单 4-9,text,true,,3490,252,10,23,http://127.0.0.1:5000/api/orders,345,0,1
+1787048999107,476,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-4,text,true,,570,290,10,23,http://127.0.0.1:5000/api/auth/login,476,0,3
+1787048999268,319,GET /api/admin/users,200,OK,TG5 管理员 6-9,text,true,,62098,325,3,23,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,319,0,1
+1787048999334,256,PUT /api/my-products/edit/416,200,OK,TG3 商品发布与下单 4-5,text,true,,278,357,10,23,http://127.0.0.1:5000/api/my-products/edit/416,256,0,1
+1787048999166,423,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-7,text,true,,568,288,10,23,http://127.0.0.1:5000/api/auth/login,423,0,4
+1787048999396,211,POST /api/orders/264/update (paid),200,OK,TG3 商品发布与下单 4-8,text,true,,324,333,10,23,http://127.0.0.1:5000/api/orders/264/update,211,0,1
+1787048999168,465,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-2,text,true,,568,288,10,23,http://127.0.0.1:5000/api/auth/login,464,0,3
+1787048999525,118,GET /api/admin/users,200,OK,TG5 管理员 6-10,text,true,,62098,325,3,23,http://127.0.0.1:5000/api/admin/users?page=1&page_size=20,117,0,1
+1787048999407,240,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,true,,298,474,10,23,http://127.0.0.1:5000/api/product,240,0,2
+1787048999404,244,POST /api/orders/265/update (paid),200,OK,TG3 商品发布与下单 4-3,text,true,,324,333,10,23,http://127.0.0.1:5000/api/orders/265/update,244,0,2
+1787048996793,2867,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,359,10,23,http://127.0.0.1:5000/api/detect-product,2867,0,1
+1787048999562,105,GET /api/admin/login-history,200,OK,TG5 管理员 6-8,text,true,,3340,313,3,23,http://127.0.0.1:5000/api/admin/login-history,104,0,1
+1787048999544,135,POST /api/product,201,CREATED,TG3 商品发布与下单 4-6,text,true,,298,473,10,23,http://127.0.0.1:5000/api/product,135,0,1
+1787048997272,2449,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,355,10,23,http://127.0.0.1:5000/api/analyze-image,2449,0,1
+1787048999560,161,POST /api/orders/266/update (paid),200,OK,TG3 商品发布与下单 4-10,text,true,,324,333,10,23,http://127.0.0.1:5000/api/orders/266/update,161,0,1
+1787048999564,157,POST /api/orders/267/update (paid),200,OK,TG3 商品发布与下单 4-9,text,true,,324,333,10,23,http://127.0.0.1:5000/api/orders/267/update,157,0,1
+1787048999587,135,GET /api/admin/products,200,OK,TG5 管理员 6-9,text,true,,10784,328,3,23,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,134,0,1
+1787048999608,128,POST /api/orders/264/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-8,text,true,,286,338,10,23,http://127.0.0.1:5000/api/orders/264/update,127,0,1
+1787048999584,151,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-4,text,true,,296,323,10,23,http://127.0.0.1:5000/api/orders,151,0,1
+1787048999590,146,POST /api/product,201,CREATED,TG3 商品发布与下单 4-7,text,true,,298,473,10,23,http://127.0.0.1:5000/api/product,146,0,1
+1787048999634,103,POST /api/product,201,CREATED,TG3 商品发布与下单 4-2,text,true,,298,474,10,23,http://127.0.0.1:5000/api/product,103,0,2
+1787048999490,247,POST /api/auth/login,200,OK,TG4 AI 工具 5-6,text,true,,571,291,10,23,http://127.0.0.1:5000/api/auth/login,247,0,1
+1787048999643,97,GET /api/admin/products,200,OK,TG5 管理员 6-10,text,true,,10741,328,3,23,http://127.0.0.1:5000/api/admin/products?page=1&page_size=20,97,0,1
+1787048999648,97,GET /api/product/417,200,OK,TG3 商品发布与下单 4-1,text,true,,701,257,10,23,http://127.0.0.1:5000/api/product/417,97,0,1
+1787048999648,119,POST /api/orders/265/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-3,text,true,,286,338,10,23,http://127.0.0.1:5000/api/orders/265/update,119,0,1
+1787048999667,115,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-8,text,true,,111967,317,3,23,http://127.0.0.1:5000/api/admin/anomaly-detection,115,0,1
+1787048999680,115,GET /api/product/418,200,OK,TG3 商品发布与下单 4-6,text,true,,700,257,10,22,http://127.0.0.1:5000/api/product/418,114,0,1
+1787048999722,112,POST /api/orders/267/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-9,text,true,,286,338,10,22,http://127.0.0.1:5000/api/orders/267/update,112,0,0
+1787048999590,245,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-5,text,true,,570,290,10,22,http://127.0.0.1:5000/api/auth/login,245,0,3
+1787048999721,115,POST /api/orders/266/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-10,text,true,,286,338,10,22,http://127.0.0.1:5000/api/orders/266/update,115,0,2
+1787048999736,101,GET /api/orders,200,OK,TG3 商品发布与下单 4-4,text,true,,4136,252,10,22,http://127.0.0.1:5000/api/orders,101,0,1
+1787048999722,116,GET /api/admin/login-history,200,OK,TG5 管理员 6-9,text,true,,3340,313,2,22,http://127.0.0.1:5000/api/admin/login-history,115,0,1
+1787048999737,106,GET /api/product/419,200,OK,TG3 商品发布与下单 4-7,text,true,,700,257,10,22,http://127.0.0.1:5000/api/product/419,106,0,1
+1787048997355,2490,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,359,10,22,http://127.0.0.1:5000/api/detect-product,2490,0,1
+1787048999738,114,GET /api/product/420,200,OK,TG3 商品发布与下单 4-2,text,true,,701,257,10,22,http://127.0.0.1:5000/api/product/420,114,0,1
+1787048999740,137,GET /api/admin/login-history,200,OK,TG5 管理员 6-10,text,true,,3340,313,2,22,http://127.0.0.1:5000/api/admin/login-history,136,0,1
+1787048999746,132,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,9627,257,10,22,http://127.0.0.1:5000/api/my-products,132,0,1
+1787048999660,231,POST /api/auth/login,200,OK,TG4 AI 工具 5-7,text,true,,571,291,10,22,http://127.0.0.1:5000/api/auth/login,231,0,1
+1787048999795,126,GET /api/my-products,200,OK,TG3 商品发布与下单 4-6,text,true,,9627,257,10,22,http://127.0.0.1:5000/api/my-products,126,0,1
+1787048999836,173,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-5,text,true,,296,323,10,22,http://127.0.0.1:5000/api/orders,172,0,1
+1787048999838,214,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-9,text,true,,111967,317,2,22,http://127.0.0.1:5000/api/admin/anomaly-detection,213,0,2
+1787048999844,233,GET /api/my-products,200,OK,TG3 商品发布与下单 4-7,text,true,,9062,257,10,21,http://127.0.0.1:5000/api/my-products,232,0,1
+1787048999736,342,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-8,text,true,,568,288,10,21,http://127.0.0.1:5000/api/auth/login,342,0,4
+1787048999837,261,POST /api/orders/268/update (paid),200,OK,TG3 商品发布与下单 4-4,text,true,,324,333,10,21,http://127.0.0.1:5000/api/orders/268/update,261,0,1
+1787048999768,340,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-3,text,true,,568,288,10,21,http://127.0.0.1:5000/api/auth/login,340,0,4
+1787048999853,258,GET /api/my-products,200,OK,TG3 商品发布与下单 4-2,text,true,,9062,257,10,21,http://127.0.0.1:5000/api/my-products,258,0,1
+1787048997504,2609,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,355,10,21,http://127.0.0.1:5000/api/analyze-image,2609,0,2
+1787048999835,291,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-9,text,true,,568,288,10,21,http://127.0.0.1:5000/api/auth/login,291,0,4
+1787048999837,303,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-10,text,true,,568,288,10,21,http://127.0.0.1:5000/api/auth/login,303,0,3
+1787048999879,265,PUT /api/my-products/edit/417,200,OK,TG3 商品发布与下单 4-1,text,true,,278,358,10,21,http://127.0.0.1:5000/api/my-products/edit/417,265,0,1
+1787048999877,291,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-10,text,true,,111967,317,1,21,http://127.0.0.1:5000/api/admin/anomaly-detection,290,0,1
+1787048999923,246,PUT /api/my-products/edit/418,200,OK,TG3 商品发布与下单 4-6,text,true,,278,358,10,21,http://127.0.0.1:5000/api/my-products/edit/418,246,0,1
+1787049000014,157,GET /api/orders,200,OK,TG3 商品发布与下单 4-5,text,true,,4136,252,10,20,http://127.0.0.1:5000/api/orders,157,0,2
+1787049000078,155,PUT /api/my-products/edit/419,200,OK,TG3 商品发布与下单 4-7,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/419,155,0,1
+1787049000079,221,POST /api/product,201,CREATED,TG3 商品发布与下单 4-8,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,221,0,0
+1787049000098,225,POST /api/orders/268/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-4,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/268/update,225,0,1
+1787049000109,221,POST /api/product,201,CREATED,TG3 商品发布与下单 4-3,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,221,0,2
+1787048999846,485,POST /api/auth/login,200,OK,TG4 AI 工具 5-8,text,true,,571,291,10,20,http://127.0.0.1:5000/api/auth/login,485,0,1
+1787049000112,221,PUT /api/my-products/edit/420,200,OK,TG3 商品发布与下单 4-2,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/420,220,0,1
+1787049000127,206,POST /api/product,201,CREATED,TG3 商品发布与下单 4-9,text,true,,298,473,10,20,http://127.0.0.1:5000/api/product,206,0,1
+1787049000141,199,POST /api/product,201,CREATED,TG3 商品发布与下单 4-10,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,198,0,1
+1787049000171,206,POST /api/orders/269/update (paid),200,OK,TG3 商品发布与下单 4-5,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/269/update,206,0,1
+1787049000301,99,GET /api/product/421,200,OK,TG3 商品发布与下单 4-8,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/421,98,0,1
+1787049000331,196,GET /api/product/422,200,OK,TG3 商品发布与下单 4-3,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/422,196,0,1
+1787049000145,388,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,388,0,3
+1787049000234,371,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-7,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,371,0,4
+1787049000324,318,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-4,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,317,0,4
+1787049000377,381,POST /api/orders/269/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-5,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/269/update,381,0,1
+1787049000528,235,GET /api/my-products,200,OK,TG3 商品发布与下单 4-3,text,true,,7921,257,10,20,http://127.0.0.1:5000/api/my-products,235,0,1
+1787049000400,396,GET /api/my-products,200,OK,TG3 商品发布与下单 4-8,text,true,,7921,257,10,20,http://127.0.0.1:5000/api/my-products,396,0,1
+1787049000341,458,GET /api/product/424,200,OK,TG3 商品发布与下单 4-10,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/424,458,0,0
+1787049000334,484,GET /api/product/423,200,OK,TG3 商品发布与下单 4-9,text,true,,700,257,10,20,http://127.0.0.1:5000/api/product/423,484,0,0
+1787049000169,704,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-6,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,703,0,4
+1787048997912,3136,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,3136,0,1
+1787049000534,546,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-1,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,545,0,1
+1787049000643,438,POST /api/product,201,CREATED,TG3 商品发布与下单 4-4,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,437,0,1
+1787049000764,359,PUT /api/my-products/edit/422,200,OK,TG3 商品发布与下单 4-3,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/422,358,0,1
+1787049000797,326,PUT /api/my-products/edit/421,200,OK,TG3 商品发布与下单 4-8,text,true,,278,357,10,20,http://127.0.0.1:5000/api/my-products/edit/421,326,0,1
+1787049000607,516,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-7,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,515,0,1
+1787049000799,324,GET /api/my-products,200,OK,TG3 商品发布与下单 4-10,text,true,,7647,257,10,20,http://127.0.0.1:5000/api/my-products,324,0,1
+1787049000333,791,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-2,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,791,0,3
+1787049000819,305,GET /api/my-products,200,OK,TG3 商品发布与下单 4-9,text,true,,7924,257,10,20,http://127.0.0.1:5000/api/my-products,305,0,1
+1787049000874,253,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-6,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,252,0,1
+1787049000759,367,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-5,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,367,0,4
+1787048998374,2754,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,359,10,20,http://127.0.0.1:5000/api/detect-product,2753,0,2
+1787049001081,47,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,4786,252,10,20,http://127.0.0.1:5000/api/orders,47,0,1
+1787049001081,48,GET /api/product/425,200,OK,TG3 商品发布与下单 4-4,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/425,47,0,1
+1787049001124,23,PUT /api/my-products/edit/424,200,OK,TG3 商品发布与下单 4-10,text,true,,278,359,10,20,http://127.0.0.1:5000/api/my-products/edit/424,22,0,1
+1787049001123,26,GET /api/orders,200,OK,TG3 商品发布与下单 4-7,text,true,,4138,252,10,20,http://127.0.0.1:5000/api/orders,26,0,2
+1787049001124,92,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-2,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,91,0,2
+1787049001125,92,PUT /api/my-products/edit/423,200,OK,TG3 商品发布与下单 4-9,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/423,92,0,1
+1787049001127,90,GET /api/orders,200,OK,TG3 商品发布与下单 4-6,text,true,,4138,252,10,20,http://127.0.0.1:5000/api/orders,90,0,1
+1787049001127,91,POST /api/product,201,CREATED,TG3 商品发布与下单 4-5,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,91,0,1
+1787049001129,125,POST /api/orders/270/update (paid),200,OK,TG3 商品发布与下单 4-1,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/270/update,124,0,0
+1787049001129,143,GET /api/my-products,200,OK,TG3 商品发布与下单 4-4,text,true,,7921,257,10,20,http://127.0.0.1:5000/api/my-products,142,0,1
+1787048999003,2315,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,2315,0,1
+1787049001149,170,POST /api/orders/271/update (paid),200,OK,TG3 商品发布与下单 4-7,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/271/update,169,0,1
+1787049001123,199,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-8,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,199,0,4
+1787049001123,216,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-3,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,216,0,4
+1787049001128,225,POST /api/auth/login,200,OK,TG4 AI 工具 5-9,text,true,,571,291,10,20,http://127.0.0.1:5000/api/auth/login,224,0,1
+1787049001217,142,GET /api/orders,200,OK,TG3 商品发布与下单 4-2,text,true,,4788,252,10,20,http://127.0.0.1:5000/api/orders,141,0,1
+1787049001218,147,POST /api/orders/272/update (paid),200,OK,TG3 商品发布与下单 4-6,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/272/update,147,0,0
+1787049001219,159,GET /api/product/426,200,OK,TG3 商品发布与下单 4-5,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/426,159,0,1
+1787049001254,152,POST /api/orders/270/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-1,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/270/update,152,0,1
+1787049001273,150,PUT /api/my-products/edit/425,200,OK,TG3 商品发布与下单 4-4,text,true,,278,356,10,20,http://127.0.0.1:5000/api/my-products/edit/425,150,0,1
+1787049001319,119,POST /api/orders/271/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-7,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/271/update,119,0,1
+1787049001323,161,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-8,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,161,0,1
+1787049001147,346,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-10,text,true,,571,291,10,20,http://127.0.0.1:5000/api/auth/login,346,0,4
+1787049001340,162,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-3,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,161,0,2
+1787049001359,147,POST /api/orders/273/update (paid),200,OK,TG3 商品发布与下单 4-2,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/273/update,147,0,1
+1787049001365,143,POST /api/orders/272/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-6,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/272/update,143,0,1
+1787049001217,302,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-9,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,302,0,4
+1787049001379,145,GET /api/my-products,200,OK,TG3 商品发布与下单 4-5,text,true,,7930,257,10,20,http://127.0.0.1:5000/api/my-products,145,0,1
+1787049001485,164,GET /api/orders,200,OK,TG3 商品发布与下单 4-8,text,true,,4138,252,10,20,http://127.0.0.1:5000/api/orders,164,0,1
+1787049001407,256,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,256,0,3
+1787049001502,201,GET /api/orders,200,OK,TG3 商品发布与下单 4-3,text,true,,4788,252,10,20,http://127.0.0.1:5000/api/orders,200,0,1
+1787048999048,2729,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,359,10,20,http://127.0.0.1:5000/api/detect-product,2729,0,1
+1787049001423,357,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-4,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,357,0,3
+1787049001494,354,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-10,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,354,0,1
+1787049001507,363,POST /api/orders/273/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-2,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/273/update,363,0,1
+1787049001439,432,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-7,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,432,0,3
+1787049001525,348,PUT /api/my-products/edit/426,200,OK,TG3 商品发布与下单 4-5,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/426,348,0,1
+1787049001520,353,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-9,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,353,0,1
+1787049001649,225,POST /api/orders/274/update (paid),200,OK,TG3 商品发布与下单 4-8,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/274/update,224,0,1
+1787049001703,172,POST /api/orders/275/update (paid),200,OK,TG3 商品发布与下单 4-3,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/275/update,172,0,1
+1787049001664,211,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,210,0,1
+1787049001849,28,GET /api/orders,200,OK,TG3 商品发布与下单 4-10,text,true,,4146,252,10,20,http://127.0.0.1:5000/api/orders,28,0,1
+1787049001508,369,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-6,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,369,0,3
+1787049001781,96,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-4,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,96,0,1
+1787048999353,2526,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,2525,0,1
+1787049001872,26,POST /api/product,201,CREATED,TG3 商品发布与下单 4-7,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,25,0,2
+1787049001873,46,GET /api/orders,200,OK,TG3 商品发布与下单 4-9,text,true,,4140,252,10,20,http://127.0.0.1:5000/api/orders,45,0,2
+1787049001778,146,POST /api/auth/login,200,OK,TG4 AI 工具 5-10,text,true,,571,291,10,20,http://127.0.0.1:5000/api/auth/login,146,0,1
+1787049001874,54,POST /api/orders/274/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-8,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/274/update,54,0,1
+1787049001875,60,POST /api/orders/275/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-3,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/275/update,60,0,1
+1787049001875,72,GET /api/product/427,200,OK,TG3 商品发布与下单 4-1,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/427,72,0,1
+1787049001877,116,POST /api/orders/276/update (paid),200,OK,TG3 商品发布与下单 4-10,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/276/update,116,0,1
+1787049001878,121,GET /api/orders,200,OK,TG3 商品发布与下单 4-4,text,true,,4782,252,10,20,http://127.0.0.1:5000/api/orders,121,0,1
+1787049001878,147,POST /api/product,201,CREATED,TG3 商品发布与下单 4-6,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,146,0,1
+1787049001899,143,GET /api/product/428,200,OK,TG3 商品发布与下单 4-7,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/428,142,0,1
+1787049001871,181,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-2,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,180,0,3
+1787049001919,139,POST /api/orders/277/update (paid),200,OK,TG3 商品发布与下单 4-9,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/277/update,139,0,1
+1787049001874,299,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-5,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,298,0,3
+1787049001949,240,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,10194,257,10,20,http://127.0.0.1:5000/api/my-products,239,0,1
+1787049001993,289,POST /api/orders/276/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-10,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/276/update,289,0,1
+1787049001929,354,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-8,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,354,0,3
+1787049001999,286,POST /api/orders/278/update (paid),200,OK,TG3 商品发布与下单 4-4,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/278/update,285,0,1
+1787049002026,259,GET /api/product/429,200,OK,TG3 商品发布与下单 4-6,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/429,259,0,1
+1787049002043,246,GET /api/my-products,200,OK,TG3 商品发布与下单 4-7,text,true,,9342,257,10,20,http://127.0.0.1:5000/api/my-products,246,0,1
+1787048999721,2571,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,392,10,20,http://127.0.0.1:5000/api/generate-copy,2571,0,1
+1787049002058,235,POST /api/orders/277/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-9,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/277/update,235,0,2
+1787049002053,240,POST /api/product,201,CREATED,TG3 商品发布与下单 4-2,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,240,0,1
+1787049002190,104,PUT /api/my-products/edit/427,200,OK,TG3 商品发布与下单 4-1,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/427,104,0,1
+1787049002174,120,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-5,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,120,0,1
+1787048999738,2557,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,2557,0,1
+1787049001936,368,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-3,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,368,0,3
+1787049002285,31,POST /api/product,201,CREATED,TG3 商品发布与下单 4-8,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,31,0,1
+1787049002286,42,POST /api/orders/278/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-4,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/278/update,42,0,1
+1787049002287,41,GET /api/my-products,200,OK,TG3 商品发布与下单 4-6,text,true,,10191,257,10,20,http://127.0.0.1:5000/api/my-products,41,0,1
+1787049002291,57,PUT /api/my-products/edit/428,200,OK,TG3 商品发布与下单 4-7,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/428,57,0,2
+1787049002295,61,GET /api/product/430,200,OK,TG3 商品发布与下单 4-2,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/430,61,0,1
+1787049002296,70,GET /api/orders,200,OK,TG3 商品发布与下单 4-5,text,true,,4786,252,10,20,http://127.0.0.1:5000/api/orders,69,0,1
+1787049002317,187,GET /api/product/431,200,OK,TG3 商品发布与下单 4-8,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/431,187,0,1
+1787049002307,400,POST /api/product,201,CREATED,TG3 商品发布与下单 4-3,text,true,,298,473,10,20,http://127.0.0.1:5000/api/product,400,0,1
+1787049002329,380,PUT /api/my-products/edit/429,200,OK,TG3 商品发布与下单 4-6,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/429,379,0,1
+1787049002284,426,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-10,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,425,0,4
+1787049002295,417,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-9,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,417,0,3
+1787049002296,423,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,423,0,3
+1787049002357,362,GET /api/my-products,200,OK,TG3 商品发布与下单 4-2,text,true,,9625,257,10,20,http://127.0.0.1:5000/api/my-products,362,0,1
+1787048999892,2852,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,2851,0,2
+1787049002329,419,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-4,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,419,0,3
+1787049002505,246,GET /api/my-products,200,OK,TG3 商品发布与下单 4-8,text,true,,8485,257,10,20,http://127.0.0.1:5000/api/my-products,246,0,1
+1787049002349,403,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-7,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,402,0,3
+1787049002366,386,POST /api/orders/279/update (paid),200,OK,TG3 商品发布与下单 4-5,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/279/update,386,0,1
+1787049002708,86,GET /api/product/432,200,OK,TG3 商品发布与下单 4-3,text,true,,700,257,10,20,http://127.0.0.1:5000/api/product/432,85,0,1
+1787049002720,158,PUT /api/my-products/edit/430,200,OK,TG3 商品发布与下单 4-2,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/430,158,0,1
+1787049002710,168,POST /api/product,201,CREATED,TG3 商品发布与下单 4-10,text,true,,298,475,10,20,http://127.0.0.1:5000/api/product,168,0,1
+1787049002752,127,PUT /api/my-products/edit/431,200,OK,TG3 商品发布与下单 4-8,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/431,127,0,1
+1787049002720,162,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-1,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,161,0,1
+1787049002713,169,POST /api/product,201,CREATED,TG3 商品发布与下单 4-9,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,169,0,1
+1787049002752,131,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-7,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,131,0,1
+1787049000113,2770,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,392,10,20,http://127.0.0.1:5000/api/generate-copy,2770,0,1
+1787049002753,133,POST /api/orders/279/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-5,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/279/update,132,0,1
+1787049002749,137,POST /api/product,201,CREATED,TG3 商品发布与下单 4-4,text,true,,298,474,10,20,http://127.0.0.1:5000/api/product,136,0,1
+1787049002795,95,GET /api/my-products,200,OK,TG3 商品发布与下单 4-3,text,true,,8482,257,10,20,http://127.0.0.1:5000/api/my-products,95,0,1
+1787049002709,211,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-6,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,210,0,3
+1787049002879,50,GET /api/product/433,200,OK,TG3 商品发布与下单 4-10,text,true,,702,257,10,20,http://127.0.0.1:5000/api/product/433,50,0,1
+1787049000332,2613,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,355,10,20,http://127.0.0.1:5000/api/analyze-image,2612,0,1
+1787049002883,79,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,5436,252,10,20,http://127.0.0.1:5000/api/orders,79,0,1
+1787049002883,90,GET /api/product/434,200,OK,TG3 商品发布与下单 4-9,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/434,90,0,1
+1787049002884,140,GET /api/orders,200,OK,TG3 商品发布与下单 4-7,text,true,,4788,252,10,20,http://127.0.0.1:5000/api/orders,140,0,1
+1787049002886,165,GET /api/product/435,200,OK,TG3 商品发布与下单 4-4,text,true,,701,257,10,20,http://127.0.0.1:5000/api/product/435,164,0,1
+1787049002879,176,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-2,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,176,0,3
+1787049002891,179,PUT /api/my-products/edit/432,200,OK,TG3 商品发布与下单 4-3,text,true,,278,358,10,20,http://127.0.0.1:5000/api/my-products/edit/432,179,0,1
+1787049002930,169,GET /api/my-products,200,OK,TG3 商品发布与下单 4-10,text,true,,8214,257,10,20,http://127.0.0.1:5000/api/my-products,168,0,2
+1787049002879,234,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-8,text,true,,570,290,10,20,http://127.0.0.1:5000/api/auth/login,233,0,3
+1787049002962,156,POST /api/orders/280/update (paid),200,OK,TG3 商品发布与下单 4-1,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/280/update,156,0,2
+1787049002974,144,GET /api/my-products,200,OK,TG3 商品发布与下单 4-9,text,true,,8488,257,10,20,http://127.0.0.1:5000/api/my-products,144,0,1
+1787049002922,213,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-6,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,213,0,1
+1787049003024,126,POST /api/orders/281/update (paid),200,OK,TG3 商品发布与下单 4-7,text,true,,324,333,10,20,http://127.0.0.1:5000/api/orders/281/update,126,0,1
+1787049003052,98,GET /api/my-products,200,OK,TG3 商品发布与下单 4-4,text,true,,8488,257,10,20,http://127.0.0.1:5000/api/my-products,98,0,1
+1787049003056,107,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-2,text,true,,296,323,10,20,http://127.0.0.1:5000/api/orders,107,0,1
+1787049002886,283,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-5,text,true,,568,288,10,20,http://127.0.0.1:5000/api/auth/login,283,0,4
+1787049003099,261,PUT /api/my-products/edit/433,200,OK,TG3 商品发布与下单 4-10,text,true,,278,359,10,20,http://127.0.0.1:5000/api/my-products/edit/433,260,0,2
+1787049003118,323,POST /api/orders/280/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-1,text,true,,286,338,10,20,http://127.0.0.1:5000/api/orders/280/update,323,0,1
+1787049003114,329,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-8,text,true,,296,323,9,19,http://127.0.0.1:5000/api/orders,328,0,2
+1787049003071,372,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-3,text,true,,570,290,9,19,http://127.0.0.1:5000/api/auth/login,372,0,3
+1787049003119,325,PUT /api/my-products/edit/434,200,OK,TG3 商品发布与下单 4-9,text,true,,278,358,9,19,http://127.0.0.1:5000/api/my-products/edit/434,325,0,1
+1787049003136,321,GET /api/orders,200,OK,TG3 商品发布与下单 4-6,text,true,,4788,252,9,19,http://127.0.0.1:5000/api/orders,321,0,1
+1787049001048,2437,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,392,10,19,http://127.0.0.1:5000/api/generate-copy,2437,0,2
+1787049003151,336,PUT /api/my-products/edit/435,200,OK,TG3 商品发布与下单 4-4,text,true,,278,357,9,19,http://127.0.0.1:5000/api/my-products/edit/435,335,0,1
+1787049003151,336,POST /api/orders/281/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-7,text,true,,286,338,9,19,http://127.0.0.1:5000/api/orders/281/update,335,0,1
+1787049003164,329,GET /api/orders,200,OK,TG3 商品发布与下单 4-2,text,true,,5438,252,9,19,http://127.0.0.1:5000/api/orders,329,0,1
+1787049003170,348,POST /api/product,201,CREATED,TG3 商品发布与下单 4-5,text,true,,298,474,9,19,http://127.0.0.1:5000/api/product,347,0,1
+1787049003443,79,GET /api/orders,200,OK,TG3 商品发布与下单 4-8,text,true,,4788,252,9,19,http://127.0.0.1:5000/api/orders,79,0,2
+1787049003444,95,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-3,text,true,,296,323,9,19,http://127.0.0.1:5000/api/orders,94,0,1
+1787049003457,199,POST /api/orders/282/update (paid),200,OK,TG3 商品发布与下单 4-6,text,true,,324,333,9,19,http://127.0.0.1:5000/api/orders/282/update,199,0,1
+1787049003360,332,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-10,text,true,,571,291,9,19,http://127.0.0.1:5000/api/auth/login,332,0,4
+1787049003445,257,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-9,text,true,,570,290,9,19,http://127.0.0.1:5000/api/auth/login,257,0,2
+1787049003494,222,POST /api/orders/283/update (paid),200,OK,TG3 商品发布与下单 4-2,text,true,,324,333,9,19,http://127.0.0.1:5000/api/orders/283/update,222,0,0
+1787049003518,232,GET /api/product/436,200,OK,TG3 商品发布与下单 4-5,text,true,,701,257,9,19,http://127.0.0.1:5000/api/product/436,232,0,1
+1787049003540,243,GET /api/orders,200,OK,TG3 商品发布与下单 4-3,text,true,,5438,252,9,19,http://127.0.0.1:5000/api/orders,242,0,0
+1787049003657,156,POST /api/orders/282/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-6,text,true,,286,338,9,19,http://127.0.0.1:5000/api/orders/282/update,156,0,1
+1787049003523,291,POST /api/orders/284/update (paid),200,OK,TG3 商品发布与下单 4-8,text,true,,324,333,9,19,http://127.0.0.1:5000/api/orders/284/update,291,0,1
+1787049003717,98,POST /api/orders/283/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-2,text,true,,286,338,9,19,http://127.0.0.1:5000/api/orders/283/update,98,0,1
+1787049003751,65,GET /api/my-products,200,OK,TG3 商品发布与下单 4-5,text,true,,8497,257,8,18,http://127.0.0.1:5000/api/my-products,65,0,1
+1787049003694,125,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-10,text,true,,296,323,8,18,http://127.0.0.1:5000/api/orders,125,0,1
+1787049001319,2541,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,392,10,18,http://127.0.0.1:5000/api/generate-copy,2541,0,2
+1787049003703,190,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-9,text,true,,296,323,8,18,http://127.0.0.1:5000/api/orders,190,0,1
+1787049003487,407,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-4,text,true,,570,290,8,18,http://127.0.0.1:5000/api/auth/login,406,0,4
+1787049003487,423,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-7,text,true,,568,288,8,18,http://127.0.0.1:5000/api/auth/login,423,0,4
+1787049003783,134,POST /api/orders/285/update (paid),200,OK,TG3 商品发布与下单 4-3,text,true,,324,333,8,18,http://127.0.0.1:5000/api/orders/285/update,133,0,1
+1787049003814,173,POST /api/orders/284/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-8,text,true,,286,338,8,18,http://127.0.0.1:5000/api/orders/284/update,173,0,2
+1787049001354,2673,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,355,10,18,http://127.0.0.1:5000/api/analyze-image,2672,0,1
+1787049003817,213,PUT /api/my-products/edit/436,200,OK,TG3 商品发布与下单 4-5,text,true,,278,357,8,18,http://127.0.0.1:5000/api/my-products/edit/436,213,0,1
+1787049003820,211,GET /api/orders,200,OK,TG3 商品发布与下单 4-10,text,true,,4797,252,8,18,http://127.0.0.1:5000/api/orders,211,0,1
+1787049003894,143,GET /api/orders,200,OK,TG3 商品发布与下单 4-9,text,true,,4790,252,8,18,http://127.0.0.1:5000/api/orders,143,0,1
+1787049003814,230,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-6,text,true,,568,288,8,18,http://127.0.0.1:5000/api/auth/login,230,0,4
+1787049003917,355,POST /api/orders/285/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-3,text,true,,286,338,8,18,http://127.0.0.1:5000/api/orders/285/update,355,0,1
+1787049003911,444,POST /api/product,201,CREATED,TG3 商品发布与下单 4-7,text,true,,298,473,7,17,http://127.0.0.1:5000/api/product,444,0,1
+1787049003894,462,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-4,text,true,,296,323,7,17,http://127.0.0.1:5000/api/orders,462,0,2
+1787049003988,370,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-8,text,true,,568,288,7,17,http://127.0.0.1:5000/api/auth/login,370,0,3
+1787049004031,329,POST /api/orders/286/update (paid),200,OK,TG3 商品发布与下单 4-10,text,true,,324,333,7,17,http://127.0.0.1:5000/api/orders/286/update,328,0,2
+1787049004038,322,POST /api/orders/287/update (paid),200,OK,TG3 商品发布与下单 4-9,text,true,,324,333,7,17,http://127.0.0.1:5000/api/orders/287/update,322,0,1
+1787049004031,332,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-5,text,true,,570,290,7,17,http://127.0.0.1:5000/api/auth/login,332,0,3
+1787049004045,324,POST /api/product,201,CREATED,TG3 商品发布与下单 4-6,text,true,,298,473,7,17,http://127.0.0.1:5000/api/product,323,0,1
+1787049004356,19,GET /api/product/437,200,OK,TG3 商品发布与下单 4-7,text,true,,700,257,7,17,http://127.0.0.1:5000/api/product/437,19,0,1
+1787049004356,20,GET /api/orders,200,OK,TG3 商品发布与下单 4-4,text,true,,5430,252,7,17,http://127.0.0.1:5000/api/orders,20,0,1
+1787049004360,79,POST /api/orders/286/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-10,text,true,,286,338,7,17,http://127.0.0.1:5000/api/orders/286/update,79,0,0
+1787049004359,89,POST /api/product,201,CREATED,TG3 商品发布与下单 4-8,text,true,,298,473,7,17,http://127.0.0.1:5000/api/product,89,0,1
+1787049004360,90,POST /api/orders/287/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-9,text,true,,286,338,7,17,http://127.0.0.1:5000/api/orders/287/update,90,0,1
+1787049004363,119,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-5,text,true,,296,323,7,17,http://127.0.0.1:5000/api/orders,119,0,1
+1787049004369,122,GET /api/product/438,200,OK,TG3 商品发布与下单 4-6,text,true,,700,257,7,17,http://127.0.0.1:5000/api/product/438,122,0,1
+1787049004376,117,GET /api/my-products,200,OK,TG3 商品发布与下单 4-7,text,true,,9907,257,7,17,http://127.0.0.1:5000/api/my-products,117,0,1
+1787049004376,119,POST /api/orders/288/update (paid),200,OK,TG3 商品发布与下单 4-4,text,true,,324,333,7,17,http://127.0.0.1:5000/api/orders/288/update,118,0,1
+1787049004449,46,GET /api/product/439,200,OK,TG3 商品发布与下单 4-8,text,true,,700,257,7,17,http://127.0.0.1:5000/api/product/439,46,0,2
+1787049001925,2660,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,355,10,17,http://127.0.0.1:5000/api/analyze-image,2660,0,1
+1787049004483,105,GET /api/orders,200,OK,TG3 商品发布与下单 4-5,text,true,,5434,252,7,17,http://127.0.0.1:5000/api/orders,105,0,1
+1787049004493,96,GET /api/my-products,200,OK,TG3 商品发布与下单 4-6,text,true,,10474,257,7,17,http://127.0.0.1:5000/api/my-products,96,0,1
+1787049001879,2720,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,392,10,17,http://127.0.0.1:5000/api/generate-copy,2720,0,1
+1787049004493,142,PUT /api/my-products/edit/437,200,OK,TG3 商品发布与下单 4-7,text,true,,278,357,7,17,http://127.0.0.1:5000/api/my-products/edit/437,142,0,1
+1787049004495,160,POST /api/orders/288/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-4,text,true,,286,338,7,17,http://127.0.0.1:5000/api/orders/288/update,160,0,1
+1787049004589,69,POST /api/orders/289/update (paid),200,OK,TG3 商品发布与下单 4-5,text,true,,324,333,6,16,http://127.0.0.1:5000/api/orders/289/update,69,0,1
+1787049004495,163,GET /api/my-products,200,OK,TG3 商品发布与下单 4-8,text,true,,8764,257,6,16,http://127.0.0.1:5000/api/my-products,163,0,1
+1787049004452,207,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-9,text,true,,568,288,6,16,http://127.0.0.1:5000/api/auth/login,206,0,4
+1787049004590,71,PUT /api/my-products/edit/438,200,OK,TG3 商品发布与下单 4-6,text,true,,278,358,6,16,http://127.0.0.1:5000/api/my-products/edit/438,70,0,1
+1787049004440,223,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-10,text,true,,568,288,6,16,http://127.0.0.1:5000/api/auth/login,222,0,3
+1787049004659,9,POST /api/orders/289/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-5,text,true,,286,338,6,16,http://127.0.0.1:5000/api/orders/289/update,9,0,1
+1787049004659,30,PUT /api/my-products/edit/439,200,OK,TG3 商品发布与下单 4-8,text,true,,278,358,5,15,http://127.0.0.1:5000/api/my-products/edit/439,30,0,1
+1787049004659,74,POST /api/product,201,CREATED,TG3 商品发布与下单 4-9,text,true,,298,474,5,15,http://127.0.0.1:5000/api/product,74,0,2
+1787049004663,132,POST /api/product,201,CREATED,TG3 商品发布与下单 4-10,text,true,,298,475,5,15,http://127.0.0.1:5000/api/product,132,0,2
+1787049004734,64,GET /api/product/440,200,OK,TG3 商品发布与下单 4-9,text,true,,701,257,5,15,http://127.0.0.1:5000/api/product/440,64,0,1
+1787049002297,2504,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,392,10,15,http://127.0.0.1:5000/api/generate-copy,2503,0,0
+1787049004636,171,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-7,text,true,,570,290,5,15,http://127.0.0.1:5000/api/auth/login,170,0,4
+1787049004796,37,GET /api/product/441,200,OK,TG3 商品发布与下单 4-10,text,true,,702,257,5,15,http://127.0.0.1:5000/api/product/441,37,0,1
+1787049004799,52,GET /api/my-products,200,OK,TG3 商品发布与下单 4-9,text,true,,8767,257,5,15,http://127.0.0.1:5000/api/my-products,52,0,0
+1787049002294,2601,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,383,10,15,http://127.0.0.1:5000/api/generate-all-copies,2600,0,1
+1787049004661,234,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-6,text,true,,570,290,5,15,http://127.0.0.1:5000/api/auth/login,234,0,4
+1787049004808,92,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-7,text,true,,296,323,5,15,http://127.0.0.1:5000/api/orders,92,0,1
+1787049004690,212,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-8,text,true,,570,290,5,15,http://127.0.0.1:5000/api/auth/login,212,0,3
+1787049004834,69,GET /api/my-products,200,OK,TG3 商品发布与下单 4-10,text,true,,8780,257,5,15,http://127.0.0.1:5000/api/my-products,69,0,1
+1787049004852,65,PUT /api/my-products/edit/440,200,OK,TG3 商品发布与下单 4-9,text,true,,278,358,5,15,http://127.0.0.1:5000/api/my-products/edit/440,65,0,1
+1787049004896,77,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-6,text,true,,296,323,5,15,http://127.0.0.1:5000/api/orders,76,0,1
+1787049004901,72,GET /api/orders,200,OK,TG3 商品发布与下单 4-7,text,true,,5436,252,5,15,http://127.0.0.1:5000/api/orders,72,0,1
+1787049004903,123,PUT /api/my-products/edit/441,200,OK,TG3 商品发布与下单 4-10,text,true,,278,359,5,15,http://127.0.0.1:5000/api/my-products/edit/441,123,0,2
+1787049004973,76,GET /api/orders,200,OK,TG3 商品发布与下单 4-6,text,true,,5438,252,5,15,http://127.0.0.1:5000/api/orders,76,0,1
+1787049004903,294,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-8,text,true,,296,323,5,15,http://127.0.0.1:5000/api/orders,294,0,1
+1787049004973,226,POST /api/orders/290/update (paid),200,OK,TG3 商品发布与下单 4-7,text,true,,324,333,5,15,http://127.0.0.1:5000/api/orders/290/update,226,0,1
+1787049005049,164,POST /api/orders/291/update (paid),200,OK,TG3 商品发布与下单 4-6,text,true,,324,333,5,15,http://127.0.0.1:5000/api/orders/291/update,164,0,1
+1787049004918,314,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-9,text,true,,570,290,5,15,http://127.0.0.1:5000/api/auth/login,314,0,3
+1787049005197,44,GET /api/orders,200,OK,TG3 商品发布与下单 4-8,text,true,,5438,252,5,15,http://127.0.0.1:5000/api/orders,43,0,2
+1787049005026,222,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-10,text,true,,571,291,5,15,http://127.0.0.1:5000/api/auth/login,222,0,4
+1787049005200,76,POST /api/orders/290/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-7,text,true,,286,338,5,15,http://127.0.0.1:5000/api/orders/290/update,76,0,1
+1787049005214,83,POST /api/orders/291/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-6,text,true,,286,338,4,14,http://127.0.0.1:5000/api/orders/291/update,83,0,0
+1787049002745,2554,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,392,10,13,http://127.0.0.1:5000/api/generate-copy,2554,0,2
+1787049005234,65,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-9,text,true,,296,323,3,13,http://127.0.0.1:5000/api/orders,65,0,1
+1787049005241,60,POST /api/orders/292/update (paid),200,OK,TG3 商品发布与下单 4-8,text,true,,324,333,3,13,http://127.0.0.1:5000/api/orders/292/update,60,0,1
+1787049005249,53,POST /api/orders,201,CREATED,TG3 商品发布与下单 4-10,text,true,,296,323,3,13,http://127.0.0.1:5000/api/orders,53,0,1
+1787049005300,47,GET /api/orders,200,OK,TG3 商品发布与下单 4-9,text,true,,5440,252,3,13,http://127.0.0.1:5000/api/orders,47,0,1
+1787049005301,60,POST /api/orders/292/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-8,text,true,,286,338,3,13,http://127.0.0.1:5000/api/orders/292/update,60,0,1
+1787049005302,66,GET /api/orders,200,OK,TG3 商品发布与下单 4-10,text,true,,5448,252,2,12,http://127.0.0.1:5000/api/orders,65,0,1
+1787049005347,32,POST /api/orders/293/update (paid),200,OK,TG3 商品发布与下单 4-9,text,true,,324,333,2,12,http://127.0.0.1:5000/api/orders/293/update,32,0,1
+1787049005368,22,POST /api/orders/294/update (paid),200,OK,TG3 商品发布与下单 4-10,text,true,,324,333,2,12,http://127.0.0.1:5000/api/orders/294/update,22,0,1
+1787049005379,30,POST /api/orders/293/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-9,text,true,,286,338,2,12,http://127.0.0.1:5000/api/orders/293/update,29,0,2
+1787049005390,20,POST /api/orders/294/update (completed),400,BAD REQUEST,TG3 商品发布与下单 4-10,text,true,,286,338,1,11,http://127.0.0.1:5000/api/orders/294/update,20,0,1
+1787049002946,2466,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2466,0,1
+1787049002884,2605,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2605,0,2
+1787049003487,2723,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2723,0,1
+1787049003862,2349,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2348,0,1
+1787049004028,2395,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2395,0,1
+1787049004586,2409,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2409,0,1
+1787049004600,2465,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2465,0,1
+1787049004801,2390,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2389,0,1
+1787049004895,2461,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2461,0,1
+1787049005412,2370,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2370,0,2
+1787049005299,2496,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2495,0,1
+1787049005489,2351,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2351,0,1
+1787049006210,2426,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2426,0,2
+1787049006211,2451,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2451,0,1
+1787049006424,2261,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2261,0,4
+1787049006996,2356,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2356,0,1
+1787049007066,2430,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2429,0,1
+1787049007191,2309,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2309,0,1
+1787049007357,2276,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2276,0,1
+1787049009634,269,POST /api/auth/login,200,OK,TG4 AI 工具 5-4,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,268,0,1
+1787049007783,2372,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2371,0,1
+1787049007841,2379,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2379,0,1
+1787049007797,2524,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2524,0,1
+1787049010221,383,POST /api/auth/login,200,OK,TG4 AI 工具 5-2,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,383,0,1
+1787049008638,2229,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2229,0,1
+1787049008663,2355,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2355,0,2
+1787049008687,2344,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2344,0,1
+1787049010867,248,POST /api/auth/login,200,OK,TG4 AI 工具 5-3,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,248,0,2
+1787049011019,214,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,214,0,1
+1787049009501,2507,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2507,0,1
+1787049009354,2659,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2659,0,1
+1787049009498,2516,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2516,0,1
+1787049009904,2391,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2390,0,1
+1787049012095,200,POST /api/auth/login,200,OK,TG4 AI 工具 5-6,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,200,0,2
+1787049012095,203,POST /api/auth/login,200,OK,TG4 AI 工具 5-5,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,203,0,2
+1787049010155,2515,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2515,0,2
+1787049010321,2521,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2521,0,2
+1787049010605,2281,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2281,0,1
+1787049012669,305,POST /api/auth/login,200,OK,TG4 AI 工具 5-8,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,305,0,2
+1787049012842,329,POST /api/auth/login,200,OK,TG4 AI 工具 5-7,text,true,,570,290,10,10,http://127.0.0.1:5000/api/auth/login,328,0,1
+1787049011031,2444,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2444,0,1
+1787049011116,2414,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2414,0,1
+1787049013475,150,POST /api/auth/login,200,OK,TG4 AI 工具 5-9,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,150,0,1
+1787049011234,2646,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2646,0,1
+1787049012014,2451,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2451,0,1
+1787049012294,2396,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2395,0,1
+1787049014465,230,POST /api/auth/login,200,OK,TG4 AI 工具 5-10,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,230,0,1
+1787049012295,2574,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2573,0,1
+1787049012298,2572,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2572,0,1
+1787049012975,2397,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2396,0,1
+1787049012885,2551,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2551,0,2
+1787049013529,2490,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2490,0,2
+1787049013173,2847,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2847,0,1
+1787049013626,2397,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2396,0,1
+1787049013880,2434,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2434,0,1
+1787049014869,2516,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2515,0,1
+1787049014871,2523,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2523,0,1
+1787049014691,2895,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2895,0,1
+1787049015373,2358,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2358,0,1
+1787049015436,2483,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2483,0,3
+1787049014696,3367,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3367,0,1
+1787049016023,2444,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2443,0,1
+1787049016314,2528,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2527,0,2
+1787049016020,3089,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3089,0,3
+1787049016020,3409,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3409,0,1
+1787049017388,2381,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2380,0,3
+1787049017396,2470,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2469,0,2
+1787049018065,2476,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2475,0,1
+1787049017588,3005,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3005,0,2
+1787049017733,2870,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2870,0,1
+1787049017921,2842,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2842,0,2
+1787049018469,2583,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2583,0,1
+1787049018843,2607,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2607,0,2
+1787049019111,2669,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2669,0,1
+1787049019769,2352,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2352,0,1
+1787049019430,2790,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2790,0,2
+1787049019866,2563,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2563,0,1
+1787049020594,2303,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2303,0,1
+1787049020541,2480,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2480,0,2
+1787049020604,2664,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2664,0,1
+1787049022899,369,POST /api/auth/login,200,OK,TG4 AI 工具 5-4,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,369,0,1
+1787049020764,2915,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2915,0,1
+1787049021052,2644,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2643,0,1
+1787049023680,300,POST /api/auth/login,200,OK,TG4 AI 工具 5-2,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,300,0,1
+1787049021450,2569,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2568,0,2
+1787049024020,176,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,175,0,1
+1787049021780,2512,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2512,0,2
+1787049022122,2287,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2286,0,2
+1787049024410,269,POST /api/auth/login,200,OK,TG4 AI 工具 5-6,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,269,0,1
+1787049022220,2664,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2663,0,1
+1787049022429,2640,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2640,0,2
+1787049024884,302,POST /api/auth/login,200,OK,TG4 AI 工具 5-3,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,302,0,2
+1787049025070,254,POST /api/auth/login,200,OK,TG4 AI 工具 5-5,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,253,0,1
+1787049023021,2550,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2550,0,2
+1787049023271,2352,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2351,0,2
+1787049023269,2505,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2505,0,1
+1787049025775,248,POST /api/auth/login,200,OK,TG4 AI 工具 5-8,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,247,0,2
+1787049023981,2363,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2362,0,2
+1787049023696,2714,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2714,0,1
+1787049024197,2399,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2398,0,2
+1787049026411,188,POST /api/auth/login,200,OK,TG4 AI 工具 5-9,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,188,0,2
+1787049024293,2381,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2381,0,1
+1787049026675,258,POST /api/auth/login,200,OK,TG4 AI 工具 5-7,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,257,0,2
+1787049024680,2603,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2603,0,1
+1787049025187,2366,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2366,0,1
+1787049025325,2396,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2396,0,1
+1787049025624,2531,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2531,0,2
+1787049025571,2711,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,2710,0,2
+1787049026024,2425,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2424,0,2
+1787049028282,304,POST /api/auth/login,200,OK,TG4 AI 工具 5-10,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,303,0,2
+1787049026345,2426,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2426,0,1
+1787049026596,2460,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2459,0,1
+1787049026600,2797,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2797,0,1
+1787049026934,2534,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2534,0,1
+1787049027284,2537,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2537,0,1
+1787049027553,2532,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2532,0,1
+1787049027721,2835,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2834,0,1
+1787049028155,2731,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2730,0,2
+1787049028449,2513,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2511,0,1
+1787049028586,2432,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,2432,0,2
+1787049028772,2591,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2591,0,2
+1787049029057,2865,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2865,0,1
+1787049029822,2166,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2166,0,2
+1787049029468,2535,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2535,0,2
+1787049029398,2822,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2822,0,1
+1787049030088,2514,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2514,0,2
+1787049030557,2577,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2577,0,1
+1787049030962,2504,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2504,0,2
+1787049030887,2729,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2728,0,1
+1787049031019,2622,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,2621,0,1
+1787049031364,2707,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2707,0,1
+1787049031990,2662,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2661,0,2
+1787049031923,2798,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2798,0,2
+1787049032004,2891,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,2890,0,1
+1787049032221,3382,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3382,0,1
+1787049032603,3313,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3312,0,1
+1787049033134,2994,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,2994,0,1
+1787049033467,3454,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3454,0,1
+1787049033616,3593,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3592,0,1
+1787049033641,3945,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3945,0,2
+1787049037210,377,POST /api/auth/login,200,OK,TG4 AI 工具 5-4,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,377,0,1
+1787049034652,3477,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3477,0,2
+1787049034722,3565,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3565,0,2
+1787049034072,4221,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,4221,0,2
+1787049038129,245,POST /api/auth/login,200,OK,TG4 AI 工具 5-6,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,244,0,2
+1787049038287,312,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,312,0,4
+1787049038293,308,POST /api/auth/login,200,OK,TG4 AI 工具 5-2,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,308,0,2
+1787049034895,3865,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3865,0,2
+1787049035604,3601,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3601,0,1
+1787049035916,4185,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,4185,0,2
+1787049036129,4341,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,4341,0,1
+1787049040101,501,POST /api/auth/login,200,OK,TG4 AI 工具 5-3,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,501,0,1
+1787049036922,3925,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3925,0,2
+1787049040470,470,POST /api/auth/login,200,OK,TG4 AI 工具 5-5,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,470,0,2
+1787049040847,223,POST /api/auth/login,200,OK,TG4 AI 工具 5-8,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,223,0,2
+1787049037586,3732,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3732,0,1
+1787049037587,3901,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3900,0,1
+1787049038375,3861,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3861,0,2
+1787049038601,3785,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3785,0,2
+1787049038602,4015,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,4015,0,2
+1787049038760,4348,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,4348,0,2
+1787049039205,4215,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,4215,0,1
+1787049043110,376,POST /api/auth/login,200,OK,TG4 AI 工具 5-7,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,376,0,2
+1787049043422,254,POST /api/auth/login,200,OK,TG4 AI 工具 5-9,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,253,0,2
+1787049040604,3535,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3535,0,1
+1787049041319,3640,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3639,0,2
+1787049041488,3512,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3512,0,2
+1787049040942,4232,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,4232,0,1
+1787049041072,4140,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,4140,0,3
+1787049044960,255,POST /api/auth/login,200,OK,TG4 AI 工具 5-10,text,true,,571,291,10,10,http://127.0.0.1:5000/api/auth/login,255,0,2
+1787049042237,3712,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3712,0,2
+1787049042388,3702,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3701,0,1
+1787049042619,4225,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,4224,0,1
+1787049043488,3746,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3746,0,1
+1787049043677,3795,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3795,0,2
+1787049044140,3608,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3608,0,2
+1787049045176,3617,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3616,0,2
+1787049045213,3855,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3855,0,3
+1787049045216,3853,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,355,10,10,http://127.0.0.1:5000/api/analyze-image,3853,0,2
+1787049045001,4163,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,4163,0,2
+1787049045951,3717,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3717,0,2
+1787049046090,4028,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,4027,0,2
+1787049047235,3502,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3502,0,2
+1787049046844,4189,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,4189,0,2
+1787049047748,3397,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3397,0,2
+1787049047473,3797,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,3797,0,1
+1787049048793,3588,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3588,0,1
+1787049049165,3259,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3259,0,1
+1787049049668,3731,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3731,0,2
+1787049050118,3601,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3600,0,1
+1787049049070,4801,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,392,10,10,http://127.0.0.1:5000/api/generate-copy,4800,0,1
+1787049049069,5403,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,5403,0,2
+1787049050738,3862,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3862,0,1
+1787049051271,3351,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,383,10,10,http://127.0.0.1:5000/api/generate-all-copies,3351,0,1
+1787049052381,3815,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,580,374,10,10,http://127.0.0.1:5000/api/analyze-product,3815,0,2
+1787049052423,3809,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-4,text,true,,435,359,10,10,http://127.0.0.1:5000/api/detect-product,3808,0,2
+1787049053399,3744,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-6,text,true,,435,359,9,9,http://127.0.0.1:5000/api/detect-product,3744,0,2
+1787049051146,6427,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,580,374,8,8,http://127.0.0.1:5000/api/analyze-product,6427,0,1
+1787049051033,6569,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,580,374,8,8,http://127.0.0.1:5000/api/analyze-product,6568,0,2
+1787049053718,4282,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,true,,435,359,8,8,http://127.0.0.1:5000/api/detect-product,4281,0,2
+1787049054472,3682,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,580,374,7,7,http://127.0.0.1:5000/api/analyze-product,3681,0,1
+1787049054600,3841,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,580,374,7,7,http://127.0.0.1:5000/api/analyze-product,3839,0,1
+1787049054622,4002,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,580,374,7,7,http://127.0.0.1:5000/api/analyze-product,4002,0,2
+1787049053870,5404,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,383,7,7,http://127.0.0.1:5000/api/generate-all-copies,5404,0,1
+1787049056196,3130,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-5,text,true,,435,359,7,7,http://127.0.0.1:5000/api/detect-product,3130,0,2
+1787049057573,3192,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-3,text,true,,435,359,6,6,http://127.0.0.1:5000/api/detect-product,3192,0,1
+1787049057601,3228,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-2,text,true,,435,359,5,5,http://127.0.0.1:5000/api/detect-product,3228,0,2
+1787049058155,2868,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-8,text,true,,435,359,4,4,http://127.0.0.1:5000/api/detect-product,2867,0,3
+1787049058442,2859,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-7,text,true,,435,359,3,3,http://127.0.0.1:5000/api/detect-product,2858,0,1
+1787049058625,2788,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-9,text,true,,435,359,2,2,http://127.0.0.1:5000/api/detect-product,2787,0,1
+1787049059275,2648,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,580,374,1,1,http://127.0.0.1:5000/api/analyze-product,2648,0,2
+1787049061924,2167,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-10,text,true,,435,359,1,1,http://127.0.0.1:5000/api/detect-product,2167,0,2

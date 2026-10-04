@@ -96,7 +96,9 @@ def close_db(exception):
 
 def init_db():
     '''初始化数据库'''
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect(DATABASE, timeout=30)
+    conn.execute('PRAGMA journal_mode=WAL;')
+    conn.execute('PRAGMA busy_timeout=30000;')
     cursor = conn.cursor()
     
     # 创建用户表
@@ -2778,6 +2780,7 @@ def update_order(order_id):
         return jsonify({'success': False, 'error': '无效的订单状态'}), 400
     
     conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
     # 获取订单信息(包含金额和资金状态)
@@ -5303,4 +5306,4 @@ if __name__ == '__main__':
     print('🔄 后台自动同步已启动(每5分钟)')
     print('=' * 50)
     
-    app.run(host='0.0.0.0', port=5000, debug=FLASK_CONFIG.get('debug', True), use_reloader=False)
+    app.run(host='0.0.0.0', port=5000, debug=FLASK_CONFIG.get('debug', True), use_reloader=False, threaded=True)

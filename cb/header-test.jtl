@@ -1,0 +1,3 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1787020204931,5,POST login,Non HTTP response code: org.apache.http.client.ClientProtocolException,Non HTTP response message: URI does not specify a valid host name: http:/api/auth/login,TG1 1-1,text,false,,1136,0,1,1,http:/api/auth/login,0,0,0
+1787020240036,241,POST login,200,OK,TG1 1-1,text,true,,570,231,1,1,http://localhost:5000/api/auth/login,237,0,35

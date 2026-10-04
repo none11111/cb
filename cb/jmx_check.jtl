@@ -1,0 +1,351 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1787020113080,77,GET /,200,OK,[setUp] 健康检查 1-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[302]]]
+
+/",87745,116,1,6,http://localhost:5000/,76,0,53
+1787020114179,24,POST /api/auth/login,500,INTERNAL SERVER ERROR,TG2 商品浏览 3-1,text,false,,366,240,2,7,http://localhost:5000/api/auth/login,24,0,16
+1787020114178,22,POST /api/auth/login,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,,366,240,1,7,http://localhost:5000/api/auth/login,22,0,17
+1787020114178,149,POST /api/auth/login,500,INTERNAL SERVER ERROR,TG1 用户认证 2-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",366,240,2,7,http://localhost:5000/api/auth/login,149,0,20
+1787020114179,134,POST /api/auth/login,500,INTERNAL SERVER ERROR,TG1 用户认证 2-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",366,240,2,7,http://localhost:5000/api/auth/login,134,0,18
+1787020114179,134,POST /api/auth/login,500,INTERNAL SERVER ERROR,TG2 商品浏览 3-2,text,false,,366,240,2,7,http://localhost:5000/api/auth/login,134,0,16
+1787020114178,143,POST /api/admin/login,500,INTERNAL SERVER ERROR,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",368,235,1,7,http://localhost:5000/api/admin/login,143,0,20
+1787020114178,785,POST /api/auth/login (Seller),500,INTERNAL SERVER ERROR,TG3 商品发布与下单 4-1,text,false,,366,238,1,7,http://localhost:5000/api/auth/login,785,0,756
+1787020114948,48,GET /api/auth/me,401,UNAUTHORIZED,TG1 用户认证 2-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,127,2,7,http://localhost:5000/api/auth/me,47,0,2
+1787020114948,55,GET /api/auth/me,401,UNAUTHORIZED,TG1 用户认证 2-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,127,1,6,http://localhost:5000/api/auth/me,54,0,3
+1787020114949,80,GET /api/admin/users,401,UNAUTHORIZED,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,151,1,5,http://localhost:5000/api/admin/users?page=1&page_size=20,79,0,2
+1787020114958,83,POST /api/analyze-image,401,UNAUTHORIZED,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,238,1,5,http://localhost:5000/api/analyze-image,83,0,3
+1787020115033,22,GET /api/admin/products,401,UNAUTHORIZED,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,154,1,5,http://localhost:5000/api/admin/products?page=1&page_size=20,21,0,2
+1787020114974,74,POST /api/product,401,UNAUTHORIZED,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,357,1,5,http://localhost:5000/api/product,73,0,5
+1787020115053,78,POST /api/generate-copy,401,UNAUTHORIZED,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,275,1,5,http://localhost:5000/api/generate-copy,77,0,3
+1787020115059,108,GET /api/admin/login-history,401,UNAUTHORIZED,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,139,1,5,http://localhost:5000/api/admin/login-history,107,0,3
+1787020115107,0,GET /api/product/${NEW_PID},Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 35: http://localhost:5000/api/product/${NEW_PID},TG3 商品发布与下单 4-1,text,false,,1196,0,1,5,http://localhost:5000/api/product/${NEW_PID},0,0,0
+1787020115149,59,POST /api/generate-all-copies,401,UNAUTHORIZED,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,266,1,5,http://localhost:5000/api/generate-all-copies,57,0,2
+1787020115170,57,GET /api/admin/anomaly-detection,401,UNAUTHORIZED,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,143,1,5,http://localhost:5000/api/admin/anomaly-detection,57,0,2
+1787020115220,20,POST /api/analyze-product,401,UNAUTHORIZED,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,257,1,4,http://localhost:5000/api/analyze-product,19,0,3
+1787020114806,92,GET /api/products,200,OK,TG2 商品浏览 3-1,text,true,,7669,148,2,7,http://localhost:5000/api/products?page=5&page_size=20,91,0,7
+1787020114828,95,GET /api/products,200,OK,TG2 商品浏览 3-2,text,true,,7669,148,2,7,http://localhost:5000/api/products?page=5&page_size=20,94,0,4
+1787020115198,37,GET /api/my-products,401,UNAUTHORIZED,TG3 商品发布与下单 4-1,text,false,,269,131,1,4,http://localhost:5000/api/my-products,36,0,7
+1787020115253,112,POST /api/detect-product,401,UNAUTHORIZED,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,242,1,4,http://localhost:5000/api/detect-product,112,0,4
+1787020115373,0,PUT /api/my-products/edit/${NEW_PID},Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 44: http://localhost:5000/api/my-products/edit/${NEW_PID},TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1205,0,1,3,http://localhost:5000/api/my-products/edit/${NEW_PID},0,0,0
+1787020115344,60,GET /api/product/6,401,UNAUTHORIZED,TG2 商品浏览 3-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,129,2,3,http://localhost:5000/api/product/6,60,0,3
+1787020115361,52,GET /api/product/33,401,UNAUTHORIZED,TG2 商品浏览 3-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,130,2,3,http://localhost:5000/api/product/33,51,0,2
+1787020115392,25,POST /api/auth/login (Buyer),500,INTERNAL SERVER ERROR,TG3 商品发布与下单 4-1,text,false,,366,240,1,3,http://localhost:5000/api/auth/login,25,0,12
+1787020115408,17,GET /api/search,401,UNAUTHORIZED,TG2 商品浏览 3-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,140,2,3,http://localhost:5000/api/search?q=test&page=1,16,0,2
+1787020115416,16,GET /api/search,401,UNAUTHORIZED,TG2 商品浏览 3-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,140,1,2,http://localhost:5000/api/search?q=test&page=1,16,0,2
+1787020115425,15,POST /api/orders,401,UNAUTHORIZED,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,213,1,1,http://localhost:5000/api/orders,14,0,2
+1787020115476,6,GET /api/orders,401,UNAUTHORIZED,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",269,126,1,1,http://localhost:5000/api/orders,5,0,2
+1787020115491,0,POST /api/orders/${ORDER_ID}/update (paid),Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 34: http://localhost:5000/api/orders/${ORDER_ID}/update,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1203,0,1,1,http://localhost:5000/api/orders/${ORDER_ID}/update,0,0,0
+1787020115497,0,POST /api/orders/${ORDER_ID}/update (completed),Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 34: http://localhost:5000/api/orders/${ORDER_ID}/update,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1203,0,1,1,http://localhost:5000/api/orders/${ORDER_ID}/update,0,0,0
+1787020282255,166,GET /,200,OK,[setUp] 健康检查 1-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[302]]]
+
+/",87745,116,1,6,http://localhost:5000/,163,0,110
+1787020282623,246,POST /api/auth/login,401,UNAUTHORIZED,TG2 商品浏览 3-2,text,false,,293,231,2,7,http://localhost:5000/api/auth/login,245,0,2
+1787020282590,103,POST /api/auth/login,401,UNAUTHORIZED,TG1 用户认证 2-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",293,231,2,7,http://localhost:5000/api/auth/login,103,0,2
+1787020282255,430,POST /api/auth/login,200,OK,TG4 AI 工具 5-1,text,true,,570,231,1,7,http://localhost:5000/api/auth/login,429,0,109
+1787020282255,816,POST /api/admin/login,200,OK,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[401]]]
+
+/",571,226,1,7,http://localhost:5000/api/admin/login,816,0,111
+1787020282255,519,POST /api/auth/login,200,OK,TG2 商品浏览 3-1,text,true,,570,231,2,7,http://localhost:5000/api/auth/login,518,0,110
+1787020282255,650,POST /api/auth/login,200,OK,TG1 用户认证 2-1,text,true,,570,231,2,7,http://localhost:5000/api/auth/login,650,0,109
+1787020282255,587,POST /api/auth/login (Seller),200,OK,TG3 商品发布与下单 4-1,text,true,,568,229,1,7,http://localhost:5000/api/auth/login,586,0,356
+1787020284156,130,GET /api/auth/me,401,UNAUTHORIZED,TG1 用户认证 2-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",306,159,2,7,http://localhost:5000/api/auth/me,129,0,2
+1787020284176,131,GET /api/admin/users,200,OK,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[401]]]
+
+/",29801,325,1,6,http://localhost:5000/api/admin/users?page=1&page_size=20,131,0,2
+1787020284176,134,GET /api/auth/me,200,OK,TG1 用户认证 2-1,text,true,,431,253,1,6,http://localhost:5000/api/auth/me,134,0,3
+1787020284176,114,GET /api/products,200,OK,TG2 商品浏览 3-1,text,true,,12215,207,2,6,http://localhost:5000/api/products?page=4&page_size=20,113,0,2
+1787020284157,129,GET /api/products,200,OK,TG2 商品浏览 3-2,text,true,,12142,148,2,7,http://localhost:5000/api/products?page=2&page_size=20,128,0,2
+1787020284309,358,GET /api/admin/products,200,OK,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[401]]]
+
+/",10823,328,1,5,http://localhost:5000/api/admin/products?page=1&page_size=20,357,0,2
+1787020284177,483,POST /api/product,201,CREATED,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : 20[[[1]]]
+
+****** comparison: 20[[[0]]]
+
+/",297,474,1,5,http://localhost:5000/api/product,483,0,6
+1787020284551,116,GET /api/product/70,401,UNAUTHORIZED,TG2 商品浏览 3-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",306,162,2,5,http://localhost:5000/api/product/70,115,0,1
+1787020284685,0,GET /api/product/${NEW_PID},Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 35: http://localhost:5000/api/product/${NEW_PID},TG3 商品发布与下单 4-1,text,false,,1196,0,1,5,http://localhost:5000/api/product/${NEW_PID},0,0,0
+1787020284551,158,GET /api/product/15,200,OK,TG2 商品浏览 3-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[404]]]
+
+/",777,256,2,5,http://localhost:5000/api/product/15,158,0,1
+1787020284668,48,GET /api/admin/login-history,200,OK,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[401]]]
+
+/",2979,313,1,5,http://localhost:5000/api/admin/login-history,47,0,2
+1787020284691,137,GET /api/my-products,200,OK,TG3 商品发布与下单 4-1,text,true,,525,257,1,5,http://localhost:5000/api/my-products,136,0,2
+1787020284867,0,PUT /api/my-products/edit/${NEW_PID},Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 44: http://localhost:5000/api/my-products/edit/${NEW_PID},TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1205,0,1,5,http://localhost:5000/api/my-products/edit/${NEW_PID},0,0,0
+1787020284691,218,GET /api/search,401,UNAUTHORIZED,TG2 商品浏览 3-2,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[401]]]
+
+****** comparison: [[[200]]]
+
+/",306,172,2,5,http://localhost:5000/api/search?q=test&page=1,217,0,2
+1787020284714,321,GET /api/search,200,OK,TG2 商品浏览 3-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[2]]]00
+
+****** comparison: [[[4]]]00
+
+/",356,266,1,4,http://localhost:5000/api/search?q=test&page=1,320,0,1
+1787020284717,336,GET /api/admin/anomaly-detection,200,OK,TG5 管理员 6-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[200]]]
+
+****** comparison: [[[401]]]
+
+/",53147,317,1,3,http://localhost:5000/api/admin/anomaly-detection,335,0,1
+1787020284871,334,POST /api/auth/login (Buyer),200,OK,TG3 商品发布与下单 4-1,text,true,,570,290,1,2,http://localhost:5000/api/auth/login,333,0,9
+1787020285208,115,POST /api/orders,500,INTERNAL SERVER ERROR,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",345,330,1,2,http://localhost:5000/api/orders,114,0,2
+1787020285347,30,GET /api/orders,200,OK,TG3 商品发布与下单 4-1,text,true,,254,252,1,2,http://localhost:5000/api/orders,29,0,2
+1787020285378,0,POST /api/orders/${ORDER_ID}/update (paid),Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 34: http://localhost:5000/api/orders/${ORDER_ID}/update,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1203,0,1,2,http://localhost:5000/api/orders/${ORDER_ID}/update,0,0,0
+1787020285379,0,POST /api/orders/${ORDER_ID}/update (completed),Non HTTP response code: java.net.URISyntaxException,Non HTTP response message: Illegal character in path at index 34: http://localhost:5000/api/orders/${ORDER_ID}/update,TG3 商品发布与下单 4-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[Non HTTP response code: java.net.URISyntaxException]]]
+
+****** comparison: [[[200                                                ]]]
+
+/",1203,0,1,2,http://localhost:5000/api/orders/${ORDER_ID}/update,0,0,0
+1787020284176,2401,POST /api/analyze-image,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",435,355,1,1,http://localhost:5000/api/analyze-image,2401,0,3
+1787020286578,1634,POST /api/generate-copy,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",435,392,1,1,http://localhost:5000/api/generate-copy,1634,0,2
+1787020288214,1596,POST /api/generate-all-copies,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",435,383,1,1,http://localhost:5000/api/generate-all-copies,1595,0,2
+1787020289811,1514,POST /api/analyze-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",580,374,1,1,http://localhost:5000/api/analyze-product,1513,0,1
+1787020291328,1639,POST /api/detect-product,500,INTERNAL SERVER ERROR,TG4 AI 工具 5-1,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[5]]]00
+
+****** comparison: [[[2]]]00
+
+/",435,359,1,1,http://localhost:5000/api/detect-product,1638,0,2
